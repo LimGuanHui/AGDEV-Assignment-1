@@ -119,7 +119,7 @@ void SceneText::Init()
 
 	// Create and attach the camera to the scene
 	//camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
-	camera.Init(playerInfo->GetPos(), playerInfo->GetTarget(), playerInfo->GetUp());
+    camera.Init(playerInfo->GetPos(), playerInfo->GetTarget(), playerInfo->GetUp(), Vector3(Application::GetInstance().GetWindowWidth() / 2, Application::GetInstance().GetWindowHeight() / 2, 0));
 	playerInfo->AttachCamera(&camera);
 	GraphicsManager::GetInstance()->AttachCamera(&camera);
 

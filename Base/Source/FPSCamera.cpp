@@ -1,6 +1,7 @@
 #include "FPSCamera.h"
 #include "MouseController.h"
 #include "KeyboardController.h"
+#include <Windows.h>
 
 FPSCamera::FPSCamera()
 {
@@ -19,7 +20,7 @@ Mtx44 FPSCamera::GetViewMatrix()
 	return result;
 }
 
-void FPSCamera::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
+void FPSCamera::Init(const Vector3& pos, const Vector3& target, const Vector3& up, Vector3 MouseResetPosition)
 {
 	this->position = defaultPosition = pos;
 	this->target = defaultTarget = target;
@@ -28,6 +29,7 @@ void FPSCamera::Init(const Vector3& pos, const Vector3& target, const Vector3& u
 	right.y = 0;
 	right.Normalize();
 	this->up = defaultUp = right.Cross(view).Normalized();
+    this->MouseResetPosition = MouseResetPosition;
 }
 
 void FPSCamera::Update(double dt)
@@ -148,6 +150,7 @@ void FPSCamera::Update(double dt)
 		view = rotation * view;
 		target = position + view;
 	}
+    ResetMousePos();
 	if(KeyboardController::GetInstance()->IsKeyDown('R'))
 	{
 		Reset();
@@ -188,6 +191,6 @@ void FPSCamera::Reset()
 }
 
 void FPSCamera::ResetMousePos()
-{
-    
+{   
+    SetCursorPos(MouseResetPosition.x, MouseResetPosition.y);
 }

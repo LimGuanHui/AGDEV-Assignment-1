@@ -73,18 +73,19 @@ void Application::Init()
 	glfwWindowHint(GLFW_DECORATED, GL_FALSE);
 
 	//Create a window and create its OpenGL context
+#ifndef DEBUG
+	//Windowed Mode
 
-	/*Windowed Mode
-	m_window_width = 800;
-	m_window_height = 600;
-	m_window = glfwCreateWindow(m_window_width, m_window_height, "NYP Framework", NULL, NULL);*/
-
+	m_window_width = 1600;
+	m_window_height = 1024;
+	m_window = glfwCreateWindow(m_window_width, m_window_height, "NYP Framework", NULL, NULL);
+#else
 	// Full Screen
 	const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	m_window_width = mode->width;
 	m_window_height = mode->height;
 	m_window = glfwCreateWindow(m_window_width, m_window_height, "Physics", NULL, NULL);
-
+#endif
 	//If the window couldn't be created
 	if (!m_window)
 	{
@@ -112,7 +113,7 @@ void Application::Init()
 	}
 
 	// Hide the cursor
-	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	//glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetMouseButtonCallback(m_window, &Application::MouseButtonCallbacks);
 	glfwSetScrollCallback(m_window, &Application::MouseScrollCallbacks);
 

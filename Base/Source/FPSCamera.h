@@ -11,7 +11,7 @@ public:
 
 	virtual Mtx44 GetViewMatrix();
 
-	virtual void Init(const Vector3& pos, const Vector3& target, const Vector3& up);
+    virtual void Init(const Vector3& pos, const Vector3& target, const Vector3& up, Vector3 MouseResetPosition);
 	virtual void Update(double dt);
 	virtual void Reset();
 
@@ -30,6 +30,8 @@ private:
 	Vector3 defaultPosition;
 	Vector3 defaultTarget;
 	Vector3 defaultUp;
+
+    Vector3 MouseResetPosition;
 };
 
 #endif
