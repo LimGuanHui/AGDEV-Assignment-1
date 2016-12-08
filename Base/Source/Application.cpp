@@ -69,9 +69,17 @@ void Application::Init()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); //Request a specific OpenGL version
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
+	//Borderless
+	glfwWindowHint(GLFW_DECORATED, GL_FALSE);
 
 	//Create a window and create its OpenGL context
-	m_window = glfwCreateWindow(m_window_width, m_window_height, "NYP Framework", NULL, NULL);
+
+	// Windowed Mode
+	//m_window = glfwCreateWindow(m_window_width, m_window_height, "NYP Framework", NULL, NULL);
+
+	// Full Screen
+	const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+	m_window = glfwCreateWindow(mode->width, mode->height, "Physics", NULL, NULL);
 
 	//If the window couldn't be created
 	if (!m_window)
