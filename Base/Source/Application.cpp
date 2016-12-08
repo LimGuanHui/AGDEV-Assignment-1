@@ -74,12 +74,16 @@ void Application::Init()
 
 	//Create a window and create its OpenGL context
 
-	// Windowed Mode
-	//m_window = glfwCreateWindow(m_window_width, m_window_height, "NYP Framework", NULL, NULL);
+	/*Windowed Mode
+	m_window_width = 800;
+	m_window_height = 600;
+	m_window = glfwCreateWindow(m_window_width, m_window_height, "NYP Framework", NULL, NULL);*/
 
 	// Full Screen
 	const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	m_window = glfwCreateWindow(mode->width, mode->height, "Physics", NULL, NULL);
+	m_window_width = mode->width;
+	m_window_height = mode->height;
+	m_window = glfwCreateWindow(m_window_width, m_window_height, "Physics", NULL, NULL);
 
 	//If the window couldn't be created
 	if (!m_window)
