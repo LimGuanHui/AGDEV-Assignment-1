@@ -41,6 +41,9 @@ private:
     CEnemy* theEnemy;
 
 	static SceneText* sInstance; // The pointer to the object that gets registered
+
+	float halfWindowWidth;
+	float halfWindowHeight;
 };
 
 #endif

@@ -232,8 +232,8 @@ void SceneText::Init()
 	playerInfo->SetTerrain(groundEntity);
     theEnemy->SetTerrain(groundEntity);
 	// Setup the 2D entities
-	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
-	float halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2.0f;
+	halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
+	halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2.0f;
 	float fontSize = 25.0f;
 	float halfFontSize = fontSize / 2.0f;
 	for (int i = 0; i < 3; ++i)
@@ -351,8 +351,6 @@ void SceneText::Render()
 	EntityManager::GetInstance()->Render();
 
 	// Setup 2D pipeline then render 2D
-	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;
-	int halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2;
 	GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 	GraphicsManager::GetInstance()->DetachCamera();
 	EntityManager::GetInstance()->RenderUI();
