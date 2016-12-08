@@ -162,7 +162,7 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESH", Color(1, 1, 1), 10.f);
 
     //terrain
-    MeshBuilder::GetInstance()->GenerateTerrain("TEST_TERRAIN", "Image//heightmap.raw", m_heightMap);
+    MeshBuilder::GetInstance()->GenerateTerrain("TEST_TERRAIN", "Image//Terrain.raw", m_heightMap);
     MeshBuilder::GetInstance()->GetMesh("TEST_TERRAIN")->textureID = LoadTGA("Image//moss1.tga");
 
 	// Set up the Spatial Partition and pass it to the EntityManager to manage
