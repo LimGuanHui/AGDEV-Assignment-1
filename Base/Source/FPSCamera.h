@@ -21,7 +21,7 @@ public:
 	virtual void SetCameraTarget(Vector3 pos);
 	virtual Vector3 GetCameraUp() const;
 	virtual void SetCameraUp(Vector3 pos);
-
+    virtual void ResetMousePos();
 private:
 	Vector3 position;
 	Vector3 target;

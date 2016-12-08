@@ -186,3 +186,8 @@ void FPSCamera::Reset()
 	target = defaultTarget;
 	up = defaultUp;
 }
+
+void FPSCamera::ResetMousePos()
+{
+    
+}
