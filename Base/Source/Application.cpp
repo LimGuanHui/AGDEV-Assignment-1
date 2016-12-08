@@ -75,7 +75,6 @@ void Application::Init()
 	//Create a window and create its OpenGL context
 #ifndef DEBUG
 	//Windowed Mode
-
 	m_window_width = 1600;
 	m_window_height = 1024;
 	m_window = glfwCreateWindow(m_window_width, m_window_height, "NYP Framework", NULL, NULL);

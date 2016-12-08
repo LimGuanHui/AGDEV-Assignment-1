@@ -34,6 +34,7 @@
     <ClCompile Include="Source\SpatialPartition\Grid.cpp" />
     <ClCompile Include="Source\SpatialPartition\SpatialPartition.cpp" />
     <ClCompile Include="Source\SpriteEntity.cpp" />
+    <ClCompile Include="Source\Terrain\TerrainManager.cpp" />
     <ClCompile Include="Source\TextEntity.cpp" />
     <ClCompile Include="Source\WeaponInfo\GrenadeThrow.cpp" />
     <ClCompile Include="Source\WeaponInfo\LaserBlaster.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="Source\SpatialPartition\Grid.h" />
     <ClInclude Include="Source\SpatialPartition\SpatialPartition.h" />
     <ClInclude Include="Source\SpriteEntity.h" />
+    <ClInclude Include="Source\Terrain\TerrainManager.h" />
     <ClInclude Include="Source\TextEntity.h" />
     <ClInclude Include="Source\WeaponInfo\GrenadeThrow.h" />
     <ClInclude Include="Source\WeaponInfo\LaserBlaster.h" />

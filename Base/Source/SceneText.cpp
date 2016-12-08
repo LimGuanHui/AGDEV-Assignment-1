@@ -161,6 +161,10 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GenerateRay("laser", 10.0f);
 	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESH", Color(1, 1, 1), 10.f);
 
+    //terrain
+    MeshBuilder::GetInstance()->GenerateTerrain("TEST_TERRAIN", "Image//heightmap.raw", m_heightMap);
+    MeshBuilder::GetInstance()->GetMesh("TEST_TERRAIN")->textureID = LoadTGA("Image//moss1.tga");
+
 	// Set up the Spatial Partition and pass it to the EntityManager to manage
 	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10);
 	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
@@ -217,7 +221,7 @@ void SceneText::Init()
     theEnemy = new CEnemy();
     theEnemy->Init();
 
-	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
+	groundEntity = Create::Ground("TEST_TERRAIN", "TEST_TERRAIN",m_heightMap);
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
 
@@ -227,7 +231,7 @@ void SceneText::Init()
 
 	// Customise the ground entity
 	groundEntity->SetPosition(Vector3(0, -10, 0));
-	groundEntity->SetScale(Vector3(100.0f, 100.0f, 100.0f));
+	groundEntity->SetScale(Vector3(100.0f, 5.f, 100.0f));
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
     theEnemy->SetTerrain(groundEntity);

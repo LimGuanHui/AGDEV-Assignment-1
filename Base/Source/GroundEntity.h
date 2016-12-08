@@ -4,13 +4,13 @@
 #include "EntityBase.h"
 #include "Vector3.h"
 #include <string>
-
+#include <vector>
 class Mesh;
 
 class GroundEntity : public EntityBase
 {
 public:
-	GroundEntity(Mesh* _modelMesh1, Mesh* _modelMesh2);
+    GroundEntity(Mesh* _modelMesh1, Mesh* _modelMesh2, std::vector<unsigned char>& m_heightmap);
 	virtual ~GroundEntity();
 
 	virtual void Update(double _dt);
@@ -45,11 +45,13 @@ private:
 	bool m_bMaxBoundaryDefined;
 	bool m_bMinBoundaryDefined;
 	Mesh* modelMesh[2];
+
+    std::vector<unsigned char>& m_heightMap;
 };
 
 namespace Create
 {
-	GroundEntity* Ground(const std::string& _meshName1, const std::string& _meshName2);
+    GroundEntity* Ground(const std::string& _meshName1, const std::string& _meshName2, std::vector<unsigned char>& m_heightmap);
 };
 
 #endif // GROUND_ENTITY_H

@@ -17,6 +17,7 @@
     <ClCompile Include="Source\GraphicsManager.cpp" />
     <ClCompile Include="Source\KeyboardController.cpp" />
     <ClCompile Include="Source\LightBase.cpp" />
+    <ClCompile Include="Source\LoadHmap.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="Source\MathUtility.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="Source\GraphicsManager.h" />
     <ClInclude Include="Source\KeyboardController.h" />
     <ClInclude Include="Source\LightBase.h" />
+    <ClInclude Include="Source\LoadHmap.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadTGA.h" />
     <ClInclude Include="Source\Material.h" />

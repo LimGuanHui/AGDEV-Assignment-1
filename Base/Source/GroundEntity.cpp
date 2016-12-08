@@ -3,8 +3,9 @@
 #include "EntityManager.h"
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
+#include "LoadHmap.h"
 
-GroundEntity::GroundEntity(Mesh* _modelMesh1, Mesh* _modelMesh2) 
+GroundEntity::GroundEntity(Mesh* _modelMesh1, Mesh* _modelMesh2, std::vector<unsigned char>& m_heightmap)
 	: position(0.0f, 0.0f, 0.0f)
 	, scale(1.0f, 1.0f, 1.0f)
 	, size(1.0f, 1.0f, 1.0f)
@@ -13,6 +14,7 @@ GroundEntity::GroundEntity(Mesh* _modelMesh1, Mesh* _modelMesh2)
 	, minBoundary(1.0f, 1.0f, 1.0f)
 	, m_bMaxBoundaryDefined(false)
 	, m_bMinBoundaryDefined(false)
+    , m_heightMap(m_heightmap)
 {
 	modelMesh[0] = _modelMesh1;
 	modelMesh[1] = _modelMesh2;
@@ -30,37 +32,45 @@ void GroundEntity::Update(double _dt)
 void GroundEntity::Render()
 {
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
-	modelStack.PushMatrix();
-	modelStack.Rotate(-90, 1, 0, 0);
-	// the y- and z- components are swapped because of the way that MVP is calculated inside RenderMesh
-	modelStack.Translate(position.x, position.z, position.y);
-	modelStack.Rotate(-90, 0, 0, 1);
-	modelStack.Scale(scale.x, scale.y, scale.z);
+	//modelStack.PushMatrix();
+	//modelStack.Rotate(90, 1, 0, 0);
+	//// the y- and z- components are swapped because of the way that MVP is calculated inside RenderMesh
+	//modelStack.Translate(position.x, position.z, position.y);
+	//modelStack.Rotate(-90, 0, 0, 1);
+ //   modelStack.Scale(scale.x, 1.0f, scale.z);
 
-	// Since the ground textures are displayed with the centre as the reference point,
-	// we need to offset the tiles by half of the tile size
-	modelStack.Translate(size.x / 2, size.z / 2, 0.0f);
-	for (int x = 0; x < (int)grids.x; x++)
-	{
-		for (int z = 0; z < (int)grids.z; z++)
-		{
-			modelStack.PushMatrix();
-			// the y- and z- components are swapped because of the way that MVP is calculated inside RenderMesh
-			modelStack.Translate(x - (grids.x * size.x) / 2, z - (grids.z * size.z) / 2, 0.0f);
-			if (((x * (int)(grids.x - 1) + z) % 2) == 0)
-				RenderHelper::RenderMesh(modelMesh[0]);
-			else
-				RenderHelper::RenderMesh(modelMesh[1]);
-			modelStack.PopMatrix();
-		}
-	}
-	modelStack.PopMatrix();
+	//// Since the ground textures are displayed with the centre as the reference point,
+	//// we need to offset the tiles by half of the tile size
+	//modelStack.Translate(size.x / 2, size.z / 2, 0.0f);
+	//for (int x = 0; x < (int)grids.x; x++)
+	//{
+	//	for (int z = 0; z < (int)grids.z; z++)
+	//	{
+	//		modelStack.PushMatrix();
+	//		// the y- and z- components are swapped because of the way that MVP is calculated inside RenderMesh
+	//		modelStack.Translate(x - (grids.x * size.x) / 2, z - (grids.z * size.z) / 2, 0.0f);
+	//		if (((x * (int)(grids.x - 1) + z) % 2) == 0)
+	//			RenderHelper::RenderMesh(modelMesh[0]);
+	//		else
+	//			RenderHelper::RenderMesh(modelMesh[1]);
+	//		modelStack.PopMatrix();
+	//	}
+	//}
+	//modelStack.PopMatrix();
+
+    modelStack.PushMatrix();
+    modelStack.Translate(0, 0, 0);
+    modelStack.Scale(scale.x, scale.y, scale.z);
+    RenderHelper::RenderMesh(modelMesh[0]);
+    modelStack.PopMatrix();
 }
 
 float GroundEntity::GetTerrainHeight(Vector3 position)
 {
 	// If a contour map is loaded into this ground entity, then get the height of the contour for position.x and position.z
-	return 0.0f;
+#define Y_OFFSET 0.f
+    return ReadHeightMap(m_heightMap, position.x / scale.x, position.z / scale.z) + Y_OFFSET;
+    return 0.f;
 }
 
 Vector3 GroundEntity::GetMaxBoundary(void)
@@ -86,7 +96,7 @@ Vector3 GroundEntity::GetMinBoundary(void)
 	return minBoundary;
 };
 
-GroundEntity* Create::Ground(const std::string& _meshName1, const std::string& _meshName2)
+GroundEntity* Create::Ground(const std::string& _meshName1, const std::string& _meshName2, std::vector<unsigned char>& m_heightmap)
 {
 	Mesh* modelMesh1 = MeshBuilder::GetInstance()->GetMesh(_meshName1);
 	if (modelMesh1 == nullptr)
@@ -96,7 +106,7 @@ GroundEntity* Create::Ground(const std::string& _meshName1, const std::string& _
 	if (modelMesh2 == nullptr)
 		return nullptr;
 
-	GroundEntity* result = new GroundEntity(modelMesh1, modelMesh2);
+    GroundEntity* result = new GroundEntity(modelMesh1, modelMesh2, m_heightmap);
 	EntityManager::GetInstance()->AddEntity(result);
 	return result;
 }

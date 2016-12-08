@@ -44,6 +44,9 @@ private:
 
 	float halfWindowWidth;
 	float halfWindowHeight;
+
+    //Terrain
+    std::vector<unsigned char> m_heightMap;
 };
 
 #endif
