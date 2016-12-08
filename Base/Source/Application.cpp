@@ -169,8 +169,10 @@ void Application::PostInputUpdate()
 	if (MouseController::GetInstance()->GetKeepMouseCentered())
 	{
 		double mouse_currX, mouse_currY;
-		mouse_currX = m_window_width >> 1;
-		mouse_currY = m_window_height >> 1;
+		int screen_width = m_window_width;
+		int screen_height = m_window_height;
+		mouse_currX = screen_width >> 1;
+		mouse_currY = screen_height >> 1;
 		MouseController::GetInstance()->UpdateMousePosition(mouse_currX, mouse_currY);
 		glfwSetCursorPos(m_window, mouse_currX, mouse_currY);
 	}
@@ -194,12 +196,12 @@ void Application::MouseScrollCallbacks(GLFWwindow* window, double xoffset, doubl
 	MouseController::GetInstance()->UpdateMouseScroll(xoffset, yoffset);
 }
 
-int Application::GetWindowHeight()
+float Application::GetWindowHeight()
 {
 	return m_window_height;
 }
 
-int Application::GetWindowWidth()
+float Application::GetWindowWidth()
 {
 	return m_window_width;
 }
