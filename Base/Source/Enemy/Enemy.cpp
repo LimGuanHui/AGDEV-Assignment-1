@@ -66,13 +66,10 @@ void CEnemy::SetBoundary(Vector3 max, Vector3 min)
     this->up = up;
 }
 //Set the terrain for the player info
-void CEnemy::SetTerrain(GroundEntity* m__pTerrain)
+void CEnemy::SetTerrain(GroundEntity* m_pTerrain)
 {
-    if (m_pTerrain != NULL)
-    {
-        this->m_pTerrain = m_pTerrain;
-        SetBoundary(this->m_pTerrain->GetMaxBoundary(), this->m_pTerrain->GetMinBoundary());
-    }
+    this->m_pTerrain = m_pTerrain;
+    SetBoundary(this->m_pTerrain->GetMaxBoundary(), this->m_pTerrain->GetMinBoundary());
 }
 //Get position
 Vector3 CEnemy::GetPos(void) const
