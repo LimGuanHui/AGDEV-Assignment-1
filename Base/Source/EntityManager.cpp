@@ -11,7 +11,7 @@ using namespace std;
 void EntityManager::Update(double _dt)
 {
 	// Update all entities
-	std::list<EntityBase*>::iterator it, end;
+	std::list<EntityBase*>::iterator it, end,prev;
 	end = entityList.end();
 	for (it = entityList.begin(); it != end; ++it)
 	{
@@ -30,20 +30,38 @@ void EntityManager::Update(double _dt)
 
 	// Clean up entities that are done
 	it = entityList.begin();
+
 	while (it != end)
 	{
-		if ((*it)->IsDone())
+        //EntityBase* temp = (EntityBase *)*it;
+        if ((*it)->IsDone())
 		{
 			// Delete if done
-			delete *it;
-			it = entityList.erase(it);
+            CSceneGraph::GetInstance()->DeleteNode((*it));
+            delete (*it);
+            (*it) = NULL;
+            entityList.erase(it);
+            it = prev;
+            prev--;
 		}
 		else
 		{
 			// Move on otherwise
+            prev = it;
 			++it;
 		}
 	}
+    /*for (it = entityList.begin(); it != end; ++it)
+    {
+        EntityBase* temp = (EntityBase *)*it;
+        if (temp->IsDone())
+        {
+            delete temp;
+            temp = NULL;
+            *it = temp;
+            entityList.erase(it);
+        }
+    }*/
 }
 
 // Render all entities

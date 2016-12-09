@@ -90,7 +90,7 @@ public:
 	void Update(double dt = 0.0333f);
 
 	// Constrain the position within the borders
-	void Constrain(void);
+    void Constrain(double dt = 0.0333f);
 
 	// Handling Camera
 	void AttachCamera(FPSCamera* _cameraPtr);
