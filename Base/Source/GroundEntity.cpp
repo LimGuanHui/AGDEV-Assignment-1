@@ -68,8 +68,7 @@ void GroundEntity::Render()
 float GroundEntity::GetTerrainHeight(Vector3 position)
 {
 	// If a contour map is loaded into this ground entity, then get the height of the contour for position.x and position.z
-#define Y_OFFSET 0.f
-    return (scale.y * ReadHeightMap(m_heightMap, position.x / scale.x, position.z / scale.z)) + Y_OFFSET;
+    return (scale.y * ReadHeightMap(m_heightMap, position.x / scale.x, position.z / scale.z));
     //return 0.f;
 }
 

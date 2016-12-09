@@ -258,10 +258,10 @@ void CPlayerInfo::UpdateFreeFall(double dt)
 	// v is m_dJumpSpeed AFTER updating using SUVAT where u is the initial speed and is equal to m_dJumpSpeed
 	m_dFallSpeed = m_dFallSpeed + m_dFallAcceleration * dt;
 	// Check if the jump speed is below terrain, then it should be reset to terrain height
-	if (position.y < m_pTerrain->GetTerrainHeight(position))
+    if (position.y < m_pTerrain->GetTerrainHeight(position) - 10.f)
 	{
 		Vector3 viewDirection = target - position;
-        position.y = m_pTerrain->GetTerrainHeight(position); //+ 10.f;
+        position.y = m_pTerrain->GetTerrainHeight(position) - 10.f; //+ 10.f;
 		target = position + viewDirection;
 		m_dFallSpeed = 0.0;
 		m_bFallDownwards = false;
@@ -404,7 +404,7 @@ void CPlayerInfo::Update(double dt)
 
 	// If the user presses SPACEBAR, then make him jump
 	if (KeyboardController::GetInstance()->IsKeyDown(VK_SPACE) &&
-		position.y == m_pTerrain->GetTerrainHeight(position))
+        position.y == m_pTerrain->GetTerrainHeight(position) - 10.f)
 	{
 		SetToJumpUpwards(true);
 	}
@@ -482,9 +482,9 @@ void CPlayerInfo::Constrain(void)
 	{
 		// if the y position is not equal to terrain height at that position, 
 		// then update y position to the terrain height
-		if (position.y != m_pTerrain->GetTerrainHeight(position))
+        if (position.y != m_pTerrain->GetTerrainHeight(position) - 10.f)
 		{
-			position.y = m_pTerrain->GetTerrainHeight(position);
+			position.y = m_pTerrain->GetTerrainHeight(position) - 10.f;
 		}
 	}
 }
