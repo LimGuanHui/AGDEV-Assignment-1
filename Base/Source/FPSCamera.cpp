@@ -150,7 +150,7 @@ void FPSCamera::Update(double dt)
 		view = rotation * view;
 		target = position + view;
 	}
-    ResetMousePos();
+    //ResetMousePos();
 	if(KeyboardController::GetInstance()->IsKeyDown('R'))
 	{
 		Reset();
