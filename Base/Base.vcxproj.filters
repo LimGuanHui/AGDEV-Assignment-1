@@ -37,36 +37,42 @@
     <Filter Include="Enemy">
       <UniqueIdentifier>{11c6fa70-be27-4ae3-8bda-63f0b4ea9b31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Terrain">
+    <Filter Include="FPSCamera">
+      <UniqueIdentifier>{f78b1e5b-d8ab-4b08-bc42-c946cc76577c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GenericEntity">
+      <UniqueIdentifier>{0fd5f833-b876-4e8c-bd24-b97612e3606e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GroundEntity">
+      <UniqueIdentifier>{aeea0b23-a306-4735-852f-dd987037f5f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{266efbcd-515a-4f9f-8a31-02946fd91a37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBJMesh">
+      <UniqueIdentifier>{75f66011-8df4-4fcf-b367-78114853a66c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneText">
+      <UniqueIdentifier>{bd07a0ac-b4ef-4ac6-9b1e-fcbe0dc59861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SpriteEntity">
+      <UniqueIdentifier>{2de8b58d-7bd8-47a6-bc5e-4d16ed26c8de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TerrainManager">
       <UniqueIdentifier>{e95a150b-a963-474f-8a19-0de749050c70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TextEntity">
+      <UniqueIdentifier>{ac47bcb1-d78d-47a9-aa01-a1cebc75b497}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{530d18ac-c5ad-4276-8288-96cd04066e29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EntityManager">
+      <UniqueIdentifier>{8dc551ed-7592-4ef7-8b6f-d8297c2ad33f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SceneText.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\FPSCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\OBJMesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GroundEntity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TextEntity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SpriteEntity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\PlayerInfo\PlayerInfo.cpp">
@@ -89,12 +95,6 @@
     </ClCompile>
     <ClCompile Include="Source\Projectile\Laser.cpp">
       <Filter>Projectile</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\EntityManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GenericEntity.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneGraph\SceneGraph.cpp">
       <Filter>SceneGraph</Filter>
@@ -126,35 +126,41 @@
     <ClCompile Include="Source\Enemy\Enemy.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Application.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>EntityManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FPSCamera.cpp">
+      <Filter>FPSCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GenericEntity.cpp">
+      <Filter>GenericEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GroundEntity.cpp">
+      <Filter>GroundEntity</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Light.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\OBJMesh.cpp">
+      <Filter>OBJMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneText.cpp">
+      <Filter>SceneText</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpriteEntity.cpp">
+      <Filter>SpriteEntity</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Terrain\TerrainManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>TerrainManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TextEntity.cpp">
+      <Filter>TextEntity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SceneText.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\FPSCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\OBJMesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GroundEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\TextEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SpriteEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\PlayerInfo\PlayerInfo.h">
       <Filter>PlayerInfo</Filter>
     </ClInclude>
@@ -175,12 +181,6 @@
     </ClInclude>
     <ClInclude Include="Source\Projectile\Laser.h">
       <Filter>Projectile</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\EntityManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GenericEntity.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneGraph\SceneGraph.h">
       <Filter>SceneGraph</Filter>
@@ -212,8 +212,38 @@
     <ClInclude Include="Source\Enemy\Enemy.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Application.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EntityManager.h">
+      <Filter>EntityManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FPSCamera.h">
+      <Filter>FPSCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GenericEntity.h">
+      <Filter>GenericEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GroundEntity.h">
+      <Filter>GroundEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Light.h">
+      <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\OBJMesh.h">
+      <Filter>OBJMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneText.h">
+      <Filter>SceneText</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SpriteEntity.h">
+      <Filter>SpriteEntity</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Terrain\TerrainManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>TerrainManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\TextEntity.h">
+      <Filter>TextEntity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
