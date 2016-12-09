@@ -173,8 +173,8 @@ void Application::PostInputUpdate()
 		int screen_height = m_window_height;
 		mouse_currX = screen_width >> 1;
 		mouse_currY = screen_height >> 1;
-		MouseController::GetInstance()->UpdateMousePosition(mouse_currX, mouse_currY);
 		glfwSetCursorPos(m_window, mouse_currX, mouse_currY);
+		MouseController::GetInstance()->UpdateMousePosition(mouse_currX, mouse_currY);
 	}
 
 	// Call input systems to update at end of frame

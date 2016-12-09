@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ENEMY_H
+#define ENEMY_H
 
 #include "../GenericEntity.h"
 #include "../GroundEntity.h"
@@ -51,3 +52,4 @@ protected:
     double m_dAcceleraction;
 };
 
+#endif

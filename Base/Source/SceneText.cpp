@@ -230,8 +230,8 @@ void SceneText::Init()
 											 "SKYBOX_TOP", "SKYBOX_BOTTOM");
 
 	// Customise the ground entity
-	groundEntity->SetPosition(Vector3(0, -10, 0));
-	groundEntity->SetScale(Vector3(100.0f, 5.f, 100.0f));
+	groundEntity->SetPosition(Vector3(0, -30, 0));
+	groundEntity->SetScale(Vector3(1000.0f, 50.f, 1000.0f));
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
     theEnemy->SetTerrain(groundEntity);
