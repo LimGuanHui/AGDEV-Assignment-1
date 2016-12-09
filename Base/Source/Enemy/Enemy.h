@@ -16,7 +16,7 @@ public:
     //Reset this player instance to default
     void Reset(void);
     //Set position
-    void SetPos(const Vector3& pos);
+    //void SetPos(const Vector3& pos);
     //Set target
     void SetTarget(const Vector3& target);
     //Set up

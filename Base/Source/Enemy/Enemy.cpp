@@ -46,10 +46,10 @@ void CEnemy::Reset(void)
 }
 
 //Set position
-void CEnemy::SetPos(const Vector3& pos)
-{
-    position = pos;
-}
+//void CEnemy::SetPos(const Vector3& pos)
+//{
+//    position = pos;
+//}
 //Set target
 void CEnemy::SetTarget(const Vector3& target)
 {
