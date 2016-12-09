@@ -9,6 +9,8 @@
 #include "../WeaponInfo/LaserBlaster.h"
 #include "../WeaponInfo/GrenadeThrow.h"
 
+#define Y_OFFSET -10.f
+
 // Allocating and initializing CPlayerInfo's static data member.  
 // The pointer is allocated but not the object's constructor.
 CPlayerInfo *CPlayerInfo::s_instance = 0;
@@ -258,10 +260,10 @@ void CPlayerInfo::UpdateFreeFall(double dt)
 	// v is m_dJumpSpeed AFTER updating using SUVAT where u is the initial speed and is equal to m_dJumpSpeed
 	m_dFallSpeed = m_dFallSpeed + m_dFallAcceleration * dt;
 	// Check if the jump speed is below terrain, then it should be reset to terrain height
-    if (position.y < m_pTerrain->GetTerrainHeight(position) - 10.f)
+    if (position.y < m_pTerrain->GetTerrainHeight(position) + Y_OFFSET)
 	{
 		Vector3 viewDirection = target - position;
-        position.y = m_pTerrain->GetTerrainHeight(position) - 10.f; //+ 10.f;
+        position.y = m_pTerrain->GetTerrainHeight(position) + Y_OFFSET; //+ 10.f;
 		target = position + viewDirection;
 		m_dFallSpeed = 0.0;
 		m_bFallDownwards = false;
@@ -310,7 +312,7 @@ void CPlayerInfo::Update(double dt)
 			position += rightUV * (float)m_dSpeed * (float)dt;
 		}
 		// Constrain the position
-		Constrain();
+		Constrain(dt);
 		// Update the target
 		target = position + viewVector;
 	}
@@ -403,8 +405,10 @@ void CPlayerInfo::Update(double dt)
 	}
 
 	// If the user presses SPACEBAR, then make him jump
+#define SMOOTH 0.5f
 	if (KeyboardController::GetInstance()->IsKeyDown(VK_SPACE) &&
-        position.y == m_pTerrain->GetTerrainHeight(position) - 10.f)
+        position.y >= m_pTerrain->GetTerrainHeight(position) + Y_OFFSET - SMOOTH &&
+        position.y <= m_pTerrain->GetTerrainHeight(position) + Y_OFFSET + SMOOTH)
 	{
 		SetToJumpUpwards(true);
 	}
@@ -461,7 +465,7 @@ void CPlayerInfo::Update(double dt)
 }
 
 // Constrain the position within the borders
-void CPlayerInfo::Constrain(void)
+void CPlayerInfo::Constrain(double dt)
 {
 	// Constrain player within the boundary
 	if (position.x > maxBoundary.x - 1.0f)
@@ -482,9 +486,21 @@ void CPlayerInfo::Constrain(void)
 	{
 		// if the y position is not equal to terrain height at that position, 
 		// then update y position to the terrain height
-        if (position.y != m_pTerrain->GetTerrainHeight(position) - 10.f)
+        float terrainHeight = m_pTerrain->GetTerrainHeight(position) + Y_OFFSET;
+        if (position.y != terrainHeight)
 		{
-			position.y = m_pTerrain->GetTerrainHeight(position) - 10.f;
+            /*position.y = terrainHeight;
+            return;*/
+            #define DIFF_BETWEEN_POS_AND_TERRAIN abs(position.y - terrainHeight)
+            if (position.y > terrainHeight)
+            {
+                position.y -= DIFF_BETWEEN_POS_AND_TERRAIN * dt * 20;
+            }
+            else
+            {
+                position.y += DIFF_BETWEEN_POS_AND_TERRAIN * dt * 20;
+            }
+            
 		}
 	}
 }
