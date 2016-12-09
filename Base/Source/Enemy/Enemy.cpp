@@ -10,8 +10,8 @@ CEnemy::CEnemy()
 	, defaultUp(Vector3(0.0f, 0.0f, 0.0f))
 	, target(Vector3(0.0f, 0.0f, 0.0f))
 	, up(Vector3(0.0f, 0.0f, 0.0f))
-	, maxBoundary(Vector3(0.0f, 0.0f, 0.0f))
-	, minBoundary(Vector3(0.0f, 0.0f, 0.0f))
+	, maxBoundary(Vector3(10.0f, 10.0f, 10.0f))
+	, minBoundary(Vector3(-10.0f, -10.0f, -10.0f))
 	, m_pTerrain(NULL)
 {
 }
@@ -28,12 +28,12 @@ void CEnemy::Init(void)
 	defaultTarget.Set(0, 0, 0);
 	defaultUp.Set(0, 1, 0);
 	// Set the current values
-	position.Set(10.0f, 0.0f, 0.0f);
+	position.Set(10.0f, 0.0f, 10.0f);
 	target.Set(10.0f, 0.0f, 450.0f);
 	up.Set(0.0f, 1.0f, 0.0f);
 	// Set Boundary
-	maxBoundary.Set(1, 1, 1);
-	minBoundary.Set(-1, -1, -1);
+    maxBoundary.Set(100.0f, 100.0f, 100.0f);
+    minBoundary.Set(-100.0f, -100.0f, -100.0f);
 	// Set speed
 	m_dSpeed = 1.0;
 	// Initialise the LOD meshes
@@ -163,16 +163,5 @@ void CEnemy::Render(void)
 			RenderHelper::RenderMesh(GetLODMesh());
 		}
 	}
-
+    modelStack.PopMatrix();
 }
-
-
-
-
-
-
-
-
-
-
-
