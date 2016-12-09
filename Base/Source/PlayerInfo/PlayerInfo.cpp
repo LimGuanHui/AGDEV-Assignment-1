@@ -116,7 +116,7 @@ void CPlayerInfo::SetToJumpUpwards(bool isOnJumpUpwards)
 	{
 		m_bJumpUpwards = true;
 		m_bFallDownwards = false;
-		m_dJumpSpeed = 4.0;
+		m_dJumpSpeed = 30.0;
 	}
 }
 
@@ -221,16 +221,16 @@ void CPlayerInfo::UpdateJumpUpwards(double dt)
 {
 	if (m_bJumpUpwards == false)
 		return;
-
+#define SPEEDUP 5.f
 	// Update position and target y values
 	// Use SUVAT equation to update the change in position and target
 	// s = u * t + 0.5 * a * t ^ 2
-	position.y += (float)(m_dJumpSpeed * dt + 0.5 * m_dJumpAcceleration * dt * dt);
-	target.y += (float)(m_dJumpSpeed*dt + 0.5 * m_dJumpAcceleration * dt * dt);
+    position.y += (float)(m_dJumpSpeed * dt + 0.5 * m_dJumpAcceleration * dt * dt);
+    target.y += (float)(m_dJumpSpeed*dt + 0.5 * m_dJumpAcceleration * dt * dt);
 	// Use this equation to calculate final velocity, v
 	// SUVAT: v = u + a * t;
 	// v is m_dJumpSpeed AFTER updating using SUVAT where u is the initial speed and is equal to m_dJumpSpeed
-	m_dJumpSpeed = m_dJumpSpeed + m_dJumpAcceleration * dt;
+    m_dJumpSpeed = m_dJumpSpeed + m_dJumpAcceleration * dt * SPEEDUP;
 	// Check if the jump speed is less than zero, then it should be falling
 	if (m_dJumpSpeed < 0.0)
 	{
@@ -250,8 +250,9 @@ void CPlayerInfo::UpdateFreeFall(double dt)
 	// Update position and target y values
 	// Use SUVAT equation to update the change in position and target
 	// s = u * t + 0.5 * a * t ^ 2
-	position.y += (float)(m_dFallSpeed * dt + 0.5 * m_dJumpAcceleration * dt * dt);
-	target.y += (float)(m_dFallSpeed * dt + 0.5 * m_dJumpAcceleration * dt * dt);
+#define SPEEDUP 5.f
+    position.y += (float)(m_dFallSpeed * dt + 0.5 * m_dJumpAcceleration * dt * dt) * SPEEDUP;
+    target.y += (float)(m_dFallSpeed * dt + 0.5 * m_dJumpAcceleration * dt * dt) * SPEEDUP;
 	// Use this equation to calculate final velocity, v
 	// SUVAT: v = u + a * t;
 	// v is m_dJumpSpeed AFTER updating using SUVAT where u is the initial speed and is equal to m_dJumpSpeed
@@ -260,7 +261,7 @@ void CPlayerInfo::UpdateFreeFall(double dt)
 	if (position.y < m_pTerrain->GetTerrainHeight(position))
 	{
 		Vector3 viewDirection = target - position;
-		position.y = m_pTerrain->GetTerrainHeight(position) + 10.f;
+        position.y = m_pTerrain->GetTerrainHeight(position); //+ 10.f;
 		target = position + viewDirection;
 		m_dFallSpeed = 0.0;
 		m_bFallDownwards = false;
