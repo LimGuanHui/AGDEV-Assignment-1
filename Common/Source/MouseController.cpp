@@ -15,6 +15,8 @@ MouseController::~MouseController()
 
 void MouseController::UpdateMousePosition(double _x, double _y)
 {
+	prev_posX = curr_posX;
+	prev_posY = curr_posY;
 	curr_posX = _x;
 	curr_posY = _y;
 }
@@ -45,8 +47,6 @@ void MouseController::UpdateMouseScroll(const double xoffset, const double yoffs
 
 void MouseController::EndFrameUpdate()
 {
-	prev_posX = curr_posX;
-	prev_posY = curr_posY;
 	prevBtnStatus = currBtnStatus;
 }
 
