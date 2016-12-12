@@ -456,7 +456,8 @@ void CPlayerInfo::Update(double dt)
 		else if (MouseController::GetInstance()->IsButtonReleased(MouseController::LMB))
 		{
 			if (primaryWeapon)
-				dynamic_cast<Bow*>(primaryWeapon)->Discharge(force, position, (target.x, target.y + (3 * force), target.z), this);
+				dynamic_cast<Bow*>(primaryWeapon)->Discharge(force, position, target, this);
+			force = 0;
 		}
 		// Molotov
 		else if (MouseController::GetInstance()->IsButtonPressed(MouseController::RMB))
