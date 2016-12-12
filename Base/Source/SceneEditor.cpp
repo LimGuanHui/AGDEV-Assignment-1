@@ -3,7 +3,9 @@
 #include "RenderHelper.h"
 #include "MeshBuilder.h"
 #include "KeyboardController.h"
+#include "./SpatialPartition/SpatialPartition.h"
 #define TIME_BETWEEN_INPUT 0.3f
+#define POINTER_DISTANCE 5.f
 SceneEditor::SceneEditor()
 {
 }
@@ -20,8 +22,12 @@ SceneEditor::~SceneEditor()
 void SceneEditor::Init()
 {
     point_mesh = MeshBuilder::GetInstance()->GenerateCube("Point", Color(1.0f, 0.0f, 0.0f), 1.0f);
+    MeshBuilder::GetInstance()->GenerateCube("Pointer", Color(0.0f, 0.0f, 1.0f), 1.0f);
     inputDelay = 0;
     ShiftMode = Mode::Normal;
+    pointer_position = Vector3(0, 0, 0);
+    Rotation = Vector3(0, 0, 0);
+    selectedEntity = NULL;
 }
 void SceneEditor::Update(double dt)
 {
@@ -40,12 +46,11 @@ void SceneEditor::Update(double dt)
         inputDelay = 0;
         DeletePoint();
     }
-	ShiftObject();
+    Shift_Mode();
+    CalculatePositionOfPointer(POINTER_DISTANCE);
 }
 void SceneEditor::Render()
 {
-    if (ListOfPoints.size() == 0)
-        return;
     MS& ms = GraphicsManager::GetInstance()->GetModelStack();
     
     vector<Vector3>::iterator it;
@@ -63,7 +68,11 @@ void SceneEditor::Render()
         RenderHelper::RenderText(MeshBuilder::GetInstance()->GetMesh("text"), text, Color(1.f, 1.f, 1.f));
         ms.PopMatrix();
     }
-    
+    //Render pointer
+    ms.PushMatrix();
+    ms.Translate(pointer_position.x, pointer_position.y, pointer_position.z);
+    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pointer"));
+    ms.PopMatrix();
 }
 
 void SceneEditor::AddPoint(Vector3 point)
@@ -89,7 +98,7 @@ void SceneEditor::DeletePoint(Vector3 point)
     }
 }
 
-void SceneEditor::ShiftObject()
+void SceneEditor::Shift_Mode()
 {
 	if (KeyboardController::GetInstance()->IsKeyDown(VK_SHIFT)
 		&& KeyboardController::GetInstance()->IsKeyDown('1')
@@ -126,28 +135,52 @@ void SceneEditor::ShiftObject()
     {
 		inputDelay = 0;
         ShiftMode = Mode::Scale;
+    }	
+}
+
+void SceneEditor::ModeAction()
+{
+    switch (ShiftMode)
+    {
+    case SceneEditor::Normal:
+        break;
+    case SceneEditor::FreeCam:
+        break;
+    case SceneEditor::Translate:
+        if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT))
+        {
+
+        }
+        if (KeyboardController::GetInstance()->IsKeyDown(VK_RIGHT))
+        {
+
+        }
+        if (KeyboardController::GetInstance()->IsKeyDown(VK_UP))
+        {
+
+        }
+        if (KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
+        {
+
+        }
+        break;
+    case SceneEditor::Rotate:
+        break;
+    case SceneEditor::Scale:
+        break;
+    default:
+        break;
     }
+}
 
-	if (ShiftMode != Mode::Normal
-		&& ShiftMode != Mode::FreeCam)
-	{
-		if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT))
-		{
+void SceneEditor::CalculatePositionOfPointer(float dist)
+{
+    pointer_position = attachedCamera->GetCameraPos() + (attachedCamera->GetCameraTarget() * dist);
+}
 
-		}
-		if (KeyboardController::GetInstance()->IsKeyDown(VK_RIGHT))
-		{
-
-		}
-		if (KeyboardController::GetInstance()->IsKeyDown(VK_UP))
-		{
-
-		}
-		if (KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
-		{
-
-		}
-	}
+void SceneEditor::SelectObject()
+{
+    //vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position, 1.0f);
 }
 
 void SceneEditor::AttachCamera(FPSCamera* _cameraPtr)
@@ -160,7 +193,3 @@ void SceneEditor::DetachCamera()
     attachedCamera = nullptr;
 }
 
-bool SceneEditor::isPointOnLine(Vector3 Line, Vector3 point)
-{
-	return false;
-}
