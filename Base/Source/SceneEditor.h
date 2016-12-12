@@ -24,10 +24,11 @@ public:
     void DeletePoint();
     void DeletePoint(Vector3 point);
     void Shift_Mode();
-    void ModeAction();
+    void ModeAction(double dt);
     void CalculatePositionOfPointer(float dist);
     void SelectObject();
-
+    void ClearSelectedObject();
+    void ModeRender();
     enum Mode
     {
 		Normal,
@@ -49,6 +50,7 @@ private:
     Vector3 pointer_position;
     Vector3 Rotation;
     EntityBase* selectedEntity;
+    float coutDelay;
 };
 
 

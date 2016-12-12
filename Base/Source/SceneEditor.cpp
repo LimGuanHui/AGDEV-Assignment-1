@@ -6,6 +6,8 @@
 #include "./SpatialPartition/SpatialPartition.h"
 #define TIME_BETWEEN_INPUT 0.3f
 #define POINTER_DISTANCE 5.f
+#define POINTER_CHECK_DIST 10.f
+#define COUT_DELAY 2.f
 SceneEditor::SceneEditor()
 {
 }
@@ -28,6 +30,7 @@ void SceneEditor::Init()
     pointer_position = Vector3(0, 0, 0);
     Rotation = Vector3(0, 0, 0);
     selectedEntity = NULL;
+    coutDelay = 0;
 }
 void SceneEditor::Update(double dt)
 {
@@ -138,8 +141,16 @@ void SceneEditor::Shift_Mode()
     }	
 }
 
-void SceneEditor::ModeAction()
+void SceneEditor::ModeAction(double dt)
 {
+    if (selectedEntity == NULL)
+        return;
+    if (KeyboardController::GetInstance()->IsKeyDown('Q')
+        && inputDelay > TIME_BETWEEN_INPUT)
+    {
+        ClearSelectedObject();
+        return;
+    }
     switch (ShiftMode)
     {
     case SceneEditor::Normal:
@@ -147,26 +158,100 @@ void SceneEditor::ModeAction()
     case SceneEditor::FreeCam:
         break;
     case SceneEditor::Translate:
-        if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT))
+        // X AXIS-----------------------------------------------------
+        if (KeyboardController::GetInstance()->IsKeyDown('I'))
+        {
+
+        }        
+        if (KeyboardController::GetInstance()->IsKeyDown('J'))
         {
 
         }
-        if (KeyboardController::GetInstance()->IsKeyDown(VK_RIGHT))
+        //------------------------------------------------------------
+        // Y AXIS-----------------------------------------------------
+        if (KeyboardController::GetInstance()->IsKeyDown('O'))
         {
 
         }
-        if (KeyboardController::GetInstance()->IsKeyDown(VK_UP))
+        if (KeyboardController::GetInstance()->IsKeyDown('K'))
         {
 
         }
-        if (KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
+        //------------------------------------------------------------
+        // Z AXIS-----------------------------------------------------
+        if (KeyboardController::GetInstance()->IsKeyDown('P'))
         {
 
         }
+        if (KeyboardController::GetInstance()->IsKeyDown('L'))
+        {
+
+        }
+        //------------------------------------------------------------
         break;
     case SceneEditor::Rotate:
+        // X AXIS-----------------------------------------------------
+        if (KeyboardController::GetInstance()->IsKeyDown('I'))
+        {
+
+        }
+        if (KeyboardController::GetInstance()->IsKeyDown('J'))
+        {
+
+        }
+        //------------------------------------------------------------
+        // Y AXIS-----------------------------------------------------
+        if (KeyboardController::GetInstance()->IsKeyDown('O'))
+        {
+
+        }
+        if (KeyboardController::GetInstance()->IsKeyDown('K'))
+        {
+
+        }
+        //------------------------------------------------------------
+        // Z AXIS-----------------------------------------------------
+        if (KeyboardController::GetInstance()->IsKeyDown('P'))
+        {
+
+        }
+        if (KeyboardController::GetInstance()->IsKeyDown('L'))
+        {
+
+        }
+        //------------------------------------------------------------
         break;
     case SceneEditor::Scale:
+        // X AXIS-----------------------------------------------------
+        if (KeyboardController::GetInstance()->IsKeyDown('I'))
+        {
+
+        }
+        if (KeyboardController::GetInstance()->IsKeyDown('J'))
+        {
+
+        }
+        //------------------------------------------------------------
+        // Y AXIS-----------------------------------------------------
+        if (KeyboardController::GetInstance()->IsKeyDown('O'))
+        {
+
+        }
+        if (KeyboardController::GetInstance()->IsKeyDown('K'))
+        {
+
+        }
+        //------------------------------------------------------------
+        // Z AXIS-----------------------------------------------------
+        if (KeyboardController::GetInstance()->IsKeyDown('P'))
+        {
+
+        }
+        if (KeyboardController::GetInstance()->IsKeyDown('L'))
+        {
+
+        }
+        //------------------------------------------------------------
         break;
     default:
         break;
@@ -180,7 +265,69 @@ void SceneEditor::CalculatePositionOfPointer(float dist)
 
 void SceneEditor::SelectObject()
 {
-    //vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position, 1.0f);
+    vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(pointer_position, POINTER_CHECK_DIST);
+
+    selectedEntity = *ExportList.begin();
+    Vector3 dist_from_pointer_to_obj = (pointer_position - selectedEntity->GetPosition()).LengthSquared();
+
+    vector<EntityBase*>::iterator it;
+    for (it = ++ExportList.begin(); it != ExportList.end(); ++it)
+    {
+        Vector3 temp = (pointer_position - (*it)->GetPosition()).LengthSquared();
+        if (temp < dist_from_pointer_to_obj)
+        {
+            dist_from_pointer_to_obj = temp;
+            selectedEntity = (*it);
+        }
+    }
+}
+
+void SceneEditor::ClearSelectedObject()
+{
+    selectedEntity = NULL;
+}
+
+void SceneEditor::ModeRender()
+{
+    MS& ms = GraphicsManager::GetInstance()->GetModelStack();
+    ms.PushMatrix();
+    switch (ShiftMode)
+    {
+    case SceneEditor::Normal:
+        break;
+    case SceneEditor::FreeCam:
+        break;
+    case SceneEditor::Translate:
+    {
+        if (coutDelay > COUT_DELAY)
+        {
+            cout << "X: " << selectedEntity->GetPosition().x
+                << " Y: " << selectedEntity->GetPosition().y
+                << " Z: " << selectedEntity->GetPosition().z
+                << endl;
+        }        
+    }        
+        break;
+    case SceneEditor::Rotate:
+        cout << "X: " << Rotation.x
+            << " Y: " << Rotation.y
+            << " Z: " << Rotation.z
+            << endl;
+        break;
+    case SceneEditor::Scale:
+        if (coutDelay > COUT_DELAY)
+        {
+            cout << "X: " << selectedEntity->GetScale().x
+                << " Y: " << selectedEntity->GetScale().y
+                << " Z: " << selectedEntity->GetScale().z
+                << endl;
+        }
+
+        break;
+    default:
+        break;
+    }
+    ms.PopMatrix();
 }
 
 void SceneEditor::AttachCamera(FPSCamera* _cameraPtr)
