@@ -8,8 +8,11 @@
 #include "../WeaponInfo/Pistol.h"
 #include "../WeaponInfo/LaserBlaster.h"
 #include "../WeaponInfo/GrenadeThrow.h"
+#include "../WeaponInfo/Bow.h"
 
-#define Y_OFFSET -10.f
+#define Y_OFFSET 20.f
+
+using namespace Math;
 
 // Allocating and initializing CPlayerInfo's static data member.  
 // The pointer is allocated but not the object's constructor.
@@ -63,12 +66,9 @@ void CPlayerInfo::Init(void)
 	maxBoundary.Set(1,1,1);
 	minBoundary.Set(-1, -1, -1);
 
-	// Set the pistol as the primary weapon
-	primaryWeapon = new CPistol();
+	primaryWeapon = new Bow();
 	primaryWeapon->Init();
-	// Set the laser blaster as the secondary weapon
-	//secondaryWeapon = new CLaserBlaster();
-	//secondaryWeapon->Init();
+
 	secondaryWeapon = new CGrenadeThrow();
 	secondaryWeapon->Init();
 }
@@ -442,6 +442,8 @@ void CPlayerInfo::Update(double dt)
 	{
 		if (secondaryWeapon)
 			secondaryWeapon->Discharge(position, target, this);
+		std::cout << "Terrain Height: " << m_pTerrain->GetTerrainHeight(position) - 10.f + Math::EPSILON << std::endl;
+		std::cout << "Player Height: " << position.y << std::endl;
 	}
 
 	// If the user presses R key, then reset the view to default values

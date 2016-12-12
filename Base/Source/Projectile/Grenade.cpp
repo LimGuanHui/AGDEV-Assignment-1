@@ -13,6 +13,8 @@
 #include <iostream>
 using namespace std;
 
+#define Y_OFFSET 0.5f
+
 CGrenade::CGrenade(void)
 	: CProjectile(NULL)
 	, m_fGravity(-10.0f)
@@ -65,18 +67,18 @@ void CGrenade::Update(double dt)
 	}
 
 	// Check if the Grenade is already on the ground
-	if (position.y >= m_pTerrain->GetTerrainHeight(position) - 10.0f + Math::EPSILON)
+	if (position.y >= m_pTerrain->GetTerrainHeight(position) + Math::EPSILON + Y_OFFSET)
 	{
 		// Update Position
 		m_fElapsedTime += dt;
 
-		position.Set(	position.x + (float)(theDirection.x * m_fElapsedTime * m_fSpeed),
-						position.y + (float)(theDirection.y * m_fElapsedTime * m_fSpeed) + (0.5 * m_fGravity * m_fElapsedTime * m_fElapsedTime),
-						position.z + (float)(theDirection.z * m_fElapsedTime * m_fSpeed));
+		position.x += (float)(theDirection.x * m_fElapsedTime * m_fSpeed);
+		position.y += (float)(theDirection.y * m_fElapsedTime * m_fSpeed) + (0.5 * m_fGravity * m_fElapsedTime * m_fElapsedTime);
+		position.z += (float)(theDirection.z * m_fElapsedTime * m_fSpeed);
 
-		if (position.y < m_pTerrain->GetTerrainHeight(position) - 10.0f)
+		if (position.y < m_pTerrain->GetTerrainHeight(position))
 		{
-			position.y = m_pTerrain->GetTerrainHeight(position) - 10.0f;
+			position.y = m_pTerrain->GetTerrainHeight(position) + Y_OFFSET;
 			m_fSpeed = 0.0f;
 			return;
 		}
@@ -90,12 +92,12 @@ void CGrenade::SetTerrain(GroundEntity* m_pTerrain)
 }
 
 // Create a projectile and add it into EntityManager
-CGrenade* Create::Grenade(	const std::string& _meshName,
-							const Vector3& _position, 
-							const Vector3& _direction, 
-							const float m_fLifetime, 
-							const float m_fSpeed,
-							CPlayerInfo* _source)
+CGrenade* Create::Grenade(const std::string& _meshName,
+						  const Vector3& _position, 
+						  const Vector3& _direction, 
+						  const float m_fLifetime, 
+						  const float m_fSpeed,
+						  CPlayerInfo* _source)
 {
 	Mesh* modelMesh = MeshBuilder::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)

@@ -19,16 +19,16 @@ void Bow::Init(void)
 	CWeaponInfo::Init();
 
 	// The number of ammunition in a magazine for this weapon
-	magRounds = 5;
+	magRounds = 1;
 	// The maximum number of ammunition for this magazine for this weapon
-	maxMagRounds = 5;
+	maxMagRounds = 1;
 	// The current total number of rounds currently carried by this player
-	totalRounds = 10;
+	totalRounds = 2;
 	// The max total number of rounds currently carried by this player
-	maxTotalRounds = 10;
+	maxTotalRounds = 2;
 
 	// The time between shots
-	timeBetweenShots = 0.1667;
+	timeBetweenShots = 1.0;
 	// The elapsed time (between shots)
 	elapsedTime = 0.0;
 	// Boolean flag to indicate if weapon can fire now
@@ -43,13 +43,11 @@ void Bow::Discharge(Vector3 position, Vector3 target, CPlayerInfo* _source)
 		// If there is still ammo in the magazine, then fire
 		if (magRounds > 0)
 		{
-			Vector3 _direction = (target - position).Normalized();
-			// Create an arrow with a arrow mesh. The length is 10.0f, mesh is also set at 10.0f
-			Arrow* sArrow = Create::arrow("laser", position, _direction, 10.0f, 2.0f, 100.0f, _source);
-			sArrow->SetIsLaser(true);
-			sArrow->SetCollider(true);
-			//aLaser->SetCollider(true);
-			//aLaser->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+			// Create a projectile with a cube mesh. Its position and direction is same as the player.
+			// It will last for 3.0 seconds and travel at 500 units per second
+			CProjectile* aProjectile = Create::arrow("arrow", position,	(target - position).Normalized(), 7.0f, 8.0f, _source);
+			aProjectile->SetCollider(true);
+			aProjectile->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 			bFire = false;
 			magRounds--;
 		}

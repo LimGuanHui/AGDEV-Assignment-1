@@ -5,49 +5,29 @@
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
 #include "GL\glew.h"
+#include "../PlayerInfo/PlayerInfo.h"
+#include "MyMath.h"
+#include "../SpatialPartition/SpatialPartition.h"
+#include "../SceneGraph/SceneGraph.h"
 
 #include <iostream>
 using namespace std;
 
-Arrow::Arrow(void) : CProjectile(NULL), m_fLength(0.0), angle_x(0.0), angle_y(0.0), angle_z(0.0)
+#define Y_OFFSET 0.1f
+
+Arrow::Arrow(void) : CProjectile(NULL), m_fGravity(-10.0f), m_fElapsedTime(0.0f), m_pTerrain(NULL)
 {
 }
 
-Arrow::Arrow(Mesh* _modelMesh) : CProjectile(_modelMesh), m_fLength(0.0), angle_x(0.0), angle_y(0.0), angle_z(0.0)
+Arrow::Arrow(Mesh* _modelMesh) : CProjectile(_modelMesh), m_fGravity(-10.0f), m_fElapsedTime(0.0f), m_pTerrain(NULL)
 {
 }
 
 Arrow::~Arrow(void)
 {
+	m_pTerrain = NULL; // Don't delete this as the terrain is deleted in CPlayerInfo
 	modelMesh = NULL;
 	theSource = NULL;
-}
-
-// Set the length of the laser
-void Arrow::SetLength(const float m_fLength)
-{
-	this->m_fLength = m_fLength;
-}
-
-// Get the length of the laser
-float Arrow::GetLength(void) const
-{
-	return m_fLength;
-}
-
-// Update this laser
-void Arrow::CalculateAngles(void)
-{
-	angle_x = acos(theDirection.x / theDirection.Length());
-	if ((theDirection.x < 0) && (theDirection.z > 0))
-		angle_x *= -1.0f;
-	angle_y = acos(theDirection.y / theDirection.Length());
-	angle_z = acos(theDirection.z / theDirection.Length());
-	if ((theDirection.z < 0) && (theDirection.x < 0))
-		angle_z *= -1.0f;
-	if ((theDirection.z > 0) && (theDirection.x < 0))
-		angle_z *= -1.0f;
-
 }
 
 // Update the status of this projectile
@@ -61,48 +41,53 @@ void Arrow::Update(double dt)
 	if (m_fLifetime < 0.0f)
 	{
 		SetStatus(false);
-		SetIsDone(true);	// This method is to inform the EntityManager that it should remove this instance
+		SetIsDone(true);	// This method informs EntityManager to remove this instance
+
+		// Check the SpatialPartition to destroy nearby objects
+		vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position, 1.0f);
+		for (int i = 0; i < ExportList.size(); ++i)
+		{
+			// Remove from Scene Graph
+			if (CSceneGraph::GetInstance()->DeleteNode(ExportList[i]) == true)
+			{
+				cout << "*** This Entity removed ***" << endl;
+			}
+		}
 		return;
 	}
 
-	// Update Position
-	position.Set(position.x + (float)(theDirection.x * dt * m_fSpeed), position.y + (float)(theDirection.y * dt * m_fSpeed), position.z + (float)(theDirection.z * dt * m_fSpeed));
+	// Check if the arrow is already on the ground
+	if (position.y >= m_pTerrain->GetTerrainHeight(position) + Math::EPSILON + Y_OFFSET)
+	{
+		// Update Position
+		m_fElapsedTime += dt;
+
+		position.x += (float)(theDirection.x * m_fElapsedTime * m_fSpeed);
+		position.y += (float)(theDirection.y * m_fElapsedTime * m_fSpeed) + (0.5 * m_fGravity * m_fElapsedTime * m_fElapsedTime);
+		position.z += (float)(theDirection.z * m_fElapsedTime * m_fSpeed);
+
+		if (position.y < m_pTerrain->GetTerrainHeight(position))
+		{
+			position.y = m_pTerrain->GetTerrainHeight(position) + Y_OFFSET;
+			m_fSpeed = 0.0f;
+			return;
+		}
+	}
 }
 
-
-// Render this projectile
-void Arrow::Render(void)
+// Set the terrain for the player info
+void Arrow::SetTerrain(GroundEntity* m_pTerrain)
 {
-	if (m_bStatus == false)
-		return;
-
-	if (m_fLifetime < 0.0f)
-		return;
-
-	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
-	modelStack.PushMatrix();
-	// Reset the model stack
-	modelStack.LoadIdentity();
-	// We introduce a small offset to y position so that we can see the laser beam.
-	modelStack.Translate(position.x, position.y - 0.001f, position.z);
-	//modelStack.Scale(scale.x, scale.y, scale.z);
-	modelStack.PushMatrix();
-	modelStack.Rotate(180 / Math::PI * angle_z, 0.0f, 1.0f, 0.0f);
-	modelStack.PushMatrix();
-	//modelStack.Rotate(180 / Math::PI * angle_x, 1.0f, 0.0f, 0.0f);	// Not needed!
-	modelStack.PushMatrix();
-	modelStack.Rotate(180 / Math::PI * angle_y, 1.0f, 0.0f, 0.0f);
-	glLineWidth(5.0f);
-	RenderHelper::RenderMesh(modelMesh);
-	glLineWidth(1.0f);
-	modelStack.PopMatrix();
-	modelStack.PopMatrix();
-	modelStack.PopMatrix();
-	modelStack.PopMatrix();
+	this->m_pTerrain = m_pTerrain;
 }
 
 // Create a projectile and add it into EntityManager
-Arrow* Create::arrow(const std::string& _meshName, const Vector3& _position, const Vector3& _direction, const float m_fLength, const float m_fLifetime, const float m_fSpeed, CPlayerInfo* _source)
+Arrow* Create::arrow(const std::string& _meshName,
+				     const Vector3& _position, 
+					 const Vector3& _direction, 
+					 const float m_fLifetime, 
+					 const float m_fSpeed, 
+					 CPlayerInfo* _source)
 {
 	Mesh* modelMesh = MeshBuilder::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)
@@ -110,13 +95,10 @@ Arrow* Create::arrow(const std::string& _meshName, const Vector3& _position, con
 
 	Arrow* result = new Arrow(modelMesh);
 	result->Set(_position, _direction, m_fLifetime, m_fSpeed);
-	result->SetLength(m_fLength);
 	result->SetStatus(true);
 	result->SetCollider(true);
 	result->SetSource(_source);
-	EntityManager::GetInstance()->AddEntity(result);
-
-	Vector3 base = Vector3(1.0f, 0.0f, 0.0f);
-	result->CalculateAngles();
+	result->SetTerrain(_source->GetTerrain());
+	EntityManager::GetInstance()->AddEntity(result, true);
 	return result;
 }
