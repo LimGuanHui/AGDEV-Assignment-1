@@ -22,7 +22,7 @@
 #include "SkyBox/SkyBoxEntity.h"
 #include "SceneGraph\SceneGraph.h"
 #include "SpatialPartition\SpatialPartition.h"
-
+#include "SceneEditor.h"
 #include <iostream>
 using namespace std;
 
@@ -181,6 +181,7 @@ void SceneText::Init()
 	aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 	aCube->InitLOD("cube", "sphere", "cubeSG");
 
+
 	// Add the pointer to this new entity to the Scene Graph
 	CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
 	if (theNode == NULL)
@@ -235,6 +236,11 @@ void SceneText::Init()
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
     theEnemy->SetTerrain(groundEntity);
+
+    //SceneEditor
+    SceneEditor::GetInstance()->Init();
+    SceneEditor::GetInstance()->AttachCamera(&camera);
+
 	// Setup the 2D entities
 	halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
 	halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2.0f;

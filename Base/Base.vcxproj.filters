@@ -70,6 +70,9 @@
     <Filter Include="EntityManager">
       <UniqueIdentifier>{8dc551ed-7592-4ef7-8b6f-d8297c2ad33f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneEditor">
+      <UniqueIdentifier>{6b59c071-961d-4637-b8aa-1b071bfc0d90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -159,6 +162,9 @@
     <ClCompile Include="Source\TextEntity.cpp">
       <Filter>TextEntity</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneEditor.cpp">
+      <Filter>SceneEditor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PlayerInfo\PlayerInfo.h">
@@ -244,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="Source\TextEntity.h">
       <Filter>TextEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneEditor.h">
+      <Filter>SceneEditor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

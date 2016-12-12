@@ -62,6 +62,7 @@ void GroundEntity::Render()
     modelStack.Translate(position.x, position.y, position.z);
     modelStack.Scale(scale.x, scale.y, scale.z);
     RenderHelper::RenderMesh(modelMesh[0]);
+	
     modelStack.PopMatrix();
 }
 
