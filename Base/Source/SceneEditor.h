@@ -23,9 +23,10 @@ public:
     void AddPoint(Vector3 point);
     void DeletePoint();
     void DeletePoint(Vector3 point);
-    void ShiftObject();
-
-	bool isPointOnLine(Vector3 Line, Vector3 point);
+    void Shift_Mode();
+    void ModeAction();
+    void CalculatePositionOfPointer(float dist);
+    void SelectObject();
 
     enum Mode
     {
@@ -45,7 +46,9 @@ private:
     Mesh* point_mesh;
     FPSCamera* attachedCamera;
     float inputDelay;
-    
+    Vector3 pointer_position;
+    Vector3 Rotation;
+    EntityBase* selectedEntity;
 };
 
 

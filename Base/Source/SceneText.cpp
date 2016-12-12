@@ -116,6 +116,7 @@ void SceneText::Init()
 	// Create the playerinfo instance, which manages all information about the player
 	playerInfo = CPlayerInfo::GetInstance();
 	playerInfo->Init();
+    
 
 	// Create and attach the camera to the scene
 	//camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
@@ -337,6 +338,9 @@ void SceneText::Update(double dt)
 
 	GraphicsManager::GetInstance()->UpdateLights(dt);
 
+    //SceneEditor update
+    //SceneEditor::GetInstance()->Update();
+
 	// Update the 2 text object values. NOTE: Can do this in their own class but i'm lazy to do it now :P
 	// Eg. FPSRenderEntity or inside RenderUI for LightEntity
 	std::ostringstream ss;
@@ -361,7 +365,8 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->SetPerspectiveProjection(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 	GraphicsManager::GetInstance()->AttachCamera(&camera);
 	EntityManager::GetInstance()->Render();
-	
+    //SceneEditor render
+    //SceneEditor::GetInstance()->Render();
 
 
 	// Setup 2D pipeline then render 2D

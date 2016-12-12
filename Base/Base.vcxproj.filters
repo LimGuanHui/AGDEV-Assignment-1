@@ -70,6 +70,9 @@
     <Filter Include="EntityManager">
       <UniqueIdentifier>{8dc551ed-7592-4ef7-8b6f-d8297c2ad33f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneEditor">
+      <UniqueIdentifier>{0f910eed-cfe2-4f1c-bcec-e6f34721ed8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp">
@@ -165,6 +168,9 @@
     <ClCompile Include="Source\Projectile\Arrow.cpp">
       <Filter>Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SceneEditor.cpp">
+      <Filter>SceneEditor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PlayerInfo\PlayerInfo.h">
@@ -256,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="Source\Projectile\Arrow.h">
       <Filter>Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneEditor.h">
+      <Filter>SceneEditor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
