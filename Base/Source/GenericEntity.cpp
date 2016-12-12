@@ -42,7 +42,6 @@ void GenericEntity::SetAABB(Vector3 maxAABB, Vector3 minAABB)
 }
 
 GenericEntity* Create::Entity(	const std::string& _meshName, 
-								const Vector3& _position,
 								const Vector3& _scale)
 {
 	Mesh* modelMesh = MeshBuilder::GetInstance()->GetMesh(_meshName);
@@ -50,7 +49,6 @@ GenericEntity* Create::Entity(	const std::string& _meshName,
 		return nullptr;
 
 	GenericEntity* result = new GenericEntity(modelMesh);
-	result->SetPosition(_position);
 	result->SetScale(_scale);
 	result->SetCollider(false);
 	EntityManager::GetInstance()->AddEntity(result, true);
@@ -58,7 +56,6 @@ GenericEntity* Create::Entity(	const std::string& _meshName,
 }
 
 GenericEntity* Create::Asset(	const std::string& _meshName,
-								const Vector3& _position,
 								const Vector3& _scale)
 {
 	Mesh* modelMesh = MeshBuilder::GetInstance()->GetMesh(_meshName);
@@ -66,7 +63,6 @@ GenericEntity* Create::Asset(	const std::string& _meshName,
 		return nullptr;
 
 	GenericEntity* result = new GenericEntity(modelMesh);
-	result->SetPosition(_position);
 	result->SetScale(_scale);
 	result->SetCollider(false);
 	return result;

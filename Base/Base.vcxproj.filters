@@ -159,6 +159,12 @@
     <ClCompile Include="Source\TextEntity.cpp">
       <Filter>TextEntity</Filter>
     </ClCompile>
+    <ClCompile Include="Source\WeaponInfo\Bow.cpp">
+      <Filter>WeaponInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Projectile\Arrow.cpp">
+      <Filter>Projectile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PlayerInfo\PlayerInfo.h">
@@ -244,6 +250,12 @@
     </ClInclude>
     <ClInclude Include="Source\TextEntity.h">
       <Filter>TextEntity</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WeaponInfo\Bow.h">
+      <Filter>WeaponInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Projectile\Arrow.h">
+      <Filter>Projectile</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
