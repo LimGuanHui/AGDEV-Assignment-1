@@ -117,4 +117,7 @@ private:
 
 	CWeaponInfo* primaryWeapon;
 	CWeaponInfo* secondaryWeapon;
+
+	// Bow and Arrow
+	float force;
 };

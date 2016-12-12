@@ -164,6 +164,25 @@ void CWeaponInfo::Discharge(Vector3 position, Vector3 target, CPlayerInfo* _sour
 	}
 }
 
+// Bow Discharge
+void CWeaponInfo::Discharge(float force, Vector3 position, Vector3 target, CPlayerInfo* _source)
+{
+	if (bFire)
+	{
+		// If there is still ammo in the magazine, then fire
+		if (magRounds > 0)
+		{
+			// Create a projectile with a cube mesh. Its position and direction is same as the player.
+			// It will last for 3.0 seconds and travel at 500 units per second
+			CProjectile* aProjectile = Create::Projectile("Arrow", position, (target - position).Normalized(), 7.0f, 8.0f * force, _source);
+			aProjectile->SetCollider(true);
+			aProjectile->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+			bFire = false;
+			magRounds--;
+		}
+	}
+}
+
 // Reload this weapon
 void CWeaponInfo::Reload(void)
 {

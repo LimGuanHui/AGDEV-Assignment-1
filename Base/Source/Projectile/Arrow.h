@@ -35,7 +35,12 @@ public:
 
 namespace Create
 {
-	Arrow* arrow(const std::string& _meshName, const Vector3& _position, const Vector3& _direction, const float m_fLifetime, const float m_fSpeed, CPlayerInfo* _source = NULL);
+	Arrow* arrow(const std::string& _meshName, 
+			     const Vector3& _position, 
+				 const Vector3& _direction, 
+				 const float m_fLifetime, 
+				 float m_fSpeed, 
+				 CPlayerInfo* _source = NULL);
 };
 
 #endif
