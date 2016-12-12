@@ -1,17 +1,19 @@
-#include "GrenadeThrow.h"
-#include "../Projectile/Grenade.h"
+#include "Bow.h"
+#include "../Projectile/Arrow.h"
+#include "MeshBuilder.h"
+#include "../EntityManager.h"
 
-CGrenadeThrow::CGrenadeThrow()
+Bow::Bow()
 {
 }
 
 
-CGrenadeThrow::~CGrenadeThrow()
+Bow::~Bow()
 {
 }
 
 // Initialise this instance to default values
-void CGrenadeThrow::Init(void)
+void Bow::Init(void)
 {
 	// Call the parent's Init method
 	CWeaponInfo::Init();
@@ -34,7 +36,7 @@ void CGrenadeThrow::Init(void)
 }
 
 // Discharge this weapon
-void CGrenadeThrow::Discharge(Vector3 position, Vector3 target, CPlayerInfo* _source)
+void Bow::Discharge(Vector3 position, Vector3 target, CPlayerInfo* _source)
 {
 	if (bFire)
 	{
@@ -43,7 +45,7 @@ void CGrenadeThrow::Discharge(Vector3 position, Vector3 target, CPlayerInfo* _so
 		{
 			// Create a projectile with a cube mesh. Its position and direction is same as the player.
 			// It will last for 3.0 seconds and travel at 500 units per second
-			CProjectile* aProjectile = Create::Grenade("sphere", position, (target - position).Normalized(), 7.0f, 8.0f, _source);
+			CProjectile* aProjectile = Create::arrow("arrow", position,	(target - position).Normalized(), 7.0f, 8.0f, _source);
 			aProjectile->SetCollider(true);
 			aProjectile->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 			bFire = false;

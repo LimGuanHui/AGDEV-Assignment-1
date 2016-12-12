@@ -165,6 +165,9 @@
     <ClCompile Include="Source\SceneEditor.cpp">
       <Filter>SceneEditor</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Projectile\Arrow.cpp">
+      <Filter>Projectile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PlayerInfo\PlayerInfo.h">
@@ -253,6 +256,13 @@
     </ClInclude>
     <ClInclude Include="Source\SceneEditor.h">
       <Filter>SceneEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\WeaponInfo\Bow.h">
+      <Filter>WeaponInfo</Filter>
+    </ClInclude>
+    </ClInclude>
+    <ClInclude Include="Source\Projectile\Arrow.h">
+      <Filter>Projectile</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

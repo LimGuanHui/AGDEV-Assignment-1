@@ -1,4 +1,4 @@
-#include "Grenade.h"
+#include "Arrow.h"
 
 #include "MeshBuilder.h"
 #include "../EntityManager.h"
@@ -13,25 +13,17 @@
 #include <iostream>
 using namespace std;
 
-#define Y_OFFSET 0.5f
+#define Y_OFFSET 0.1f
 
-CGrenade::CGrenade(void)
-	: CProjectile(NULL)
-	, m_fGravity(-10.0f)
-	, m_fElapsedTime(0.0f)
-	, m_pTerrain(NULL)
+Arrow::Arrow(void) : CProjectile(NULL), m_fGravity(-10.0f), m_fElapsedTime(0.0f), m_pTerrain(NULL)
 {
 }
 
-CGrenade::CGrenade(Mesh* _modelMesh)
-	: CProjectile(_modelMesh)
-	, m_fGravity(-10.0f)
-	, m_fElapsedTime(0.0f)
-	, m_pTerrain(NULL)
+Arrow::Arrow(Mesh* _modelMesh) : CProjectile(_modelMesh), m_fGravity(-10.0f), m_fElapsedTime(0.0f), m_pTerrain(NULL)
 {
 }
 
-CGrenade::~CGrenade(void)
+Arrow::~Arrow(void)
 {
 	m_pTerrain = NULL; // Don't delete this as the terrain is deleted in CPlayerInfo
 	modelMesh = NULL;
@@ -39,7 +31,7 @@ CGrenade::~CGrenade(void)
 }
 
 // Update the status of this projectile
-void CGrenade::Update(double dt)
+void Arrow::Update(double dt)
 {
 	if (m_bStatus == false)
 		return;
@@ -60,13 +52,11 @@ void CGrenade::Update(double dt)
 			{
 				cout << "*** This Entity removed ***" << endl;
 			}
-
-
 		}
 		return;
 	}
 
-	// Check if the Grenade is already on the ground
+	// Check if the arrow is already on the ground
 	if (position.y >= m_pTerrain->GetTerrainHeight(position) + Math::EPSILON + Y_OFFSET)
 	{
 		// Update Position
@@ -86,24 +76,24 @@ void CGrenade::Update(double dt)
 }
 
 // Set the terrain for the player info
-void CGrenade::SetTerrain(GroundEntity* m_pTerrain)
+void Arrow::SetTerrain(GroundEntity* m_pTerrain)
 {
 	this->m_pTerrain = m_pTerrain;
 }
 
 // Create a projectile and add it into EntityManager
-CGrenade* Create::Grenade(const std::string& _meshName,
-						  const Vector3& _position, 
-						  const Vector3& _direction, 
-						  const float m_fLifetime, 
-						  const float m_fSpeed,
-						  CPlayerInfo* _source)
+Arrow* Create::arrow(const std::string& _meshName,
+				     const Vector3& _position, 
+					 const Vector3& _direction, 
+					 const float m_fLifetime, 
+					 const float m_fSpeed, 
+					 CPlayerInfo* _source)
 {
 	Mesh* modelMesh = MeshBuilder::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)
 		return nullptr;
 
-	CGrenade* result = new CGrenade(modelMesh);
+	Arrow* result = new Arrow(modelMesh);
 	result->Set(_position, _direction, m_fLifetime, m_fSpeed);
 	result->SetStatus(true);
 	result->SetCollider(true);
