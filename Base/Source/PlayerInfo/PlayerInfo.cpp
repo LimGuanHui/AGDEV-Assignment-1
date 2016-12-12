@@ -71,6 +71,9 @@ void CPlayerInfo::Init(void)
 
 	secondaryWeapon = new CGrenadeThrow();
 	secondaryWeapon->Init();
+
+	// Bow and Arrow
+	force = 0;
 }
 
 // Returns true if the player is on ground
@@ -281,6 +284,9 @@ void CPlayerInfo::Update(double dt)
 	double camera_yaw = mouse_diff_x * 0.0174555555555556;		// 3.142 / 180.0
 	double camera_pitch = mouse_diff_y * 0.0174555555555556;	// 3.142 / 180.0
 
+	if (force >= 2)
+		force = 2;
+
 	if (SceneEditor::GetInstance()->ShiftMode == SceneEditor::Mode::Normal)
 	{
 		// Update the position if the WASD buttons were activated
@@ -436,11 +442,23 @@ void CPlayerInfo::Update(double dt)
 			secondaryWeapon->Update(dt);
 
 		// if Mouse Buttons were activated, then act on them
-		if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB))
+		// Rifle
+		/*if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB))
 		{
 			if (primaryWeapon)
 				primaryWeapon->Discharge(position, target, this);
+		}*/
+		// Bow
+		if (MouseController::GetInstance()->IsButtonDown(MouseController::LMB))
+		{
+			force += dt;
 		}
+		else if (MouseController::GetInstance()->IsButtonReleased(MouseController::LMB))
+		{
+			if (primaryWeapon)
+				primaryWeapon->Discharge(force, position, target, this);
+		}
+		// Molotov
 		else if (MouseController::GetInstance()->IsButtonPressed(MouseController::RMB))
 		{
 			if (secondaryWeapon)
