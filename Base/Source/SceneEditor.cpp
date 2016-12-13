@@ -3,6 +3,7 @@
 #include "RenderHelper.h"
 #include "MeshBuilder.h"
 #include "KeyboardController.h"
+#include "MouseController.h"
 #include "./SpatialPartition/SpatialPartition.h"
 #define TIME_BETWEEN_INPUT 0.3f
 #define POINTER_DISTANCE 5.f
@@ -36,6 +37,8 @@ void SceneEditor::Update(double dt)
 {
     if (inputDelay < TIME_BETWEEN_INPUT)
         inputDelay += dt;
+    if (coutDelay < COUT_DELAY)
+        coutDelay += dt;
     if (KeyboardController::GetInstance()->IsKeyDown(VK_TAB)
         && inputDelay > TIME_BETWEEN_INPUT)
     {
@@ -51,6 +54,7 @@ void SceneEditor::Update(double dt)
     }
     Shift_Mode();
     CalculatePositionOfPointer(POINTER_DISTANCE);
+    ModeAction(dt);
 }
 void SceneEditor::Render()
 {
@@ -265,6 +269,8 @@ void SceneEditor::CalculatePositionOfPointer(float dist)
 
 void SceneEditor::SelectObject()
 {
+    if (!MouseController::GetInstance()->IsButtonDown(MouseController::LMB))
+        return;
     vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(pointer_position, POINTER_CHECK_DIST);
 
     selectedEntity = *ExportList.begin();
@@ -301,12 +307,13 @@ void SceneEditor::ModeRender()
     {
         if (coutDelay > COUT_DELAY)
         {
+            coutDelay = 0;
             cout << "X: " << selectedEntity->GetPosition().x
                 << " Y: " << selectedEntity->GetPosition().y
                 << " Z: " << selectedEntity->GetPosition().z
                 << endl;
-        }        
-    }        
+        }
+    }
         break;
     case SceneEditor::Rotate:
         cout << "X: " << Rotation.x
@@ -317,6 +324,7 @@ void SceneEditor::ModeRender()
     case SceneEditor::Scale:
         if (coutDelay > COUT_DELAY)
         {
+            coutDelay = 0;
             cout << "X: " << selectedEntity->GetScale().x
                 << " Y: " << selectedEntity->GetScale().y
                 << " Z: " << selectedEntity->GetScale().z
