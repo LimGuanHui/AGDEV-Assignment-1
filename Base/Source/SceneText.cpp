@@ -339,7 +339,7 @@ void SceneText::Update(double dt)
 	GraphicsManager::GetInstance()->UpdateLights(dt);
 
     //SceneEditor update
-    //SceneEditor::GetInstance()->Update();
+    SceneEditor::GetInstance()->Update();
 
 	// Update the 2 text object values. NOTE: Can do this in their own class but i'm lazy to do it now :P
 	// Eg. FPSRenderEntity or inside RenderUI for LightEntity
@@ -366,7 +366,7 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->AttachCamera(&camera);
 	EntityManager::GetInstance()->Render();
     //SceneEditor render
-    //SceneEditor::GetInstance()->Render();
+    SceneEditor::GetInstance()->Render();
 
 
 	// Setup 2D pipeline then render 2D

@@ -50,6 +50,7 @@ private:
     Vector3 pointer_position;
     Vector3 Rotation;
     EntityBase* selectedEntity;
+    CSceneNode* selectedNode;
     float coutDelay;
 };
 
