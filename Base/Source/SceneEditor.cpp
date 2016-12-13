@@ -181,7 +181,7 @@ void SceneEditor::ModeAction(double dt)
         if (KEY_DOWN_I)
         {
             inputDelay = 0;
-            selectedEntity->SetPosition(Vector3(ENTITY_POS.x + 2.f * dt, ENTITY_POS.y, ENTITY_POS.z));            
+            selectedEntity->SetPosition(Vector3(ENTITY_POS.x + 2.f * dt, ENTITY_POS.y, ENTITY_POS.z));
             //selectedNode->ApplyTranslate(SHIFT_SPEED * dt, 0, 0);
         }
         else if (KEY_DOWN_J)
@@ -223,46 +223,53 @@ void SceneEditor::ModeAction(double dt)
         
         break;
     case SceneEditor::Rotate:
-        // X AXIS-----------------------------------------------------
+#define ENTITY_ROT selectedEntity->GetRotation()
+		// X AXIS-----------------------------------------------------
         if (KEY_DOWN_I)
         {
             inputDelay = 0;
-            selectedNode->ApplyRotate(1.f, 1.f, 0, 0);
-            Rotation.x += 1.f;
+			selectedEntity->SetRotation(Vector3(ENTITY_ROT.x + 2.f * dt, ENTITY_ROT.y, ENTITY_ROT.z));
+			//selectedNode->ApplyRotate(1.f, 1.f, 0, 0);
+            //Rotation.x += 1.f;
         }
         else if (KEY_DOWN_J)
         {
             inputDelay = 0;
-            selectedNode->ApplyRotate(-1.f, 1.f, 0, 0);
-            Rotation.x -= 1.f;
+			selectedEntity->SetRotation(Vector3(ENTITY_ROT.x - 2.f * dt, ENTITY_ROT.y, ENTITY_ROT.z));
+			//selectedNode->ApplyRotate(-1.f, 1.f, 0, 0);
+			//Rotation.x -= 1.f;
         }
         //------------------------------------------------------------
         // Y AXIS-----------------------------------------------------
         if (KEY_DOWN_O)
         {
             inputDelay = 0;
-            selectedNode->ApplyRotate(1.f, 0, 1.f, 0);
-            Rotation.y += 1.f;
+			selectedEntity->SetRotation(Vector3(ENTITY_ROT.x, ENTITY_ROT.y + 2.f * dt, ENTITY_ROT.z));
+			//selectedNode->ApplyRotate(1.f, 0, 1.f, 0);
+			//Rotation.y += 1.f;
         }
         else if (KEY_DOWN_K)
         {
             inputDelay = 0;
-            selectedNode->ApplyRotate(-1.f, 0, 1.f, 0);
-            Rotation.y -= 1.f;
+			selectedEntity->SetRotation(Vector3(ENTITY_ROT.x, ENTITY_ROT.y - 2.f * dt, ENTITY_ROT.z));
+			//selectedNode->ApplyRotate(-1.f, 0, 1.f, 0);
+			//Rotation.y -= 1.f;
         }
         //------------------------------------------------------------
         // Z AXIS-----------------------------------------------------
         if (KEY_DOWN_P)
         {
             inputDelay = 0;
-            selectedNode->ApplyRotate(1.f, 0, 0, 1.f);
-            Rotation.z += 1.f;
+			selectedEntity->SetRotation(Vector3(ENTITY_ROT.x, ENTITY_ROT.y, ENTITY_ROT.z + 2.f * dt));
+			//selectedNode->ApplyRotate(1.f, 0, 0, 1.f);
+			//Rotation.z += 1.f;
         }
         else if (KEY_DOWN_L)
         {
             inputDelay = 0;
-            selectedNode->ApplyRotate(-1.f, 0, 0, 1.f);
-            Rotation.z -= 1.f;
+			selectedEntity->SetRotation(Vector3(ENTITY_ROT.x, ENTITY_ROT.y, ENTITY_ROT.z - 2.f * dt));
+			//selectedNode->ApplyRotate(-1.f, 0, 0, 1.f);
+			//Rotation.z -= 1.f;
         }
         //------------------------------------------------------------
         break;
@@ -370,9 +377,9 @@ void SceneEditor::ModeRender()
             << endl;
         break;
     case SceneEditor::Rotate:
-        cout << "X: " << Rotation.x
-            << " Y: " << Rotation.y
-            << " Z: " << Rotation.z
+		cout << "X: " << selectedEntity->GetRotation().x
+			<< " Y: " << selectedEntity->GetRotation().y
+			<< " Z: " << selectedEntity->GetRotation().z
             << endl;
         break;
     case SceneEditor::Scale:
