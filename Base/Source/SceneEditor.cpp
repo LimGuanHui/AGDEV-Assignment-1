@@ -7,7 +7,7 @@
 #include "./SpatialPartition/SpatialPartition.h"
 
 #define TIME_BETWEEN_INPUT 0.3f
-#define POINTER_DISTANCE 5.f
+#define POINTER_DISTANCE 30.f
 #define POINTER_CHECK_DIST 10.f
 #define COUT_DELAY 2.f
 SceneEditor::SceneEditor()
@@ -26,7 +26,7 @@ SceneEditor::~SceneEditor()
 void SceneEditor::Init()
 {
     point_mesh = MeshBuilder::GetInstance()->GenerateCube("Point", Color(1.0f, 0.0f, 0.0f), 1.0f);
-    MeshBuilder::GetInstance()->GenerateCube("Pointer", Color(0.0f, 0.0f, 1.0f), 1.0f);
+    MeshBuilder::GetInstance()->GenerateCube("Pointer", Color(1.0f, 1.0f, 1.0f), 1.0f);
     inputDelay = 0;
     ShiftMode = Mode::Normal;
     pointer_position = Vector3(0, 0, 0);
@@ -55,13 +55,23 @@ void SceneEditor::Update(double dt)
         DeletePoint();
     }
     Shift_Mode();
+    SelectObject();
     CalculatePositionOfPointer(POINTER_DISTANCE);
     ModeAction(dt);
 }
 void SceneEditor::Render()
 {
     MS& ms = GraphicsManager::GetInstance()->GetModelStack();
-    
+    //Render pointer
+    ms.PushMatrix();
+    ms.Translate(pointer_position.x, pointer_position.y, pointer_position.z);
+    if (coutDelay > COUT_DELAY)
+    {
+        coutDelay = 0;
+        cout << pointer_position << endl;
+    }        
+    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pointer"));
+    ms.PopMatrix();
     vector<Vector3>::iterator it;
     for (it = ListOfPoints.begin(); it != ListOfPoints.end(); it++)
     {
@@ -73,15 +83,11 @@ void SceneEditor::Render()
         text += to_string((*it).y);
         text += +", ";
         text += to_string((*it).z);
-        ms.Translate((*it).x, (*it).y + 5.0f, (*it).z);
+        ms.Translate((*it).x, (*it).y + 3.0f, (*it).z);
         RenderHelper::RenderText(MeshBuilder::GetInstance()->GetMesh("text"), text, Color(1.f, 1.f, 1.f));
         ms.PopMatrix();
     }
-    //Render pointer
-    ms.PushMatrix();
-    ms.Translate(pointer_position.x, pointer_position.y, pointer_position.z);
-    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pointer"));
-    ms.PopMatrix();
+    
 }
 
 void SceneEditor::AddPoint(Vector3 point)
@@ -309,7 +315,7 @@ void SceneEditor::ModeAction(double dt)
 
 void SceneEditor::CalculatePositionOfPointer(float dist)
 {
-    pointer_position = attachedCamera->GetCameraPos() + (attachedCamera->GetCameraTarget() * dist);
+    pointer_position = attachedCamera->GetCameraPos() + ((attachedCamera->GetCameraTarget() - attachedCamera->GetCameraPos()).Normalized() * dist);
 }
 
 void SceneEditor::SelectObject()
