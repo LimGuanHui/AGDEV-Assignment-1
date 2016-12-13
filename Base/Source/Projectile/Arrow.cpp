@@ -81,13 +81,21 @@ void Arrow::SetTerrain(GroundEntity* m_pTerrain)
 	this->m_pTerrain = m_pTerrain;
 }
 
+void Arrow::AttachCamera(FPSCamera* _cameraPtr)
+{
+    camera = _cameraPtr;
+}
+
+
+
 // Create a projectile and add it into EntityManager
 Arrow* Create::arrow(const std::string& _meshName,
 				     const Vector3& _position, 
 					 const Vector3& _direction, 
 					 const float m_fLifetime, 
 					 float m_fSpeed, 
-					 CPlayerInfo* _source)
+                     FPSCamera* _cameraPtr,
+                     CPlayerInfo* _source = NULL)
 {
 	Mesh* modelMesh = MeshBuilder::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)
@@ -99,6 +107,7 @@ Arrow* Create::arrow(const std::string& _meshName,
 	result->SetCollider(true);
 	result->SetSource(_source);
 	result->SetTerrain(_source->GetTerrain());
+    result->AttachCamera(_cameraPtr);
 	EntityManager::GetInstance()->AddEntity(result, true);
 	return result;
 }
