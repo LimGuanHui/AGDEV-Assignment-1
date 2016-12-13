@@ -5,7 +5,7 @@
 #include "KeyboardController.h"
 #include "MouseController.h"
 #include "./SpatialPartition/SpatialPartition.h"
-#include "SceneGraph\SceneGraph.h"
+
 #define TIME_BETWEEN_INPUT 0.3f
 #define POINTER_DISTANCE 5.f
 #define POINTER_CHECK_DIST 10.f

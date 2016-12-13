@@ -6,7 +6,7 @@
 #include <vector>
 #include "FPSCamera.h"
 #include "EntityBase.h"
-
+#include "SceneGraph\SceneGraph.h"
 class Mesh;
 
 using namespace std;

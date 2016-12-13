@@ -2,3 +2,6 @@ Common/Debug/
 Base/Debug/
 *.sdf
 NYP_Framework.opensdf
+Base/Release/
+Common/Release/Common.tlog/CL.read.1.tlog
+Common/Release/

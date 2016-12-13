@@ -183,7 +183,7 @@ void SceneText::MeshInit()
 	MeshBuilder::GetInstance()->GetMesh("Well_Handle")->textureID = LoadTGA("Image//Well//Well_Lever.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Rope_Coil", "OBJ//Well//Rope_Coil.obj");
 	MeshBuilder::GetInstance()->GetMesh("Rope_Coil")->textureID = LoadTGA("Image//Well//Rope.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Rope_Hang", "OBJ//Well//Rope_Hand.obj");
+	MeshBuilder::GetInstance()->GenerateOBJ("Rope_Hang", "OBJ//Well//Rope_Hang.obj");
 	MeshBuilder::GetInstance()->GetMesh("Rope_Hang")->textureID = LoadTGA("Image//Well//Rope.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Bucket_Empty", "OBJ//Well//Bucket_Empty.obj");
 	MeshBuilder::GetInstance()->GetMesh("Bucket_Empty")->textureID = LoadTGA("Image//Well//Bucket_Empty.tga");
@@ -268,11 +268,11 @@ void SceneText::EntityInit()
 	rotateGChild->SetSteps(0, 360);
 	grandchildNode->SetUpdateTransformation(rotateGChild);
 
-	GenericEntity* Fence = Create::Entity("Fence_High", Vector3(0.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
-	//GenericEntity* Fence = Create::Asset("Fence_High");
+	//GenericEntity* Fence = Create::Entity("Fence_High", Vector3(0.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
+	////GenericEntity* Fence = Create::Asset("Fence_High");
 	//CSceneNode* FenceNode = CSceneGraph::GetInstance()->AddNode(Fence);
-	Fence->SetCollider(true);
-	Fence->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	//Fence->SetCollider(true);
+	//Fence->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 	//FenceNode->ApplyTranslate(0, 0, 15);
 	//Fence->InitLOD("Fence_High", "Fence_Medium", "Fence_Low");
 
