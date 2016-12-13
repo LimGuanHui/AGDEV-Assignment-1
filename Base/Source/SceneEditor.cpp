@@ -8,8 +8,8 @@
 
 #define TIME_BETWEEN_INPUT 0.3f
 #define POINTER_DISTANCE 30.f
-#define POINTER_CHECK_DIST 10.f
-#define COUT_DELAY 2.f
+#define POINTER_CHECK_DIST 40.f
+#define COUT_DELAY 3.f
 SceneEditor::SceneEditor()
 {
 }
@@ -64,14 +64,10 @@ void SceneEditor::Render()
     MS& ms = GraphicsManager::GetInstance()->GetModelStack();
     //Render pointer
     ms.PushMatrix();
-    ms.Translate(pointer_position.x, pointer_position.y, pointer_position.z);
-    if (coutDelay > COUT_DELAY)
-    {
-        coutDelay = 0;
-        cout << pointer_position << endl;
-    }        
+    ms.Translate(pointer_position.x, pointer_position.y, pointer_position.z); 
     RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pointer"));
     ms.PopMatrix();
+    ModeRender();
     vector<Vector3>::iterator it;
     for (it = ListOfPoints.begin(); it != ListOfPoints.end(); it++)
     {
@@ -155,6 +151,7 @@ void SceneEditor::Shift_Mode()
 
 void SceneEditor::ModeAction(double dt)
 {
+    dt = 1;
 #define SHIFT_SPEED 2.f
 #define QUICK_INPUT_DELAY 0.15f
 #define KEY_DOWN_I KeyboardController::GetInstance()->IsKeyDown('I') && inputDelay > QUICK_INPUT_DELAY
@@ -184,41 +181,42 @@ void SceneEditor::ModeAction(double dt)
         if (KEY_DOWN_I)
         {
             inputDelay = 0;
-            //selectedEntity->SetPosition(Vector3(ENTITY_POS.x + 2.f * dt, ENTITY_POS.y, ENTITY_POS.z));            
-            selectedNode->ApplyTranslate(SHIFT_SPEED * dt, 0, 0);
+            selectedEntity->SetPosition(Vector3(ENTITY_POS.x + 2.f * dt, ENTITY_POS.y, ENTITY_POS.z));            
+            //selectedNode->ApplyTranslate(SHIFT_SPEED * dt, 0, 0);
         }
         else if (KEY_DOWN_J)
         {
             inputDelay = 0;
-            selectedNode->ApplyTranslate(-SHIFT_SPEED * dt, 0, 0);
+            selectedEntity->SetPosition(Vector3(ENTITY_POS.x - 2.f * dt, ENTITY_POS.y, ENTITY_POS.z));
+            //selectedNode->ApplyTranslate(-SHIFT_SPEED * dt, 0, 0);
         }
         //------------------------------------------------------------
         // Y AXIS-----------------------------------------------------
         if (KEY_DOWN_O)
         {
             inputDelay = 0;
-            //selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y + SHIFT_SPEED * dt, ENTITY_POS.z));
-            selectedNode->ApplyTranslate(0, SHIFT_SPEED * dt, 0);
+            selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y + SHIFT_SPEED * dt, ENTITY_POS.z));
+            //selectedNode->ApplyTranslate(0, SHIFT_SPEED * dt, 0);
         }
         else if (KEY_DOWN_K)
         {
             inputDelay = 0;
-            //selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y - SHIFT_SPEED * dt, ENTITY_POS.z));
-            selectedNode->ApplyTranslate(0, -SHIFT_SPEED * dt, 0);
+            selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y - SHIFT_SPEED * dt, ENTITY_POS.z));
+            //selectedNode->ApplyTranslate(0, -SHIFT_SPEED * dt, 0);
         }
         //------------------------------------------------------------
         // Z AXIS-----------------------------------------------------
         if (KEY_DOWN_P)
         {
             inputDelay = 0;
-            //selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y, ENTITY_POS.z + SHIFT_SPEED * dt));
-            selectedNode->ApplyTranslate(0, 0, SHIFT_SPEED * dt);
+            selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y, ENTITY_POS.z + SHIFT_SPEED * dt));
+            //selectedNode->ApplyTranslate(0, 0, SHIFT_SPEED * dt);
         }
         else if (KEY_DOWN_L)
         {
             inputDelay = 0;
-            //selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y, ENTITY_POS.z - SHIFT_SPEED * dt));
-            selectedNode->ApplyTranslate(0, 0, -SHIFT_SPEED * dt);
+            selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y, ENTITY_POS.z - SHIFT_SPEED * dt));
+            //selectedNode->ApplyTranslate(0, 0, -SHIFT_SPEED * dt);
         }
         //------------------------------------------------------------
     }
@@ -323,10 +321,12 @@ void SceneEditor::SelectObject()
     if (!KeyboardController::GetInstance()->IsKeyDown('G'))
         return;
     vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(pointer_position, POINTER_CHECK_DIST);
-
+    if (ExportList.size() == 0)
+        return;
     selectedEntity = *ExportList.begin();
     Vector3 dist_from_pointer_to_obj = (pointer_position - selectedEntity->GetPosition()).LengthSquared();
-
+    if (ExportList.size() == 1)
+        return;
     vector<EntityBase*>::iterator it;
     for (it = ++ExportList.begin(); it != ExportList.end(); ++it)
     {
@@ -347,6 +347,14 @@ void SceneEditor::ClearSelectedObject()
 
 void SceneEditor::ModeRender()
 {
+    if (coutDelay > COUT_DELAY)
+    {
+        coutDelay = 0;
+    }
+    else
+        return;
+    if (selectedEntity == NULL)
+        return;
     MS& ms = GraphicsManager::GetInstance()->GetModelStack();
     ms.PushMatrix();
     switch (ShiftMode)
@@ -356,16 +364,10 @@ void SceneEditor::ModeRender()
     case SceneEditor::FreeCam:
         break;
     case SceneEditor::Translate:
-    {
-        if (coutDelay > COUT_DELAY)
-        {
-            coutDelay = 0;
-            cout << "X: " << selectedEntity->GetPosition().x
-                << " Y: " << selectedEntity->GetPosition().y
-                << " Z: " << selectedEntity->GetPosition().z
-                << endl;
-        }
-    }
+        cout << "X: " << selectedEntity->GetPosition().x
+            << " Y: " << selectedEntity->GetPosition().y
+            << " Z: " << selectedEntity->GetPosition().z
+            << endl;
         break;
     case SceneEditor::Rotate:
         cout << "X: " << Rotation.x
