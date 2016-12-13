@@ -287,102 +287,101 @@ void CPlayerInfo::Update(double dt)
 	if (force >= 2)
 		force = 2;
 
-	if (SceneEditor::GetInstance()->ShiftMode == SceneEditor::Mode::Normal)
-	{
-		// Update the position if the WASD buttons were activated
-		if (KeyboardController::GetInstance()->IsKeyDown('W') ||
-			KeyboardController::GetInstance()->IsKeyDown('A') ||
-			KeyboardController::GetInstance()->IsKeyDown('S') ||
-			KeyboardController::GetInstance()->IsKeyDown('D'))
-		{
-			Vector3 viewVector = target - position;
-			Vector3 rightUV;
-			if (KeyboardController::GetInstance()->IsKeyDown('W'))
-			{
-				position += viewVector.Normalized() * (float)m_dSpeed * (float)dt;
-			}
-			else if (KeyboardController::GetInstance()->IsKeyDown('S'))
-			{
-				position -= viewVector.Normalized() * (float)m_dSpeed * (float)dt;
-			}
-			if (KeyboardController::GetInstance()->IsKeyDown('A'))
-			{
-				rightUV = (viewVector.Normalized()).Cross(up);
-				rightUV.y = 0;
-				rightUV.Normalize();
-				position -= rightUV * (float)m_dSpeed * (float)dt;
-			}
-			else if (KeyboardController::GetInstance()->IsKeyDown('D'))
-			{
-				rightUV = (viewVector.Normalized()).Cross(up);
-				rightUV.y = 0;
-				rightUV.Normalize();
-				position += rightUV * (float)m_dSpeed * (float)dt;
-			}
-			// Constrain the position
-			Constrain(dt);
-			// Update the target
-			target = position + viewVector;
-		}
 
-		// Rotate the view direction
-		if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT) ||
-			KeyboardController::GetInstance()->IsKeyDown(VK_RIGHT) ||
-			KeyboardController::GetInstance()->IsKeyDown(VK_UP) ||
-			KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
+	// Update the position if the WASD buttons were activated
+	if (KeyboardController::GetInstance()->IsKeyDown('W') ||
+		KeyboardController::GetInstance()->IsKeyDown('A') ||
+		KeyboardController::GetInstance()->IsKeyDown('S') ||
+		KeyboardController::GetInstance()->IsKeyDown('D'))
+	{
+		Vector3 viewVector = target - position;
+		Vector3 rightUV;
+		if (KeyboardController::GetInstance()->IsKeyDown('W'))
 		{
-			Vector3 viewUV = (target - position).Normalized();
-			Vector3 rightUV;
-			if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT))
-			{
-				float yaw = (float)m_dSpeed * (float)dt;
-				Mtx44 rotation;
-				rotation.SetToRotation(yaw, 0, 1, 0);
-				viewUV = rotation * viewUV;
-				target = position + viewUV;
-				rightUV = viewUV.Cross(up);
-				rightUV.y = 0;
-				rightUV.Normalize();
-				up = rightUV.Cross(viewUV).Normalized();
-			}
-			else if (KeyboardController::GetInstance()->IsKeyDown(VK_RIGHT))
-			{
-				float yaw = (float)(-m_dSpeed * (float)dt);
-				Mtx44 rotation;
-				rotation.SetToRotation(yaw, 0, 1, 0);
-				viewUV = rotation * viewUV;
-				target = position + viewUV;
-				rightUV = viewUV.Cross(up);
-				rightUV.y = 0;
-				rightUV.Normalize();
-				up = rightUV.Cross(viewUV).Normalized();
-			}
-			if (KeyboardController::GetInstance()->IsKeyDown(VK_UP))
-			{
-				float pitch = (float)(m_dSpeed * (float)dt);
-				rightUV = viewUV.Cross(up);
-				rightUV.y = 0;
-				rightUV.Normalize();
-				up = rightUV.Cross(viewUV).Normalized();
-				Mtx44 rotation;
-				rotation.SetToRotation(pitch, rightUV.x, rightUV.y, rightUV.z);
-				viewUV = rotation * viewUV;
-				target = position + viewUV;
-			}
-			else if (KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
-			{
-				float pitch = (float)(-m_dSpeed * (float)dt);
-				rightUV = viewUV.Cross(up);
-				rightUV.y = 0;
-				rightUV.Normalize();
-				up = rightUV.Cross(viewUV).Normalized();
-				Mtx44 rotation;
-				rotation.SetToRotation(pitch, rightUV.x, rightUV.y, rightUV.z);
-				viewUV = rotation * viewUV;
-				target = position + viewUV;
-			}
+			position += viewVector.Normalized() * (float)m_dSpeed * (float)dt;
+		}
+		else if (KeyboardController::GetInstance()->IsKeyDown('S'))
+		{
+			position -= viewVector.Normalized() * (float)m_dSpeed * (float)dt;
+		}
+		if (KeyboardController::GetInstance()->IsKeyDown('A'))
+		{
+			rightUV = (viewVector.Normalized()).Cross(up);
+			rightUV.y = 0;
+			rightUV.Normalize();
+			position -= rightUV * (float)m_dSpeed * (float)dt;
+		}
+		else if (KeyboardController::GetInstance()->IsKeyDown('D'))
+		{
+			rightUV = (viewVector.Normalized()).Cross(up);
+			rightUV.y = 0;
+			rightUV.Normalize();
+			position += rightUV * (float)m_dSpeed * (float)dt;
+		}
+		// Constrain the position
+		Constrain(dt);
+		// Update the target
+		target = position + viewVector;
+	}
+
+	// Rotate the view direction
+	if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT) ||
+		KeyboardController::GetInstance()->IsKeyDown(VK_RIGHT) ||
+		KeyboardController::GetInstance()->IsKeyDown(VK_UP) ||
+		KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
+	{
+		Vector3 viewUV = (target - position).Normalized();
+		Vector3 rightUV;
+		if (KeyboardController::GetInstance()->IsKeyDown(VK_LEFT))
+		{
+			float yaw = (float)m_dSpeed * (float)dt;
+			Mtx44 rotation;
+			rotation.SetToRotation(yaw, 0, 1, 0);
+			viewUV = rotation * viewUV;
+			target = position + viewUV;
+			rightUV = viewUV.Cross(up);
+			rightUV.y = 0;
+			rightUV.Normalize();
+			up = rightUV.Cross(viewUV).Normalized();
+		}
+		else if (KeyboardController::GetInstance()->IsKeyDown(VK_RIGHT))
+		{
+			float yaw = (float)(-m_dSpeed * (float)dt);
+			Mtx44 rotation;
+			rotation.SetToRotation(yaw, 0, 1, 0);
+			viewUV = rotation * viewUV;
+			target = position + viewUV;
+			rightUV = viewUV.Cross(up);
+			rightUV.y = 0;
+			rightUV.Normalize();
+			up = rightUV.Cross(viewUV).Normalized();
+		}
+		if (KeyboardController::GetInstance()->IsKeyDown(VK_UP))
+		{
+			float pitch = (float)(m_dSpeed * (float)dt);
+			rightUV = viewUV.Cross(up);
+			rightUV.y = 0;
+			rightUV.Normalize();
+			up = rightUV.Cross(viewUV).Normalized();
+			Mtx44 rotation;
+			rotation.SetToRotation(pitch, rightUV.x, rightUV.y, rightUV.z);
+			viewUV = rotation * viewUV;
+			target = position + viewUV;
+		}
+		else if (KeyboardController::GetInstance()->IsKeyDown(VK_DOWN))
+		{
+			float pitch = (float)(-m_dSpeed * (float)dt);
+			rightUV = viewUV.Cross(up);
+			rightUV.y = 0;
+			rightUV.Normalize();
+			up = rightUV.Cross(viewUV).Normalized();
+			Mtx44 rotation;
+			rotation.SetToRotation(pitch, rightUV.x, rightUV.y, rightUV.z);
+			viewUV = rotation * viewUV;
+			target = position + viewUV;
 		}
 	}
+	
 	
 
 	//Update the camera direction based on mouse move

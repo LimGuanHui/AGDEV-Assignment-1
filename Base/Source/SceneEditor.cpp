@@ -5,6 +5,7 @@
 #include "KeyboardController.h"
 #include "MouseController.h"
 #include "./SpatialPartition/SpatialPartition.h"
+
 #define TIME_BETWEEN_INPUT 0.3f
 #define POINTER_DISTANCE 5.f
 #define POINTER_CHECK_DIST 10.f
@@ -31,6 +32,7 @@ void SceneEditor::Init()
     pointer_position = Vector3(0, 0, 0);
     Rotation = Vector3(0, 0, 0);
     selectedEntity = NULL;
+    selectedNode = NULL;
     coutDelay = 0;
 }
 void SceneEditor::Update(double dt)
@@ -147,6 +149,14 @@ void SceneEditor::Shift_Mode()
 
 void SceneEditor::ModeAction(double dt)
 {
+#define SHIFT_SPEED 2.f
+#define QUICK_INPUT_DELAY 0.15f
+#define KEY_DOWN_I KeyboardController::GetInstance()->IsKeyDown('I') && inputDelay > QUICK_INPUT_DELAY
+#define KEY_DOWN_J KeyboardController::GetInstance()->IsKeyDown('J') && inputDelay > QUICK_INPUT_DELAY
+#define KEY_DOWN_O KeyboardController::GetInstance()->IsKeyDown('O') && inputDelay > QUICK_INPUT_DELAY
+#define KEY_DOWN_K KeyboardController::GetInstance()->IsKeyDown('K') && inputDelay > QUICK_INPUT_DELAY
+#define KEY_DOWN_P KeyboardController::GetInstance()->IsKeyDown('P') && inputDelay > QUICK_INPUT_DELAY
+#define KEY_DOWN_L KeyboardController::GetInstance()->IsKeyDown('L') && inputDelay > QUICK_INPUT_DELAY
     if (selectedEntity == NULL)
         return;
     if (KeyboardController::GetInstance()->IsKeyDown('Q')
@@ -163,97 +173,132 @@ void SceneEditor::ModeAction(double dt)
         break;
     case SceneEditor::Translate:
         // X AXIS-----------------------------------------------------
-        if (KeyboardController::GetInstance()->IsKeyDown('I'))
+#define ENTITY_POS selectedEntity->GetPosition()
+    {                                   
+        if (KEY_DOWN_I)
         {
-
-        }        
-        if (KeyboardController::GetInstance()->IsKeyDown('J'))
+            inputDelay = 0;
+            //selectedEntity->SetPosition(Vector3(ENTITY_POS.x + 2.f * dt, ENTITY_POS.y, ENTITY_POS.z));            
+            selectedNode->ApplyTranslate(SHIFT_SPEED * dt, 0, 0);
+        }
+        else if (KEY_DOWN_J)
         {
-
+            inputDelay = 0;
+            selectedNode->ApplyTranslate(-SHIFT_SPEED * dt, 0, 0);
         }
         //------------------------------------------------------------
         // Y AXIS-----------------------------------------------------
-        if (KeyboardController::GetInstance()->IsKeyDown('O'))
+        if (KEY_DOWN_O)
         {
-
+            inputDelay = 0;
+            //selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y + SHIFT_SPEED * dt, ENTITY_POS.z));
+            selectedNode->ApplyTranslate(0, SHIFT_SPEED * dt, 0);
         }
-        if (KeyboardController::GetInstance()->IsKeyDown('K'))
+        else if (KEY_DOWN_K)
         {
-
+            inputDelay = 0;
+            //selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y - SHIFT_SPEED * dt, ENTITY_POS.z));
+            selectedNode->ApplyTranslate(0, -SHIFT_SPEED * dt, 0);
         }
         //------------------------------------------------------------
         // Z AXIS-----------------------------------------------------
-        if (KeyboardController::GetInstance()->IsKeyDown('P'))
+        if (KEY_DOWN_P)
         {
-
+            inputDelay = 0;
+            //selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y, ENTITY_POS.z + SHIFT_SPEED * dt));
+            selectedNode->ApplyTranslate(0, 0, SHIFT_SPEED * dt);
         }
-        if (KeyboardController::GetInstance()->IsKeyDown('L'))
+        else if (KEY_DOWN_L)
         {
-
+            inputDelay = 0;
+            //selectedEntity->SetPosition(Vector3(ENTITY_POS.x, ENTITY_POS.y, ENTITY_POS.z - SHIFT_SPEED * dt));
+            selectedNode->ApplyTranslate(0, 0, -SHIFT_SPEED * dt);
         }
         //------------------------------------------------------------
+    }
+        
         break;
     case SceneEditor::Rotate:
         // X AXIS-----------------------------------------------------
-        if (KeyboardController::GetInstance()->IsKeyDown('I'))
+        if (KEY_DOWN_I)
         {
-
+            inputDelay = 0;
+            selectedNode->ApplyRotate(1.f, 1.f, 0, 0);
+            Rotation.x += 1.f;
         }
-        if (KeyboardController::GetInstance()->IsKeyDown('J'))
+        else if (KEY_DOWN_J)
         {
-
+            inputDelay = 0;
+            selectedNode->ApplyRotate(-1.f, 1.f, 0, 0);
+            Rotation.x -= 1.f;
         }
         //------------------------------------------------------------
         // Y AXIS-----------------------------------------------------
-        if (KeyboardController::GetInstance()->IsKeyDown('O'))
+        if (KEY_DOWN_O)
         {
-
+            inputDelay = 0;
+            selectedNode->ApplyRotate(1.f, 0, 1.f, 0);
+            Rotation.y += 1.f;
         }
-        if (KeyboardController::GetInstance()->IsKeyDown('K'))
+        else if (KEY_DOWN_K)
         {
-
+            inputDelay = 0;
+            selectedNode->ApplyRotate(-1.f, 0, 1.f, 0);
+            Rotation.y -= 1.f;
         }
         //------------------------------------------------------------
         // Z AXIS-----------------------------------------------------
-        if (KeyboardController::GetInstance()->IsKeyDown('P'))
+        if (KEY_DOWN_P)
         {
-
+            inputDelay = 0;
+            selectedNode->ApplyRotate(1.f, 0, 0, 1.f);
+            Rotation.z += 1.f;
         }
-        if (KeyboardController::GetInstance()->IsKeyDown('L'))
+        else if (KEY_DOWN_L)
         {
-
+            inputDelay = 0;
+            selectedNode->ApplyRotate(-1.f, 0, 0, 1.f);
+            Rotation.z -= 1.f;
         }
         //------------------------------------------------------------
         break;
     case SceneEditor::Scale:
         // X AXIS-----------------------------------------------------
-        if (KeyboardController::GetInstance()->IsKeyDown('I'))
+#define ENTITY_SCALE selectedEntity->GetScale()
+#define SCALE_INCREASE 1.f
+        if (KEY_DOWN_I)
         {
-
+            inputDelay = 0;
+            selectedEntity->SetScale(Vector3(ENTITY_SCALE.x + SCALE_INCREASE, ENTITY_SCALE.y, ENTITY_SCALE.z));
         }
-        if (KeyboardController::GetInstance()->IsKeyDown('J'))
+        else if (KEY_DOWN_J)
         {
-
+            inputDelay = 0;
+            selectedEntity->SetScale(Vector3(ENTITY_SCALE.x - SCALE_INCREASE, ENTITY_SCALE.y, ENTITY_SCALE.z));
         }
         //------------------------------------------------------------
         // Y AXIS-----------------------------------------------------
-        if (KeyboardController::GetInstance()->IsKeyDown('O'))
+        if (KEY_DOWN_O)
         {
-
+            inputDelay = 0;
+            selectedEntity->SetScale(Vector3(ENTITY_SCALE.x, ENTITY_SCALE.y + SCALE_INCREASE, ENTITY_SCALE.z));
         }
-        if (KeyboardController::GetInstance()->IsKeyDown('K'))
+        else if (KEY_DOWN_K)
         {
-
+            inputDelay = 0;
+            selectedEntity->SetScale(Vector3(ENTITY_SCALE.x, ENTITY_SCALE.y - SCALE_INCREASE, ENTITY_SCALE.z));
         }
         //------------------------------------------------------------
         // Z AXIS-----------------------------------------------------
-        if (KeyboardController::GetInstance()->IsKeyDown('P'))
+        if (KEY_DOWN_P)
         {
-
+            inputDelay = 0;
+            selectedEntity->SetScale(Vector3(ENTITY_SCALE.x, ENTITY_SCALE.y, ENTITY_SCALE.z + SCALE_INCREASE));
         }
-        if (KeyboardController::GetInstance()->IsKeyDown('L'))
+        else if (KEY_DOWN_L)
         {
-
+            inputDelay = 0;
+            selectedEntity->SetScale(Vector3(ENTITY_SCALE.x, ENTITY_SCALE.y, ENTITY_SCALE.z - SCALE_INCREASE));
         }
         //------------------------------------------------------------
         break;
@@ -269,7 +314,7 @@ void SceneEditor::CalculatePositionOfPointer(float dist)
 
 void SceneEditor::SelectObject()
 {
-    if (!MouseController::GetInstance()->IsButtonDown(MouseController::LMB))
+    if (!KeyboardController::GetInstance()->IsKeyDown('G'))
         return;
     vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(pointer_position, POINTER_CHECK_DIST);
 
@@ -284,6 +329,7 @@ void SceneEditor::SelectObject()
         {
             dist_from_pointer_to_obj = temp;
             selectedEntity = (*it);
+            selectedNode = CSceneGraph::GetInstance()->theRoot->GetEntity(selectedEntity);
         }
     }
 }

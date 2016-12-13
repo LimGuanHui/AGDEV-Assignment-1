@@ -6,7 +6,7 @@
 #include <vector>
 #include "FPSCamera.h"
 #include "EntityBase.h"
-
+#include "SceneGraph\SceneGraph.h"
 class Mesh;
 
 using namespace std;
@@ -50,6 +50,7 @@ private:
     Vector3 pointer_position;
     Vector3 Rotation;
     EntityBase* selectedEntity;
+    CSceneNode* selectedNode;
     float coutDelay;
 };
 
