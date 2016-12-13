@@ -43,10 +43,10 @@ SceneText::~SceneText()
 	CSceneGraph::GetInstance()->Destroy();
 }
 
-void SceneText::Init()
+void SceneText::ShaderInit()
 {
 	currProg = GraphicsManager::GetInstance()->LoadShader("default", "Shader//Texture.vertexshader", "Shader//Texture.fragmentshader");
-	
+
 	// Tell the shader program to store these uniform locations
 	currProg->AddUniform("MVP");
 	currProg->AddUniform("MV");
@@ -83,10 +83,15 @@ void SceneText::Init()
 	currProg->AddUniform("colorTexture");
 	currProg->AddUniform("textEnabled");
 	currProg->AddUniform("textColor");
-	
+
 	// Tell the graphics manager to use the shader we just loaded
 	GraphicsManager::GetInstance()->SetActiveShader("default");
 
+
+}
+
+void SceneText::LightInit()
+{
 	lights[0] = new Light();
 	GraphicsManager::GetInstance()->AddLight("lights[0]", lights[0]);
 	lights[0]->type = Light::LIGHT_DIRECTIONAL;
@@ -112,18 +117,10 @@ void SceneText::Init()
 
 	currProg->UpdateInt("numLights", 1);
 	currProg->UpdateInt("textEnabled", 0);
-	
-	// Create the playerinfo instance, which manages all information about the player
-	playerInfo = CPlayerInfo::GetInstance();
-	playerInfo->Init();
-    
+}
 
-	// Create and attach the camera to the scene
-	//camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
-    camera.Init(playerInfo->GetPos(), playerInfo->GetTarget(), playerInfo->GetUp(), Vector3(Application::GetInstance().GetWindowWidth() / 2, Application::GetInstance().GetWindowHeight() / 2, 0));
-	playerInfo->AttachCamera(&camera);
-	GraphicsManager::GetInstance()->AttachCamera(&camera);
-
+void SceneText::MeshInit()
+{
 	// Load all the meshes
 	MeshBuilder::GetInstance()->GenerateAxes("reference");
 	MeshBuilder::GetInstance()->GenerateCrossHair("crosshair");
@@ -154,25 +151,75 @@ void SceneText::Init()
 	MeshBuilder::GetInstance()->GetMesh("SKYBOX_BOTTOM")->textureID = LoadTGA("Image//SkyBox//skybox_bottom.tga");
 	MeshBuilder::GetInstance()->GenerateRay("laser", 10.0f);
 	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESH", Color(1, 1, 1), 10.f);
+
+	// Bow and Arrow
 	MeshBuilder::GetInstance()->GenerateOBJ("Arrow", "OBJ//Arrow.obj");
 	//MeshBuilder::GetInstance()->GetMesh("Arrow")->textureID = LoadTGA("Image//Arrow.tga");
 
-    //terrain
-    MeshBuilder::GetInstance()->GenerateTerrain("TEST_TERRAIN", "Image//Terrain.raw", m_heightMap);
-    MeshBuilder::GetInstance()->GetMesh("TEST_TERRAIN")->textureID = LoadTGA("Image//moss1.tga");
+	// Rifle
+	MeshBuilder::GetInstance()->GenerateOBJ("Rifle", "OBJ//Rifle.obj");
+	MeshBuilder::GetInstance()->GetMesh("Rifle")->textureID = LoadTGA("Image//Rifle.tga");
+	
+	// Fence
+	MeshBuilder::GetInstance()->GenerateOBJ("Fence_High", "OBJ//Fence_High.obj");
+	MeshBuilder::GetInstance()->GetMesh("Fence_High")->textureID = LoadTGA("Image//Fence.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Fence_Medium", "OBJ//Fence_Medium.obj");
+	MeshBuilder::GetInstance()->GetMesh("Fence_Medium")->textureID = LoadTGA("Image//Fence.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Fence_Low", "OBJ//Fence_Low.obj");
+	MeshBuilder::GetInstance()->GetMesh("Fence_Low")->textureID = LoadTGA("Image//Fence.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Well_High", "OBJ//Well//Well_High.obj");
 
-	// Set up the Spatial Partition and pass it to the EntityManager to manage
-	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10);
-	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
-	CSpatialPartition::GetInstance()->SetCamera(&camera);
-	CSpatialPartition::GetInstance()->SetLevelOfDetails(40000.0f, 160000.0f);
-	EntityManager::GetInstance()->SetSpatialPartition(CSpatialPartition::GetInstance());
+	// Well
+	MeshBuilder::GetInstance()->GetMesh("Well_High")->textureID = LoadTGA("Image//Well//Well.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Well_Medium", "OBJ//Well//Well_Medium.obj");
+	MeshBuilder::GetInstance()->GetMesh("Well_Medium")->textureID = LoadTGA("Image//Well//Well.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Well_Low", "OBJ//Well//Well_Low.obj");
+	MeshBuilder::GetInstance()->GetMesh("Well_Low")->textureID = LoadTGA("Image//Well//Well.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Well_Stand", "OBJ//Well//Well_Stand.obj");
+	MeshBuilder::GetInstance()->GetMesh("Well_Stand")->textureID = LoadTGA("Image//Well//Well_Stand.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Well_Lever", "OBJ//Well//Well_Lever.obj");
+	MeshBuilder::GetInstance()->GetMesh("Well_Lever")->textureID = LoadTGA("Image//Well//Well_Lever.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Well_Handle", "OBJ//Well//Well_Handle.obj");
+	MeshBuilder::GetInstance()->GetMesh("Well_Handle")->textureID = LoadTGA("Image//Well//Well_Lever.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Rope_Coil", "OBJ//Well//Rope_Coil.obj");
+	MeshBuilder::GetInstance()->GetMesh("Rope_Coil")->textureID = LoadTGA("Image//Well//Rope.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Rope_Hang", "OBJ//Well//Rope_Hand.obj");
+	MeshBuilder::GetInstance()->GetMesh("Rope_Hang")->textureID = LoadTGA("Image//Well//Rope.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Bucket_Empty", "OBJ//Well//Bucket_Empty.obj");
+	MeshBuilder::GetInstance()->GetMesh("Bucket_Empty")->textureID = LoadTGA("Image//Well//Bucket_Empty.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Bucket_Filled", "OBJ//Well//Bucket_Filled.obj");
+	MeshBuilder::GetInstance()->GetMesh("Bucket_Filled")->textureID = LoadTGA("Image//Well//Bucket_Filled.tga");
 
+	// Chicken
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_Body", "OBJ//Chicken_Body.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken_Body")->textureID = LoadTGA("Image//Chicken_Body.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_Head", "OBJ//Chicken_Head.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken_Head")->textureID = LoadTGA("Image//Chicken_Head.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_Beak", "OBJ//Chicken_Beak.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken_Beak")->textureID = LoadTGA("Image//Chicken_Beak.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_Chin", "OBJ//Chicken_Chin.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken_Chin")->textureID = LoadTGA("Image//Chicken_Chin.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_LeftLeg", "OBJ//Chicken_LeftLeg.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken_LeftLeg")->textureID = LoadTGA("Image//Chicken_Leg.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_RightLeg", "OBJ//Chicken_RightLeg.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken_RightLeg")->textureID = LoadTGA("Image//Chicken_Leg.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_LeftWing", "OBJ//Chicken_LeftWing.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken_LeftWing")->textureID = LoadTGA("Image//Chicken_Body.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_RightWing", "OBJ//Chicken_RightWing.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken_RightWing")->textureID = LoadTGA("Image//Chicken_Body.tga");
+
+	//terrain
+	MeshBuilder::GetInstance()->GenerateTerrain("TEST_TERRAIN", "Image//Terrain.raw", m_heightMap);
+	MeshBuilder::GetInstance()->GetMesh("TEST_TERRAIN")->textureID = LoadTGA("Image//moss1.tga");
+}
+
+void SceneText::EntityInit()
+{
 	// Create entities into the scene
 	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
 
-	GenericEntity* aCube = Create::Entity("cube");
+	GenericEntity* aCube = Create::Entity("cube", Vector3(10, 0, 0));
 	aCube->SetCollider(true);
 	aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 	aCube->InitLOD("cube", "sphere", "cubeSG");
@@ -193,7 +240,7 @@ void SceneText::Init()
 	{
 		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
 	}
-	
+
 	GenericEntity* baseCube = Create::Asset("sphere");
 	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
 
@@ -220,29 +267,37 @@ void SceneText::Init()
 	rotateGChild->ApplyUpdate(1.0f, 0.0f, 1.0f, 0.0f);
 	rotateGChild->SetSteps(0, 360);
 	grandchildNode->SetUpdateTransformation(rotateGChild);
-	
-    //Create a CEnemyinstance
-    theEnemy = new CEnemy();
-    theEnemy->Init();
 
-	groundEntity = Create::Ground("TEST_TERRAIN", "TEST_TERRAIN",m_heightMap);
-//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
+	GenericEntity* Fence = Create::Entity("Fence_High", Vector3(0.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
+	//GenericEntity* Fence = Create::Asset("Fence_High");
+	//CSceneNode* FenceNode = CSceneGraph::GetInstance()->AddNode(Fence);
+	Fence->SetCollider(true);
+	Fence->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	//FenceNode->ApplyTranslate(0, 0, 15);
+	//Fence->InitLOD("Fence_High", "Fence_Medium", "Fence_Low");
+
+	//Create a CEnemyinstance
+	theEnemy = new CEnemy();
+	theEnemy->Init();
+
+	groundEntity = Create::Ground("TEST_TERRAIN", "TEST_TERRAIN", m_heightMap);
+	//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
 
 	SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
-											 "SKYBOX_LEFT", "SKYBOX_RIGHT",
-											 "SKYBOX_TOP", "SKYBOX_BOTTOM");
+		"SKYBOX_LEFT", "SKYBOX_RIGHT",
+		"SKYBOX_TOP", "SKYBOX_BOTTOM");
 
 	// Customise the ground entity
 	groundEntity->SetPosition(Vector3(0, -30, 0));
 	groundEntity->SetScale(Vector3(1000.0f, 50.f, 1000.0f));
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
-    theEnemy->SetTerrain(groundEntity);
+	theEnemy->SetTerrain(groundEntity);
 
-    //SceneEditor
-    SceneEditor::GetInstance()->Init();
-    SceneEditor::GetInstance()->AttachCamera(&camera);
+	//SceneEditor
+	SceneEditor::GetInstance()->Init();
+	SceneEditor::GetInstance()->AttachCamera(&camera);
 
 	// Setup the 2D entities
 	halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
@@ -251,9 +306,36 @@ void SceneText::Init()
 	float halfFontSize = fontSize / 2.0f;
 	for (int i = 0; i < 3; ++i)
 	{
-		textObj[i] = Create::Text2DObject("text", Vector3(-halfWindowWidth, -halfWindowHeight + fontSize*i + halfFontSize, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f,1.0f,0.0f));
+		textObj[i] = Create::Text2DObject("text", Vector3(-halfWindowWidth, -halfWindowHeight + fontSize*i + halfFontSize, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 1.0f, 0.0f));
 	}
 	textObj[0]->SetText("HELLO WORLD");
+}
+
+void SceneText::Init()
+{	
+	ShaderInit();
+	LightInit();
+
+	// Create the playerinfo instance, which manages all information about the player
+	playerInfo = CPlayerInfo::GetInstance();
+	playerInfo->Init();
+
+	// Create and attach the camera to the scene
+	//camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
+    camera.Init(playerInfo->GetPos(), playerInfo->GetTarget(), playerInfo->GetUp(), Vector3(Application::GetInstance().GetWindowWidth() / 2, Application::GetInstance().GetWindowHeight() / 2, 0));
+	playerInfo->AttachCamera(&camera);
+	GraphicsManager::GetInstance()->AttachCamera(&camera);
+
+	MeshInit();
+
+	// Set up the Spatial Partition and pass it to the EntityManager to manage
+	CSpatialPartition::GetInstance()->Init(100, 100, 10, 10);
+	CSpatialPartition::GetInstance()->SetMesh("GRIDMESH");
+	CSpatialPartition::GetInstance()->SetCamera(&camera);
+	CSpatialPartition::GetInstance()->SetLevelOfDetails(40000.0f, 160000.0f);
+	EntityManager::GetInstance()->SetSpatialPartition(CSpatialPartition::GetInstance());
+
+	EntityInit();
 }
 
 void SceneText::Update(double dt)

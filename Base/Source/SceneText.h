@@ -27,6 +27,11 @@ public:
 	virtual void Render();
 	virtual void Exit();
 
+	void ShaderInit();
+	void LightInit();
+	void MeshInit();
+	void EntityInit();
+
 private:
 	SceneText(SceneManager* _sceneMgr); // This is used to register to SceneManager
 
