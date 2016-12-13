@@ -208,6 +208,20 @@ void SceneText::MeshInit()
 	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_RightWing", "OBJ//Chicken_RightWing.obj");
 	MeshBuilder::GetInstance()->GetMesh("Chicken_RightWing")->textureID = LoadTGA("Image//Chicken_Body.tga");
 
+	// Pig
+	MeshBuilder::GetInstance()->GenerateOBJ("Pig_Body", "OBJ//Pig_Body.obj");
+	MeshBuilder::GetInstance()->GetMesh("Pig_Body")->textureID = LoadTGA("Image//Pig_Body.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Pig_Head", "OBJ//Pig_Head.obj");
+	MeshBuilder::GetInstance()->GetMesh("Pig_Head")->textureID = LoadTGA("Image//Pig_Head.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Pig_LeftLeg_Front", "OBJ//Pig_LeftLeg.obj");
+	MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Front", "OBJ//Pig_RightLeg.obj");
+	MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Pig_LeftLeg_Back", "OBJ//Pig_LeftLeg.obj");
+	MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Back")->textureID = LoadTGA("Image//Pig_Leg.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Front", "OBJ//Pig_RightLeg.obj");
+	MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
+
 	//terrain
 	MeshBuilder::GetInstance()->GenerateTerrain("TEST_TERRAIN", "Image//Terrain.raw", m_heightMap);
 	MeshBuilder::GetInstance()->GetMesh("TEST_TERRAIN")->textureID = LoadTGA("Image//moss1.tga");
