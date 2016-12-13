@@ -16,6 +16,9 @@ public:
 	inline void SetPosition(const Vector3& _value){ position = _value; };
 	inline Vector3 GetPosition(){ return position; };
 
+	inline void SetRotation(const Vector3& _value){ rotate = _value; };
+	inline Vector3 GetRotation() { return rotate; };
+
 	inline void SetScale(const Vector3& _value){ scale = _value; };
 	inline Vector3 GetScale(){ return scale; };
 
@@ -33,6 +36,7 @@ public:
 
 protected:
 	Vector3 position;
+	Vector3 rotate;
 	Vector3 scale;
 
 	bool isDone;

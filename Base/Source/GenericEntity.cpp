@@ -23,6 +23,9 @@ void GenericEntity::Render()
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 	modelStack.PushMatrix();
 	modelStack.Translate(position.x, position.y, position.z);
+	modelStack.Rotate(rotate.x, 1, 0, 0);
+	modelStack.Rotate(rotate.y, 0, 1, 0);
+	modelStack.Rotate(rotate.z, 0, 0, 1);
 	modelStack.Scale(scale.x, scale.y, scale.z);
 	if (GetLODStatus()==true)
 	{
