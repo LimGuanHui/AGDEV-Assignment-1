@@ -2,6 +2,22 @@ Common/Debug/
 Base/Debug/
 *.sdf
 NYP_Framework.opensdf
+<<<<<<< HEAD
+Base/Release/Base.tlog/Base.lastbuildstate
+Base/Release/Base.tlog/CL.read.1.tlog
+Base/Release/Base.tlog/CL.write.1.tlog
+Base/Release/Base.tlog/cl.command.1.tlog
+Base/Release/Base.tlog/link.command.1.tlog
+Base/Release/Base.tlog/link.read.1.tlog
+Base/Release/Base.tlog/link.write.1.tlog
+Base/Release/Base.tlog/unsuccessfulbuild
+Common/Release/Common.tlog/CL.read.1.tlog
+Common/Release/Common.tlog/CL.write.1.tlog
+Common/Release/Common.tlog/Common.lastbuildstate
+Common/Release/Common.tlog/cl.command.1.tlog
+Common/Release/Common.tlog/unsuccessfulbuild
+=======
 Base/Release/
 Common/Release/Common.tlog/CL.read.1.tlog
 Common/Release/
+>>>>>>> a4967ed305f66686f9b7282fc08cf0e3a814ce25
