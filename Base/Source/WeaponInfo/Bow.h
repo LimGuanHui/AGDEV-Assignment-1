@@ -2,11 +2,11 @@
 #define BOW_H
 
 #include "WeaponInfo.h"
-
+#include "../FPSCamera.h"
 class Bow :	public CWeaponInfo
 {
 public:
-	Bow();
+    Bow(FPSCamera* _cameraPtr);
 	virtual ~Bow();
 
 	// Initialise this instance to default values
@@ -16,6 +16,7 @@ public:
 				   Vector3 position, 
 				   Vector3 target, 
 				   CPlayerInfo* _source = NULL);
+    FPSCamera* camera;
 };
 
 

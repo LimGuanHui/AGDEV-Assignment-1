@@ -154,7 +154,7 @@ void SceneText::MeshInit()
 
 	// Bow and Arrow
 	MeshBuilder::GetInstance()->GenerateOBJ("Arrow", "OBJ//Arrow.obj");
-	//MeshBuilder::GetInstance()->GetMesh("Arrow")->textureID = LoadTGA("Image//Arrow.tga");
+	MeshBuilder::GetInstance()->GetMesh("Arrow")->textureID = LoadTGA("Image//Arrow.tga");
 	
 	// Rifle
 	MeshBuilder::GetInstance()->GenerateOBJ("Rifle", "OBJ//Rifle.obj");

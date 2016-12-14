@@ -53,7 +53,7 @@ void CPlayerInfo::InitPrimaryWeapon(void)
 {
 	if (isBow)
 	{
-		primaryWeapon = new Bow();
+		primaryWeapon = new Bow(attachedCamera);
 		primaryWeapon->Init();
 	}
 	if (!isBow)
@@ -475,7 +475,7 @@ void CPlayerInfo::Update(double dt)
 			}
 		}
 		// Rifle
-		else if (!isBow)
+		if (!isBow)
 		{
 			if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB))
 			{
@@ -489,7 +489,7 @@ void CPlayerInfo::Update(double dt)
 			}
 		}
 		// Molotov
-		else if (MouseController::GetInstance()->IsButtonPressed(MouseController::RMB))
+		if (MouseController::GetInstance()->IsButtonPressed(MouseController::RMB))
 		{
 			if (secondaryWeapon)
 				secondaryWeapon->Discharge(position, target, this);
