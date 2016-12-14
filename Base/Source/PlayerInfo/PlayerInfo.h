@@ -3,6 +3,7 @@
 #include "../FPSCamera.h"
 #include "../GroundEntity.h"
 #include "../WeaponInfo/WeaponInfo.h"
+#include "MatrixStack.h"
 
 class CPlayerInfo
 {
@@ -31,9 +32,12 @@ public:
 
 	void Init(void);
 	void InitPrimaryWeapon();
-	void RenderWeaponInHand(unsigned short wepVal, float size, float x, float y);
+	void Render(const std::string& GunMesh, const std::string& AltMesh);
+	void RenderWeaponInHand(bool isGun, const std::string& GunMesh, const std::string& AltMesh);
 	void Update(double dt = 0.0333f);
 	void Reset(void);
+
+	void GetWeaponMesh(bool isGun);
 
 	void SetPos(const Vector3& pos);
 	void SetTarget(const Vector3& target);
@@ -96,8 +100,10 @@ private:
 	CWeaponInfo* primaryWeapon;
 	CWeaponInfo* secondaryWeapon;
 
-	// Bow and Arrow
-	float force;
+	Mesh* modelMesh_Gun;
+	Mesh* modelMesh_Alt;
 
-	bool isBow;
+	// Weapons
+	float force;
+	bool isGun;
 };
