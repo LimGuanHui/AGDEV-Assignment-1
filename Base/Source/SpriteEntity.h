@@ -28,6 +28,9 @@ public:
 	inline void SetPosition(const Vector3& _value){ position = _value; };
 	inline Vector3 GetPosition(){ return position; };
 
+	inline void SetRotation(const Vector3& _value){ rotate = _value; };
+	inline Vector3 GetRotation() { return rotate; };
+
 	inline void SetScale(const Vector3& _value){ scale = _value; };
 	inline Vector3 GetScale(){ return scale; };
 
@@ -35,6 +38,7 @@ public:
 
 private:
 	Vector3 position;
+	Vector3 rotate;
 	Vector3 scale;
 	Mesh* modelMesh;
 	SPRITE_RENDERMODE mode;
@@ -42,8 +46,8 @@ private:
 
 namespace Create
 {
-	SpriteEntity* Sprite2DObject(const std::string& _meshName, const Vector3& _position, const Vector3& _scale = Vector3(1.0f,1.0f,1.0f));
-	SpriteEntity* Sprite3DObject(const std::string& _meshName, const Vector3& _position, const Vector3& _scale = Vector3(1.0f, 1.0f, 1.0f));
+	SpriteEntity* Sprite2DObject(const std::string& _meshName, const Vector3& _position, const Vector3& _rotate, const Vector3& _scale = Vector3(1.0f, 1.0f, 1.0f));
+	SpriteEntity* Sprite3DObject(const std::string& _meshName, const Vector3& _position, const Vector3& _rotate, const Vector3& _scale = Vector3(1.0f, 1.0f, 1.0f));
 };
 
 #endif // SPRITE_ENTITY_H

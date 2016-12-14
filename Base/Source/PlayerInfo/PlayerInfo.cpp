@@ -340,10 +340,11 @@ void CPlayerInfo::RenderWeaponInHand(bool isGun, const std::string& GunMesh, con
 	modelMesh_Alt = MeshBuilder::GetInstance()->GetMesh(AltMesh);
 
 	modelStack.PushMatrix();
-	modelStack.Translate(0, 0, 0);
-	//modelStack.Rotate(200, 0, 1, 0);
-	//modelStack.Rotate(10, -1, 0, 0);
-	modelStack.Scale(20, 20, 20);
+	modelStack.LoadIdentity();
+	modelStack.Translate(140.f, 0.0f, -10.0f);
+	modelStack.Rotate(15, 0, 1, 0);
+	modelStack.Rotate(5, 1, 0, 0);
+	modelStack.Scale(7.5f, 7.5f, 7.5f);
 	if (isGun)
 	{
 		RenderHelper::RenderMesh(modelMesh_Gun);

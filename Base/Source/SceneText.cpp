@@ -336,7 +336,8 @@ void SceneText::EntityInit()
 
 	groundEntity = Create::Ground("TEST_TERRAIN", "TEST_TERRAIN", m_heightMap);
 	//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
-	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
+	Create::Sprite2DObject("crosshair", Vector3(85.0f, 45.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(2.25f, 2.0f, 2.0f));
+
 
 	SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
 		"SKYBOX_LEFT", "SKYBOX_RIGHT",
@@ -398,10 +399,10 @@ void SceneText::Update(double dt)
 	EntityManager::GetInstance()->Update(dt);
 
 	// THIS WHOLE CHUNK TILL <THERE> CAN REMOVE INTO ENTITIES LOGIC! Or maybe into a scene function to keep the update clean
-	if(KeyboardController::GetInstance()->IsKeyDown('1'))
+	/*if(KeyboardController::GetInstance()->IsKeyDown('1'))
 		glEnable(GL_CULL_FACE);
 	if(KeyboardController::GetInstance()->IsKeyDown('2'))
-		glDisable(GL_CULL_FACE);
+		glDisable(GL_CULL_FACE);*/
 	if(KeyboardController::GetInstance()->IsKeyDown('3'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	if(KeyboardController::GetInstance()->IsKeyDown('4'))
@@ -506,9 +507,9 @@ void SceneText::Render()
 
 
 	// Setup 2D pipeline then render 2D
-	GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
-	CPlayerInfo::GetInstance()->Render("Rifle", "Tree");
+	GraphicsManager::GetInstance()->SetOrthographicProjection(0, 170, 0, 90, -70, 140);
 	GraphicsManager::GetInstance()->DetachCamera();
+	CPlayerInfo::GetInstance()->Render("Rifle", "Tree");
 	EntityManager::GetInstance()->RenderUI();
 }
 
