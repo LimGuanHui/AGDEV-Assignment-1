@@ -3,6 +3,7 @@
 #include "../FPSCamera.h"
 #include "../GroundEntity.h"
 #include "../WeaponInfo/WeaponInfo.h"
+#include "MatrixStack.h"
 
 class CPlayerInfo
 {
@@ -29,65 +30,46 @@ public:
 	}
 	~CPlayerInfo(void);
 
-	// Initialise this class instance
 	void Init(void);
-	// Returns true if the player is on ground
-	bool isOnGround(void);
-	// Returns true if the player is jumping upwards
-	bool isJumpUpwards(void);
-	// Returns true if the player is on freefall
-	bool isFreeFall(void);
-	// Set the player's status to free fall mode
-	void SetOnFreeFall(bool isOnFreeFall);
-	// Set the player to jumping upwards
-	void SetToJumpUpwards(bool isOnJumpUpwards);
-	// Stop the player's vertical movement
-	void StopVerticalMovement(void);
-	// Reset this player instance to default
+	void InitPrimaryWeapon();
+	void Render(const std::string& GunMesh, const std::string& AltMesh);
+	void RenderWeaponInHand(bool isGun, const std::string& GunMesh, const std::string& AltMesh);
+	void Update(double dt = 0.0333f);
 	void Reset(void);
 
-	// Set position
+	void GetWeaponMesh(bool isGun);
+
 	void SetPos(const Vector3& pos);
-	// Set target
 	void SetTarget(const Vector3& target);
-	// Set Up
 	void SetUp(const Vector3& up);
-	// Set m_dJumpSpeed of the player
+
+	Vector3 GetPos(void) const;
+	Vector3 GetTarget(void) const;
+	Vector3 GetUp(void) const;
+
+	// Jump Stuff
+	bool isOnGround(void);
+	bool isJumpUpwards(void);
+	bool isFreeFall(void);
+	void SetOnFreeFall(bool isOnFreeFall);
+	void SetToJumpUpwards(bool isOnJumpUpwards);
+	void StopVerticalMovement(void);
+
 	void SetJumpSpeed(const double m_dJumpSpeed);
-	// Set m_dJumpAcceleration of the player
 	void SetJumpAcceleration(const double m_dJumpAcceleration);
-	// Set Fall Speed of the player
 	void SetFallSpeed(const double m_dFallSpeed);
-	// Set Fall Acceleration of the player
 	void SetFallAcceleration(const double m_dFallAcceleration);
-	// Set the boundary for the player info
 	void SetBoundary(Vector3 max, Vector3 min);
-	// Set the terrain for the player info
 	void SetTerrain(GroundEntity* m_pTerrain);
 
-	// Get position
-	Vector3 GetPos(void) const;
-	// Get target
-	Vector3 GetTarget(void) const;
-	// Get Up
-	Vector3 GetUp(void) const;
-	// Get Jump Speed of the player
 	double GetJumpSpeed(void) const;
-	// Get Jump Acceleration of the player
 	double GetJumpAcceleration(void) const;
-	// Get Fall Speed of the player
 	double GetFallSpeed(void) const;
-	// Get Fall Acceleration of the player
 	double GetFallAcceleration(void) const;
-	// Get the terrain for the player info
 	GroundEntity* GetTerrain(void);
 
-	// Update Jump Upwards
 	void UpdateJumpUpwards(double dt = 0.0333f);
-	// Update FreeFall
 	void UpdateFreeFall(double dt = 0.0333f);
-	// Update
-	void Update(double dt = 0.0333f);
 
 	// Constrain the position within the borders
     void Constrain(double dt = 0.0333f);
@@ -95,8 +77,6 @@ public:
 	// Handling Camera
 	void AttachCamera(FPSCamera* _cameraPtr);
 	void DetachCamera(void);
-
-	void InitPrimaryWeapon();
 
 private:
 	Vector3 defaultPosition, defaultTarget, defaultUp;
@@ -120,8 +100,10 @@ private:
 	CWeaponInfo* primaryWeapon;
 	CWeaponInfo* secondaryWeapon;
 
-	// Bow and Arrow
-	float force;
+	Mesh* modelMesh_Gun;
+	Mesh* modelMesh_Alt;
 
-	bool isBow;
+	// Weapons
+	float force;
+	bool isGun;
 };
