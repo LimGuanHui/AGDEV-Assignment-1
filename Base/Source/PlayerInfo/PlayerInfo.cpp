@@ -49,6 +49,20 @@ CPlayerInfo::~CPlayerInfo(void)
 	m_pTerrain = NULL;
 }
 
+void CPlayerInfo::InitPrimaryWeapon(void)
+{
+	if (isBow)
+	{
+		primaryWeapon = new Bow(attachedCamera);
+		primaryWeapon->Init();
+	}
+	if (!isBow)
+	{
+		primaryWeapon = new CPistol();
+		primaryWeapon->Init();
+	}
+}
+
 // Initialise this class instance
 void CPlayerInfo::Init(void)
 {
@@ -66,14 +80,14 @@ void CPlayerInfo::Init(void)
 	maxBoundary.Set(1,1,1);
 	minBoundary.Set(-1, -1, -1);
 
-    primaryWeapon = new Bow(attachedCamera);
-	primaryWeapon->Init();
+	InitPrimaryWeapon();
 
 	secondaryWeapon = new CGrenadeThrow();
 	secondaryWeapon->Init();
 
 	// Bow and Arrow
 	force = 0;
+	isBow = true;
 }
 
 // Returns true if the player is on ground
@@ -441,34 +455,46 @@ void CPlayerInfo::Update(double dt)
 			secondaryWeapon->Update(dt);
 
 		// if Mouse Buttons were activated, then act on them
-		// Rifle
-		/*if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB))
-		{
-			if (primaryWeapon)
-				primaryWeapon->Discharge(position, target, this);
-		}*/
 		// Bow
-		if (MouseController::GetInstance()->IsButtonDown(MouseController::LMB))
+		if (isBow)
 		{
-			force += dt;
+			if (MouseController::GetInstance()->IsButtonDown(MouseController::LMB))
+			{
+				force += dt;
+			}
+			else if (MouseController::GetInstance()->IsButtonReleased(MouseController::LMB))
+			{
+				if (primaryWeapon)
+					dynamic_cast<Bow*>(primaryWeapon)->Discharge(force, position, target, this);
+				force = 0;
+			}
+			if (KeyboardController::GetInstance()->IsKeyReleased('2'))
+			{
+				isBow = false;
+				InitPrimaryWeapon();
+			}
 		}
-		else if (MouseController::GetInstance()->IsButtonReleased(MouseController::LMB))
+		// Rifle
+		else if (!isBow)
 		{
-			if (primaryWeapon)
-				dynamic_cast<Bow*>(primaryWeapon)->Discharge(force, position, target, this);
-			force = 0;
+			if (MouseController::GetInstance()->IsButtonPressed(MouseController::LMB))
+			{
+				if (primaryWeapon)
+				primaryWeapon->Discharge(position, target, this);
+			}
+			if (KeyboardController::GetInstance()->IsKeyReleased('1'))
+			{
+				isBow = true;
+				InitPrimaryWeapon();
+			}
 		}
 		// Molotov
 		else if (MouseController::GetInstance()->IsButtonPressed(MouseController::RMB))
 		{
 			if (secondaryWeapon)
 				secondaryWeapon->Discharge(position, target, this);
-		std::cout << "Terrain Height: " << m_pTerrain->GetTerrainHeight(position) - 10.f + Math::EPSILON << std::endl;
-		std::cout << "Player Height: " << position.y << std::endl;
 		}
 	}
-
-	
 
 	// If the user presses R key, then reset the view to default values
 	if (KeyboardController::GetInstance()->IsKeyDown('T'))

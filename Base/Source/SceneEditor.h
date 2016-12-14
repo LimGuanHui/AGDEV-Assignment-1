@@ -52,6 +52,7 @@ private:
     EntityBase* selectedEntity;
     CSceneNode* selectedNode;
     float coutDelay;
+	bool togglePointer;
 };
 
 
