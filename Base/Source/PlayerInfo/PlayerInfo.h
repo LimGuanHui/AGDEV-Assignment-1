@@ -96,6 +96,8 @@ public:
 	void AttachCamera(FPSCamera* _cameraPtr);
 	void DetachCamera(void);
 
+	void InitPrimaryWeapon();
+
 private:
 	Vector3 defaultPosition, defaultTarget, defaultUp;
 	Vector3 position, target, up;
@@ -120,4 +122,6 @@ private:
 
 	// Bow and Arrow
 	float force;
+
+	bool isBow;
 };

@@ -34,6 +34,7 @@ void SceneEditor::Init()
     selectedEntity = NULL;
     selectedNode = NULL;
     coutDelay = 0;
+	togglePointer = false;
 }
 void SceneEditor::Update(double dt)
 {
@@ -41,7 +42,13 @@ void SceneEditor::Update(double dt)
         inputDelay += dt;
     if (coutDelay < COUT_DELAY)
         coutDelay += dt;
-    if (KeyboardController::GetInstance()->IsKeyDown(VK_TAB)
+	if (KeyboardController::GetInstance()->IsKeyDown('B'))
+	{
+		togglePointer = true;
+	}
+	else
+		togglePointer = false;
+    if (KeyboardController::GetInstance()->IsKeyDown('X')
         && inputDelay > TIME_BETWEEN_INPUT)
     {
 		inputDelay = 0;
@@ -63,27 +70,29 @@ void SceneEditor::Render()
 {
     MS& ms = GraphicsManager::GetInstance()->GetModelStack();
     //Render pointer
-    ms.PushMatrix();
-    ms.Translate(pointer_position.x, pointer_position.y, pointer_position.z); 
-    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pointer"));
-    ms.PopMatrix();
-    ModeRender();
-    vector<Vector3>::iterator it;
-    for (it = ListOfPoints.begin(); it != ListOfPoints.end(); it++)
-    {
-        ms.PushMatrix();
-        ms.Translate((*it).x, (*it).y, (*it).z);
-        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Point"));
-        string text = to_string((*it).x);
-        text += ", ";
-        text += to_string((*it).y);
-        text += +", ";
-        text += to_string((*it).z);
-        ms.Translate((*it).x, (*it).y + 3.0f, (*it).z);
-        RenderHelper::RenderText(MeshBuilder::GetInstance()->GetMesh("text"), text, Color(1.f, 1.f, 1.f));
-        ms.PopMatrix();
-    }
-    
+	if (togglePointer)
+	{
+		ms.PushMatrix();
+		ms.Translate(pointer_position.x, pointer_position.y, pointer_position.z);
+		RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pointer"));
+		ms.PopMatrix();
+		ModeRender();
+		vector<Vector3>::iterator it;
+		for (it = ListOfPoints.begin(); it != ListOfPoints.end(); it++)
+		{
+			ms.PushMatrix();
+			ms.Translate((*it).x, (*it).y, (*it).z);
+			RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Point"));
+			string text = to_string((*it).x);
+			text += ", ";
+			text += to_string((*it).y);
+			text += +", ";
+			text += to_string((*it).z);
+			ms.Translate((*it).x, (*it).y + 3.0f, (*it).z);
+			RenderHelper::RenderText(MeshBuilder::GetInstance()->GetMesh("text"), text, Color(1.f, 1.f, 1.f));
+			ms.PopMatrix();
+		}
+	}
 }
 
 void SceneEditor::AddPoint(Vector3 point)
@@ -160,7 +169,7 @@ void SceneEditor::ModeAction(double dt)
 #define KEY_DOWN_K KeyboardController::GetInstance()->IsKeyDown('K') && inputDelay > QUICK_INPUT_DELAY
 #define KEY_DOWN_P KeyboardController::GetInstance()->IsKeyDown('P') && inputDelay > QUICK_INPUT_DELAY
 #define KEY_DOWN_L KeyboardController::GetInstance()->IsKeyDown('L') && inputDelay > QUICK_INPUT_DELAY
-    if (selectedEntity == NULL)
+	if (selectedEntity == NULL)
         return;
     if (KeyboardController::GetInstance()->IsKeyDown('Q')
         && inputDelay > TIME_BETWEEN_INPUT)
