@@ -66,7 +66,7 @@ void CPlayerInfo::Init(void)
 	maxBoundary.Set(1,1,1);
 	minBoundary.Set(-1, -1, -1);
 
-	primaryWeapon = new Bow();
+    primaryWeapon = new Bow(attachedCamera);
 	primaryWeapon->Init();
 
 	secondaryWeapon = new CGrenadeThrow();

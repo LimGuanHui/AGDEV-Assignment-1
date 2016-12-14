@@ -6,7 +6,7 @@
 #include "Vector3.h"
 #include "Collider/Collider.h"
 #include "../GroundEntity.h"
-
+#include "../FPSCamera.h"
 class Mesh;
 class CPlayerInfo;
 
@@ -34,7 +34,8 @@ public:
     //Attach camera
     void AttachCamera(FPSCamera* _cameraPtr);
     //Calculate rotation
-
+    float CalculateYrotation();// arrow left right direction
+    float CalculateXrotation();// arrow up down direction
 };
 
 namespace Create
