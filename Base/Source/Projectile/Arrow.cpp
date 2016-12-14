@@ -81,17 +81,13 @@ void Arrow::SetTerrain(GroundEntity* m_pTerrain)
 	this->m_pTerrain = m_pTerrain;
 }
 
-void Arrow::AttachCamera(FPSCamera* _cameraPtr)
-{
-    camera = _cameraPtr;
-}
 
 float Arrow::CalculateYrotation()
 {
-#define CAM_TARGET camera->GetCameraTarget()
-#define CAM_POS camera->GetCameraPos()
-    Vector3 temp(camera->GetCameraTarget().x, 0, camera->GetCameraPos().z);
-    return tan((double)((CAM_TARGET.z - temp.z) / (temp.x - CAM_POS.x)));
+#define CAM_TARGET theSource->GetTarget()
+#define CAM_POS position
+    
+    return Math::RadianToDegree(asin(((CAM_TARGET.z - CAM_POS.z) / theDirection.Length())));
 }
 
 float Arrow::CalculateXrotation()
@@ -104,8 +100,7 @@ Arrow* Create::arrow(const std::string& _meshName,
 				     const Vector3& _position, 
 					 const Vector3& _direction, 
 					 const float m_fLifetime, 
-					 float m_fSpeed, 
-                     FPSCamera* _cameraPtr,
+					 float m_fSpeed,                      
                      CPlayerInfo* _source)
 {
 	Mesh* modelMesh = MeshBuilder::GetInstance()->GetMesh(_meshName);
@@ -118,7 +113,8 @@ Arrow* Create::arrow(const std::string& _meshName,
 	result->SetCollider(true);
 	result->SetSource(_source);
 	result->SetTerrain(_source->GetTerrain());
-    result->AttachCamera(_cameraPtr);
+    
+    result->SetRotation(Vector3(0, result->CalculateYrotation(),0));
 	EntityManager::GetInstance()->AddEntity(result, true);
 	return result;
 }

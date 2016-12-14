@@ -6,7 +6,7 @@
 #include "Vector3.h"
 #include "Collider/Collider.h"
 #include "../GroundEntity.h"
-#include "../FPSCamera.h"
+
 class Mesh;
 class CPlayerInfo;
 
@@ -16,7 +16,7 @@ protected:
 	float m_fGravity;
 	float m_fElapsedTime;
 	GroundEntity* m_pTerrain;
-    FPSCamera* camera;
+    
 public:
 	Arrow(void);
 	Arrow(Mesh* _modelMesh);
@@ -31,8 +31,7 @@ public:
 
 	// Set the terrain for the player info
 	void SetTerrain(GroundEntity* m_pTerrain);
-    //Attach camera
-    void AttachCamera(FPSCamera* _cameraPtr);
+
     //Calculate rotation
     float CalculateYrotation();// arrow left right direction
     float CalculateXrotation();// arrow up down direction
@@ -45,7 +44,7 @@ namespace Create
 				 const Vector3& _direction, 
 				 const float m_fLifetime, 
 				 float m_fSpeed, 
-                 FPSCamera* _cameraPtr,
+                 
                  CPlayerInfo* _source = NULL);
 };
 
