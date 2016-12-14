@@ -62,7 +62,7 @@ void CPlayerInfo::InitPrimaryWeapon(void)
 	}
 	if (!isGun)
 	{
-		primaryWeapon = new Bow(attachedCamera);
+		primaryWeapon = new Bow();
 		primaryWeapon->Init();
 	}
 }
