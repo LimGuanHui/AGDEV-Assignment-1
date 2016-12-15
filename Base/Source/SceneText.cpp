@@ -280,27 +280,20 @@ void SceneText::EntityInit()
 	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
 
-	GenericEntity* aCube = Create::Entity("cube", Vector3(5, 0, 0));
-	aCube->SetCollider(true);
-	aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	aCube->InitLOD("cube", "sphere", "cubeSG");
+	GenericEntity* testCube = Create::Entity("cube", Vector3(10,0,0));
+	CSceneNode* testNode = CSceneGraph::GetInstance()->AddNode(testCube);
+	testCube->SetCollider(true);
+	testCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	testCube->SetHP(3);
+	testCube->InitLOD("cube", "sphere", "cubeSG");
+	testNode->ApplyTranslate(10, 0, 0);
 
-
-	// Add the pointer to this new entity to the Scene Graph
-	CSceneNode* theNode = CSceneGraph::GetInstance()->AddNode(aCube);
-	if (theNode == NULL)
-	{
-		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-	}
-
-	GenericEntity* anotherCube = Create::Entity("cube");
-	anotherCube->SetCollider(true);
-	anotherCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
-	CSceneNode* anotherNode = theNode->AddChild(anotherCube);
-	if (anotherNode == NULL)
-	{
-		cout << "EntityManager::AddEntity: Unable to add to scene graph!" << endl;
-	}
+	GenericEntity* testChildCube = Create::Entity("cube");
+	CSceneNode* testChildNode = testNode->AddChild(testChildCube);
+	testChildCube->SetCollider(true);
+	testChildCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
+	testChildCube->SetHP(10);
+	testChildNode->ApplyTranslate(0, 5, 0);
 
 	GenericEntity* baseCube = Create::Asset("sphere");
 	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
