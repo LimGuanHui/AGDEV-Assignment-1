@@ -11,6 +11,7 @@
 #include "GenericEntity.h"
 #include "SceneGraph/UpdateTransformation.h"
 #include "Enemy\Enemy.h"
+#include "Animal/Sheep.h"
 
 class ShaderProgram;
 class SceneManager;
@@ -44,6 +45,7 @@ private:
 
 	GenericEntity* theCube;
     CEnemy* theEnemy;
+	Sheep* sheep;
 
 	static SceneText* sInstance; // The pointer to the object that gets registered
 

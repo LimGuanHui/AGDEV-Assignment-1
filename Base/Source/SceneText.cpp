@@ -239,14 +239,17 @@ void SceneText::MeshInit()
 	MeshBuilder::GetInstance()->GetMesh("Sheep_Head")->textureID = LoadTGA("Image//Sheep_Body.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Face", "OBJ//Sheep_Face.obj");
 	MeshBuilder::GetInstance()->GetMesh("Sheep_Face")->textureID = LoadTGA("Image//Sheep_Face.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_LeftLeg_Front", "OBJ//Sheep_LeftLeg_Front.obj");
+	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Legs", "OBJ//Sheep_Legs.obj");
+	MeshBuilder::GetInstance()->GetMesh("Sheep_Legs")->textureID = LoadTGA("Image//Sheep_Leg.tga");
+
+	/*MeshBuilder::GetInstance()->GenerateOBJ("Sheep_LeftLeg_Front", "OBJ//Sheep_LeftLeg_Front.obj");
 	MeshBuilder::GetInstance()->GetMesh("Sheep_LeftLeg_Front")->textureID = LoadTGA("Image//Sheep_Leg.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_RightLeg_Front", "OBJ//Sheep_RightLeg_Front.obj");
 	MeshBuilder::GetInstance()->GetMesh("Sheep_RightLeg_Front")->textureID = LoadTGA("Image//Sheep_Leg.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_LeftLeg_Back", "OBJ//Sheep_LeftLeg_Back.obj");
 	MeshBuilder::GetInstance()->GetMesh("Sheep_LeftLeg_Back")->textureID = LoadTGA("Image//Sheep_Leg.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_RightLeg_Front", "OBJ//Sheep_RightLeg_Back.obj");
-	MeshBuilder::GetInstance()->GetMesh("Sheep_RightLeg_Front")->textureID = LoadTGA("Image//Sheep_Leg.tga");
+	MeshBuilder::GetInstance()->GetMesh("Sheep_RightLeg_Front")->textureID = LoadTGA("Image//Sheep_Leg.tga");*/
 
 	// Wolf
 	MeshBuilder::GetInstance()->GenerateOBJ("Wolf_Body", "OBJ//Wolf_Body.obj");
@@ -280,7 +283,7 @@ void SceneText::EntityInit()
 	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
 
-	GenericEntity* testCube = Create::Entity("cube", Vector3(10,0,0));
+	/*GenericEntity* testCube = Create::Entity("cube", Vector3(10,0,0));
 	CSceneNode* testNode = CSceneGraph::GetInstance()->AddNode(testCube);
 	testCube->SetCollider(true);
 	testCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
@@ -293,43 +296,46 @@ void SceneText::EntityInit()
 	testChildCube->SetCollider(true);
 	testChildCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 	testChildCube->SetHP(10);
-	testChildNode->ApplyTranslate(0, 5, 0);
+	testChildNode->ApplyTranslate(0, 5, 0);*/
 
-	GenericEntity* baseCube = Create::Asset("sphere");
-	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
+	//GenericEntity* baseCube = Create::Asset("sphere");
+	//CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
 
-	CUpdateTransformation* baseMtx = new CUpdateTransformation();
-	//baseMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	//baseMtx->SetSteps(-60, 60);
-	baseNode->ApplyTranslate(0.0f, 0.0f, 0.0f);
-	//baseNode->SetUpdateTransformation(baseMtx);
+	//CUpdateTransformation* baseMtx = new CUpdateTransformation();
+	////baseMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
+	////baseMtx->SetSteps(-60, 60);
+	//baseNode->ApplyTranslate(0.0f, 0.0f, 0.0f);
+	////baseNode->SetUpdateTransformation(baseMtx);
 
-	GenericEntity* childCube = Create::Asset("cubeSG");
-	CSceneNode* childNode = baseNode->AddChild(childCube);
-	childNode->ApplyTranslate(0.0f, 1.0f, 0.0f);
-	//childNode->ApplyRotate(90.f, 0.f, 0.f, 1.f);
-	CUpdateTransformation* rotateChild = new CUpdateTransformation();
-	rotateChild->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	rotateChild->SetSteps(-90, 90);
-	childNode->SetUpdateTransformation(rotateChild);
+	//GenericEntity* childCube = Create::Asset("cubeSG");
+	//CSceneNode* childNode = baseNode->AddChild(childCube);
+	//childNode->ApplyTranslate(0.0f, 1.0f, 0.0f);
+	////childNode->ApplyRotate(90.f, 0.f, 0.f, 1.f);
+	//CUpdateTransformation* rotateChild = new CUpdateTransformation();
+	//rotateChild->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
+	//rotateChild->SetSteps(-90, 90);
+	//childNode->SetUpdateTransformation(rotateChild);
 
-	GenericEntity* grandchildCube = Create::Asset("cube");
-	CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
-	grandchildNode->ApplyTranslate(0.0f, 0.5f, 0.0f);
-	//grandchildNode->ApplyRotate(-90.f, 0.f, 0.f, 1.f);
-	CUpdateTransformation* rotateGChild = new CUpdateTransformation();
-	rotateGChild->ApplyUpdate(1.0f, 0.0f, 1.0f, 0.0f);
-	rotateGChild->SetSteps(0, 360);
-	grandchildNode->SetUpdateTransformation(rotateGChild);
+	//GenericEntity* grandchildCube = Create::Asset("cube");
+	//CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
+	//grandchildNode->ApplyTranslate(0.0f, 0.5f, 0.0f);
+	////grandchildNode->ApplyRotate(-90.f, 0.f, 0.f, 1.f);
+	//CUpdateTransformation* rotateGChild = new CUpdateTransformation();
+	//rotateGChild->ApplyUpdate(1.0f, 0.0f, 1.0f, 0.0f);
+	//rotateGChild->SetSteps(0, 360);
+	//grandchildNode->SetUpdateTransformation(rotateGChild);
 
-	GenericEntity* Fence = Create::Entity("Fence_High", Vector3(0.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
-	//GenericEntity* Fence = Create::Asset("Fence_High");
-	//CSceneNode* FenceNode = CSceneGraph::GetInstance()->AddNode(Fence);
-	Fence->SetCollider(true);
-	Fence->SetAABB(Vector3(5.f, 5.f, 2.f), Vector3(-5.f, -5.f, -2.f));
-	//FenceNode->ApplyTranslate(0, 0, 15);
-	Fence->InitLOD("Fence_High", "Fence_Medium", "Fence_Low");
-
+	//GenericEntity* Fence = Create::Entity("Fence_High", Vector3(0.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
+	////GenericEntity* Fence = Create::Asset("Fence_High");
+	////CSceneNode* FenceNode = CSceneGraph::GetInstance()->AddNode(Fence);
+	//Fence->SetCollider(true);
+	//Fence->SetAABB(Vector3(5.f, 5.f, 2.f), Vector3(-5.f, -5.f, -2.f));
+	////FenceNode->ApplyTranslate(0, 0, 15);
+	//Fence->InitLOD("Fence_High", "Fence_Medium", "Fence_Low");
+	
+	sheep = new Sheep();
+	sheep->Init((0,0,0));
+	
 	//Create a CEnemyinstance
 	theEnemy = new CEnemy();
 	theEnemy->Init();

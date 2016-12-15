@@ -11,6 +11,7 @@ class Mesh;
 class GenericEntity : public EntityBase, public CCollider, public CLevelOfDetails
 {
 public:
+	GenericEntity() { };
 	GenericEntity(Mesh* _modelMesh);
 	virtual ~GenericEntity();
 
