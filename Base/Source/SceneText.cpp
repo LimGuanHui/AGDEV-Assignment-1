@@ -236,7 +236,9 @@ void SceneText::MeshInit()
 	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Body", "OBJ//Sheep_Body.obj");
 	MeshBuilder::GetInstance()->GetMesh("Sheep_Body")->textureID = LoadTGA("Image//Sheep_Body.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Head", "OBJ//Sheep_Head.obj");
-	MeshBuilder::GetInstance()->GetMesh("Sheep_Head")->textureID = LoadTGA("Image//Sheep_Head.tga");
+	MeshBuilder::GetInstance()->GetMesh("Sheep_Head")->textureID = LoadTGA("Image//Sheep_Body.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Face", "OBJ//Sheep_Face.obj");
+	MeshBuilder::GetInstance()->GetMesh("Sheep_Face")->textureID = LoadTGA("Image//Sheep_Face.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_LeftLeg_Front", "OBJ//Sheep_LeftLeg_Front.obj");
 	MeshBuilder::GetInstance()->GetMesh("Sheep_LeftLeg_Front")->textureID = LoadTGA("Image//Sheep_Leg.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_RightLeg_Front", "OBJ//Sheep_RightLeg_Front.obj");
