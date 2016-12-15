@@ -279,8 +279,7 @@ void SceneText::MeshInit()
     MeshBuilder::GetInstance()->GenerateOBJ("Windmill_Base", "OBJ//Windmill//windmill_high.obj");
     //MeshBuilder::GetInstance()->GetMesh("Windmill_Base")->textureID = LoadTGA("Image//Wolf_Body.tga");
     MeshBuilder::GetInstance()->GenerateOBJ("Windmill_Fan", "OBJ//Windmill//windmill_fan.obj");
-
-
+	MeshBuilder::GetInstance()->GetMesh("Windmill_Fan")->textureID = LoadTGA("Image//Fence.tga");
 }
 
 void SceneText::EntityInit()
@@ -349,11 +348,11 @@ void SceneText::EntityInit()
 
     GenericEntity* Windmill_fan = Create::Asset("Windmill_Fan", Vector3(0.f, 0.f, 0.f), Vector3(3.f, 3.f, 3.f));
     CSceneNode* Windmill_fan_node = Windmill_base_node->AddChild(Windmill_fan);
-    //Windmill_fan_node->ApplyTranslate(10.f, 0.f, 15.f);
-    //CUpdateTransformation* rotate_windmill_fan = new CUpdateTransformation();
-    //rotate_windmill_fan->ApplyUpdate(1.f, 0.f, 0.f, 1.f);
-    //rotate_windmill_fan->SetSteps(0, 360);
-    //Windmill_fan_node->SetUpdateTransformation(rotate_windmill_fan);
+	Windmill_fan_node->ApplyTranslate(10.f, 22.17f, 6.9f);
+    CUpdateTransformation* rotate_windmill_fan = new CUpdateTransformation();
+    rotate_windmill_fan->ApplyUpdate(1.f, 0.f, 0.f, 1.f);
+    rotate_windmill_fan->SetSteps(0, 360);
+    Windmill_fan_node->SetUpdateTransformation(rotate_windmill_fan);
 	
 	//sheep = new Sheep();
 	//sheep->Init((0,0,0));
