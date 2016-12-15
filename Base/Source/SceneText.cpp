@@ -233,14 +233,14 @@ void SceneText::MeshInit()
 	MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
 
 	// Sheep
-	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Body", "OBJ//Sheep_Body.obj");
+	/*MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Body", "OBJ//Sheep_Body.obj");
 	MeshBuilder::GetInstance()->GetMesh("Sheep_Body")->textureID = LoadTGA("Image//Sheep_Body.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Head", "OBJ//Sheep_Head.obj");
 	MeshBuilder::GetInstance()->GetMesh("Sheep_Head")->textureID = LoadTGA("Image//Sheep_Body.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Face", "OBJ//Sheep_Face.obj");
 	MeshBuilder::GetInstance()->GetMesh("Sheep_Face")->textureID = LoadTGA("Image//Sheep_Face.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Legs", "OBJ//Sheep_Legs.obj");
-	MeshBuilder::GetInstance()->GetMesh("Sheep_Legs")->textureID = LoadTGA("Image//Sheep_Leg.tga");
+	MeshBuilder::GetInstance()->GetMesh("Sheep_Legs")->textureID = LoadTGA("Image//Sheep_Leg.tga");*/
 
 	/*MeshBuilder::GetInstance()->GenerateOBJ("Sheep_LeftLeg_Front", "OBJ//Sheep_LeftLeg_Front.obj");
 	MeshBuilder::GetInstance()->GetMesh("Sheep_LeftLeg_Front")->textureID = LoadTGA("Image//Sheep_Leg.tga");
@@ -274,6 +274,12 @@ void SceneText::MeshInit()
 	MeshBuilder::GetInstance()->GetMesh("TEST_TERRAIN")->textureID = LoadTGA("Image//moss1.tga");
     MeshBuilder::GetInstance()->GenerateTerrain("FARMLAND_TERRAIN", "Image//Terrain//farmlands_heightmap.raw", m_heightMap);
     MeshBuilder::GetInstance()->GetMesh("FARMLAND_TERRAIN")->textureID = LoadTGA("Image//moss1.tga");
+
+    //Windmill
+    MeshBuilder::GetInstance()->GenerateOBJ("Windmill_Base", "OBJ//Windmill//windmill_high.obj");
+    //MeshBuilder::GetInstance()->GetMesh("Windmill_Base")->textureID = LoadTGA("Image//Wolf_Body.tga");
+    MeshBuilder::GetInstance()->GenerateOBJ("Windmill_Fan", "OBJ//Windmill//windmill_fan.obj");
+
 
 }
 
@@ -332,9 +338,25 @@ void SceneText::EntityInit()
 	//Fence->SetAABB(Vector3(5.f, 5.f, 2.f), Vector3(-5.f, -5.f, -2.f));
 	////FenceNode->ApplyTranslate(0, 0, 15);
 	//Fence->InitLOD("Fence_High", "Fence_Medium", "Fence_Low");
+
+    //windmill
+    GenericEntity* Windmill_base = Create::Asset("Windmill_Base", Vector3(10.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
+    CSceneNode* Windmill_base_node = CSceneGraph::GetInstance()->AddNode(Windmill_base);
+    /*CUpdateTransformation* ROATE = new CUpdateTransformation();
+    ROATE->ApplyUpdate(1.f, 0.f, 0.f, 1.f);
+    ROATE->SetSteps(0, 360);
+    Windmill_base_node->SetUpdateTransformation(ROATE);*/
+
+    GenericEntity* Windmill_fan = Create::Asset("Windmill_Fan", Vector3(0.f, 10.f, 0.f), Vector3(3.f, 3.f, 3.f));
+    CSceneNode* Windmill_fan_node = Windmill_base_node->AddChild(Windmill_fan);
+    //Windmill_fan_node->ApplyTranslate(10.f, 0.f, 15.f);
+    //CUpdateTransformation* rotate_windmill_fan = new CUpdateTransformation();
+    //rotate_windmill_fan->ApplyUpdate(1.f, 0.f, 0.f, 1.f);
+    //rotate_windmill_fan->SetSteps(0, 360);
+    //Windmill_fan_node->SetUpdateTransformation(rotate_windmill_fan);
 	
-	sheep = new Sheep();
-	sheep->Init((0,0,0));
+	//sheep = new Sheep();
+	//sheep->Init((0,0,0));
 	
 	//Create a CEnemyinstance
 	theEnemy = new CEnemy();
