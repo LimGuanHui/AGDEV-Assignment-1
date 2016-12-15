@@ -3,7 +3,7 @@
 
 #include "../GenericEntity.h"
 #include "../GroundEntity.h"
-
+#include "../SceneGraph/SceneNode.h"
 class Mesh;
 
 class Pig : public GenericEntity
@@ -46,6 +46,7 @@ private:
 
     GenericEntity* Body,*leg1,*leg2,*leg3,*leg4, *Head,*Nose;
     CSceneNode* Body_Node;
+    CUpdateTransformation* updateTrans;
 };
 
 

@@ -4,7 +4,7 @@
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
 #include "../SceneGraph/SceneGraph.h"
-#include "../SceneGraph/SceneNode.h"
+
 #include "MeshBuilder.h"
 #include "LoadTGA.h"
 Pig::Pig() : GenericEntity(NULL)
@@ -18,6 +18,7 @@ Pig::Pig() : GenericEntity(NULL)
 
 Pig::~Pig()
 {
+    delete updateTrans;
 }
 
 void Pig::Init(Vector3 pos)
@@ -54,6 +55,10 @@ void Pig::Init(Vector3 pos)
         pig nose
         translate(0, 2.07, 2.59)*/
     SetScale(Vector3(1, 1, 1));
+
+    updateTrans = new CUpdateTransformation();
+    
+    Body_Node->SetUpdateTransformation(updateTrans);
 }
 
 void Pig::SetTarget(const Vector3& target)
@@ -98,7 +103,9 @@ GroundEntity* Pig::GetTerrain(void)
 
 void Pig::Update(double dt)
 {
-    Body_Node->ApplyTranslate(1.f, 0.f, 0.f);
+    //updateTrans->Reset();
+    updateTrans->ApplyUpdate(position.x,position.y,position.z);
+    //Body_Node->SetUpdateTransformation(updateTrans);
 }
 
 void Pig::Constrain(void)
