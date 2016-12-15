@@ -23,6 +23,7 @@ public:
 	inline Vector3 GetScale(){ return scale; };
 
 	inline void SetHP(const  int& _value) { HP = _value; };
+	inline void ModifyHP(const  int& _value) { HP += _value; };
 	inline int GetHP(){ return HP; };
 
 	bool IsDone();
