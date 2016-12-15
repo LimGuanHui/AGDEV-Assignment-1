@@ -111,13 +111,13 @@ GroundEntity* Pig::GetTerrain(void)
 
 void Pig::Update(double dt)
 {
-	if (KeyboardController::GetInstance()->IsKeyPressed('F'))
+	/*if (KeyboardController::GetInstance()->IsKeyPressed('F'))
 	{
 		CUpdateTransformation* translateBody = new CUpdateTransformation();
 		translateBody->ApplyUpdate(0, 0, 1.f);
 		translateBody->SetSteps(-25, 25);
 		Body_Node->SetUpdateTransformation(translateBody);
-	}
+	}*/
     //updateTrans->Reset();
     //Body_Node->SetUpdateTransformation(updateTrans);
     //Body->SetPosition(Vector3(Body->GetPosition().x * dt, 0, 0));
@@ -133,32 +133,32 @@ void Pig::Constrain(void)
 
 void Pig::Render(void)
 {
-    MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
-    modelStack.PushMatrix();
-        modelStack.Translate(position.x, position.y, position.z);
-        modelStack.Scale(scale.x, scale.y, scale.z);
-        //if (GetLODStatus() == true)
-        //{
-        //    if (theDetailLevel != NO_DETAILS)
-        //    {
-        //        //cout << theDetailLevel << endl;
-        //        RenderHelper::RenderMesh(GetLODMesh());
-        //    }
-        //}
-        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_Body"));
-        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Front"));
-        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front"));
-        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Back"));
-        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Back"));
-        modelStack.PushMatrix();
-            modelStack.Translate(0, 2.32 * scale.y, 2.04 * scale.z);
-            RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_Head"));
-        modelStack.PopMatrix();
+    //MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+    //modelStack.PushMatrix();
+    //    modelStack.Translate(position.x, position.y, position.z);
+    //    modelStack.Scale(scale.x, scale.y, scale.z);
+    //    //if (GetLODStatus() == true)
+    //    //{
+    //    //    if (theDetailLevel != NO_DETAILS)
+    //    //    {
+    //    //        //cout << theDetailLevel << endl;
+    //    //        RenderHelper::RenderMesh(GetLODMesh());
+    //    //    }
+    //    //}
+    //    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_Body"));
+    //    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Front"));
+    //    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front"));
+    //    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Back"));
+    //    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Back"));
+    //    modelStack.PushMatrix();
+    //        modelStack.Translate(0, 2.32 * scale.y, 2.04 * scale.z);
+    //        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_Head"));
+    //    modelStack.PopMatrix();
 
-        modelStack.PushMatrix();
-            modelStack.Translate(0, 2.07 * scale.y, 2.59 * scale.z);
-            RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_Nose"));
-        modelStack.PopMatrix();
+    //    modelStack.PushMatrix();
+    //        modelStack.Translate(0, 2.07 * scale.y, 2.59 * scale.z);
+    //        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_Nose"));
+    //    modelStack.PopMatrix();
 
-    modelStack.PopMatrix();
+    //modelStack.PopMatrix();
 }

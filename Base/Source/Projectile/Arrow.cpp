@@ -44,7 +44,7 @@ void Arrow::Update(double dt)
 		SetIsDone(true);	// This method informs EntityManager to remove this instance
 
 		// Check the SpatialPartition to destroy nearby objects
-		vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position, 10.0f);
+		vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position, 1.0f);
 		for (int i = 0; i < ExportList.size(); ++i)
 		{
 			// Remove from Scene Graph
