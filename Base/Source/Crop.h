@@ -11,7 +11,7 @@ public:
     Crop();
     ~Crop();
 
-    void Init();
+    static void Init(GroundEntity* a_b_c_groundEntity);
 private:
 
 };

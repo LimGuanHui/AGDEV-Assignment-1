@@ -23,6 +23,7 @@
 #include "SceneGraph\SceneGraph.h"
 #include "SpatialPartition\SpatialPartition.h"
 #include "SceneEditor.h"
+#include "Crop.h"
 #include <iostream>
 using namespace std;
 
@@ -394,6 +395,8 @@ void SceneText::EntityInit()
 	pig = new Pig();
 	pig->Init(Vector3(0, -10, 0));
 
+    
+
 	//Create a CEnemyinstance
 	theEnemy = new CEnemy();
 	theEnemy->Init();
@@ -401,6 +404,9 @@ void SceneText::EntityInit()
 	groundEntity = Create::Ground("FARMLAND_TERRAIN", "FARMLAND_TERRAIN", m_heightMap);
 	//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(85.0f, 45.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(2.25f, 2.0f, 2.0f));
+
+    //crops
+    Crop::Init(groundEntity);
 
 
 	SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
