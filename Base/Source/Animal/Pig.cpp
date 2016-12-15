@@ -27,7 +27,8 @@ void Pig::Init(Vector3 pos)
 	SetPosition(pos);
 
     Body = Create::Entity("Pig_Body");
-	CSceneNode* Body_Node = CSceneGraph::GetInstance()->AddNode(Body);
+    Body_Node = CSceneGraph::GetInstance()->AddNode(Body);
+
     leg1 = Create::Entity("Pig_LeftLeg_Front");
 	CSceneNode* leg1_Node = Body_Node->AddChild(leg1);
     leg2 = Create::Entity("Pig_RightLeg_Front");
@@ -40,7 +41,7 @@ void Pig::Init(Vector3 pos)
 	Head = Create::Entity("Pig_Head");
 	CSceneNode* Head_Node = Body_Node->AddChild(Head);
 	Head_Node->ApplyTranslate(0.f, 2.32f * scale.y, 2.04f * scale.z);
-
+    
 	Nose = Create::Entity("Pig_Nose");
 	CSceneNode* Nose_Node = Body_Node->AddChild(Nose);
 	Nose_Node->ApplyTranslate(0.f, 2.07f * scale.y, 2.59f * scale.z);
@@ -97,7 +98,7 @@ GroundEntity* Pig::GetTerrain(void)
 
 void Pig::Update(double dt)
 {
-
+    Body_Node->ApplyTranslate(1.f, 0.f, 0.f);
 }
 
 void Pig::Constrain(void)

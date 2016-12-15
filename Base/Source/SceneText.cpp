@@ -541,6 +541,9 @@ void SceneText::Update(double dt)
     //SceneEditor update
     SceneEditor::GetInstance()->Update();
 
+    //pig update
+    //pig->Update();
+
 	// Update the 2 text object values. NOTE: Can do this in their own class but i'm lazy to do it now :P
 	// Eg. FPSRenderEntity or inside RenderUI for LightEntity
 	std::ostringstream ss;
