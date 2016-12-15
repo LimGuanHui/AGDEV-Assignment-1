@@ -275,7 +275,7 @@ void SceneText::EntityInit()
 	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
 
-	GenericEntity* aCube = Create::Entity("cube", Vector3(10, 0, 0));
+	GenericEntity* aCube = Create::Entity("cube", Vector3(5, 0, 0));
 	aCube->SetCollider(true);
 	aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 	aCube->InitLOD("cube", "sphere", "cubeSG");
@@ -359,13 +359,12 @@ void SceneText::EntityInit()
 	// Setup the 2D entities
 	halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
 	halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2.0f;
-	float fontSize = 25.0f;
+	float fontSize = 3.0f;
 	float halfFontSize = fontSize / 2.0f;
 	for (int i = 0; i < 3; ++i)
 	{
-		textObj[i] = Create::Text2DObject("text", Vector3(-halfWindowWidth, -halfWindowHeight + fontSize*i + halfFontSize, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 1.0f, 0.0f));
+		textObj[i] = Create::Text2DObject("text", Vector3(0, 0 + fontSize*i + halfFontSize, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f, 1.0f, 0.0f));
 	}
-	textObj[0]->SetText("HELLO WORLD");
 }
 
 void SceneText::Init()
@@ -486,12 +485,12 @@ void SceneText::Update(double dt)
 	ss.precision(5);
 	float fps = (float)(1.f / dt);
 	ss << "FPS: " << fps;
-	textObj[1]->SetText(ss.str());
+	textObj[0]->SetText(ss.str());
 
 	std::ostringstream ss1;
 	ss1.precision(4);
 	ss1 << "Player:" << playerInfo->GetPos();
-	textObj[2]->SetText(ss1.str());
+	textObj[1]->SetText(ss1.str());
 }
 
 void SceneText::Render()
