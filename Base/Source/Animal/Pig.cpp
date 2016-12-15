@@ -23,27 +23,6 @@ Pig::~Pig()
 void Pig::Init(Vector3 pos)
 {
     //mesh
-    // Pig
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_Body", "OBJ//Pig_Body.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_Body")->textureID = LoadTGA("Image//Pig_Body.tga");
-
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_Head", "OBJ//Pig_Head.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_Head")->textureID = LoadTGA("Image//Pig_Head.tga");
-
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_Nose", "OBJ//Pig_Nose.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_Nose")->textureID = LoadTGA("Image//Pig_Nose.tga");
-    //leg
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_LeftLeg_Front", "OBJ//Pig_LeftLeg_Front.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
-
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Front", "OBJ//Pig_RightLeg_Front.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
-
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_LeftLeg_Back", "OBJ//Pig_LeftLeg_Back.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Back")->textureID = LoadTGA("Image//Pig_Leg.tga");
-
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Back", "OBJ//Pig_RightLeg_Back.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Back")->textureID = LoadTGA("Image//Pig_Leg.tga");
 
 	SetPosition(pos);
 

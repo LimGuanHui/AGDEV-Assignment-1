@@ -235,8 +235,10 @@ void SceneText::MeshInit()
     MeshBuilder::GetInstance()->GenerateOBJ("Pig_LeftLeg_Back", "OBJ//Pig_LeftLeg_Back.obj");
     MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Back")->textureID = LoadTGA("Image//Pig_Leg.tga");
 
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Front", "OBJ//Pig_RightLeg_Back.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
+    MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Back", "OBJ//Pig_RightLeg_Back.obj");
+    MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Back")->textureID = LoadTGA("Image//Pig_Leg.tga");
+    
+
 
 	// Sheep
 	/*MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Body", "OBJ//Sheep_Body.obj");
@@ -565,7 +567,7 @@ void SceneText::Render()
 	EntityManager::GetInstance()->Render();
     //SceneEditor render
     SceneEditor::GetInstance()->Render();
-    pig->Render();
+    //pig->Render();
 
 	// Setup 2D pipeline then render 2D
 	GraphicsManager::GetInstance()->SetOrthographicProjection(0, 170, 0, 90, -70, 140);
