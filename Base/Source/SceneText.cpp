@@ -325,9 +325,8 @@ void SceneText::EntityInit()
 	//Fence->InitLOD("Fence_High", "Fence_Medium", "Fence_Low");
 
     //windmill
-    GenericEntity* Windmill_base = Create::Asset("Windmill_Base", Vector3(0.f,0.f,0.f), Vector3(3.f, 3.f, 3.f));
+	GenericEntity* Windmill_base = Create::Asset("Windmill_Base", Vector3(10.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
     CSceneNode* Windmill_base_node = CSceneGraph::GetInstance()->AddNode(Windmill_base);
-    Windmill_base_node->ApplyTranslate(10.f, 0.f, 15.f);
     /*CUpdateTransformation* ROATE = new CUpdateTransformation();
     ROATE->ApplyUpdate(1.f, 0.f, 0.f, 1.f);
     ROATE->SetSteps(0, 360);
