@@ -3,7 +3,8 @@
 #include "Collider/Collider.h"
 #include "Projectile/Laser.h"
 #include "SceneGraph\SceneGraph.h"
-
+#include "Projectile\Projectile.h"
+#include "Projectile\Arrow.h"
 #include <iostream>
 using namespace std;
 
@@ -314,6 +315,8 @@ bool EntityManager::CheckForCollision(void)
 	colliderThisEnd = entityList.end();
 	for (colliderThis = entityList.begin(); colliderThis != colliderThisEnd; ++colliderThis)
 	{
+        if ((*colliderThis)->GetHP() <= 0)
+            (*colliderThis)->SetIsDone(true);
 		// Check if this entity is a CLaser type
 		if ((*colliderThis)->GetIsLaser())
 		{
@@ -389,6 +392,47 @@ bool EntityManager::CheckForCollision(void)
 				}
 			}
 		}
+        /*else if (dynamic_cast<CProjectile*>((*colliderThis)))
+        {
+            CProjectile* temp = dynamic_cast<CProjectile*>((*colliderThis));
+            for (colliderThat = entityList.begin(); colliderThat != colliderThatEnd; ++colliderThat)
+            {
+
+            }
+        }*/
+		//else if ((*colliderThis)->HasCollider())
+		//{
+		//	// This object was derived from a CCollider class, then it will have Collision Detection methods
+		//	//CCollider *thisCollider = dynamic_cast<CCollider*>(*colliderThis);
+		//	EntityBase *thisEntity = dynamic_cast<EntityBase*>(*colliderThis);
+		//	
+		//	// Check for collision with another collider class
+		//	colliderThatEnd = entityList.end();
+		//	int counter = 0;
+		//	for (colliderThat = entityList.begin(); colliderThat != colliderThatEnd; ++colliderThat)
+		//	{
+		//		if (colliderThat == colliderThis)
+		//			continue;
+
+		//		if ((*colliderThat)->HasCollider())
+		//		{
+		//			EntityBase *thatEntity = dynamic_cast<EntityBase*>(*colliderThat);
+		//			if (CheckSphereCollision(thisEntity, thatEntity))
+		//			{
+		//				if (CheckAABBCollision(thisEntity, thatEntity))
+		//				{
+		//					thisEntity->ModifyHP(-1);
+		//					thatEntity->ModifyHP(-1);
+
+		//					if (thisEntity->GetHP() <= 0)
+		//						thisEntity->SetIsDone(true);
+		//					if (thatEntity->GetHP() <= 0)
+		//						thatEntity->SetIsDone(true);
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
 	}
 	return false;
 }

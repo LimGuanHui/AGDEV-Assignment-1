@@ -512,7 +512,7 @@ void SceneText::Render()
 	EntityManager::GetInstance()->Render();
     //SceneEditor render
     SceneEditor::GetInstance()->Render();
-    //pig->Render();
+    pig->Render();
 
 	// Setup 2D pipeline then render 2D
 	GraphicsManager::GetInstance()->SetOrthographicProjection(0, 170, 0, 90, -70, 140);

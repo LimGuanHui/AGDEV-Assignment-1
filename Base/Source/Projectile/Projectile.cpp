@@ -4,6 +4,8 @@
 #include "../EntityManager.h"
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
+#include "../SpatialPartition/SpatialPartition.h"
+#include "../SceneGraph/SceneGraph.h"
 
 CProjectile::CProjectile(void)
 	: modelMesh(NULL)
@@ -116,6 +118,26 @@ void CProjectile::Update(double dt)
 		SetIsDone(true);	// This method is to inform the EntityManager that it should remove this instance
 		return;
 	}
+
+    vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position, 1.f);
+
+    if (ExportList.size() != 0)
+    {
+        EntityBase* temp = *ExportList.begin();
+        Vector3 dist_from_proj_to_obj = (position - temp->GetPosition()).LengthSquared();
+        vector<EntityBase*>::iterator it;
+        for (it = ++ExportList.begin(); it != ExportList.end(); it++)
+        {
+            Vector3 templength = (position - (*it)->GetPosition()).LengthSquared();
+            if (dist_from_proj_to_obj > templength)
+            {
+                dist_from_proj_to_obj = templength;
+                temp = (*it);
+            }
+        }
+        this->SetIsDone(true);
+        temp->SetIsDone(true);
+    }
 
 	// Update Position
 	position.Set(	position.x + (float)(theDirection.x * dt * m_fSpeed),
