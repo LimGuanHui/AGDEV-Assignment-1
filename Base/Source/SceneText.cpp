@@ -458,6 +458,8 @@ void SceneText::Init()
 
 void SceneText::Update(double dt)
 {
+    //pig update
+    pig->Update(dt);
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
 
@@ -541,8 +543,7 @@ void SceneText::Update(double dt)
     //SceneEditor update
     SceneEditor::GetInstance()->Update();
 
-    //pig update
-    pig->Update(dt);
+    
 
 	// Update the 2 text object values. NOTE: Can do this in their own class but i'm lazy to do it now :P
 	// Eg. FPSRenderEntity or inside RenderUI for LightEntity
