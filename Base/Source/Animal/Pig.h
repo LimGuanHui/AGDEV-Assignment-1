@@ -44,7 +44,7 @@ private:
     Vector3 maxBoundary, minBoundary;
     GroundEntity* m_pTerrain;
 
-    GenericEntity* Body,*leg1,*leg2,*leg3,*leg4, *Head, *Face;
+    GenericEntity* Body,*leg1,*leg2,*leg3,*leg4, *Head,*Nose;
 };
 
 
