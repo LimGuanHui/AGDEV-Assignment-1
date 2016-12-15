@@ -216,21 +216,7 @@ void SceneText::MeshInit()
 	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_RightWing", "OBJ//Chicken_RightWing.obj");
 	MeshBuilder::GetInstance()->GetMesh("Chicken_RightWing")->textureID = LoadTGA("Image//Chicken_Body.tga");
 
-	// Pig
-	MeshBuilder::GetInstance()->GenerateOBJ("Pig_Body", "OBJ//Pig_Body.obj");
-	MeshBuilder::GetInstance()->GetMesh("Pig_Body")->textureID = LoadTGA("Image//Pig_Body.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Pig_Head", "OBJ//Pig_Head.obj");
-	MeshBuilder::GetInstance()->GetMesh("Pig_Head")->textureID = LoadTGA("Image//Pig_Head.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Pig_Nose", "OBJ//Pig_Nose.obj");
-	MeshBuilder::GetInstance()->GetMesh("Pig_Nose")->textureID = LoadTGA("Image//Pig_Nose.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Pig_LeftLeg_Front", "OBJ//Pig_LeftLeg_Front.obj");
-	MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Front", "OBJ//Pig_RightLeg_Front.obj");
-	MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Pig_LeftLeg_Back", "OBJ//Pig_LeftLeg_Back.obj");
-	MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Back")->textureID = LoadTGA("Image//Pig_Leg.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Front", "OBJ//Pig_RightLeg_Back.obj");
-	MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
+	
 
 	// Sheep
 	/*MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Body", "OBJ//Sheep_Body.obj");
@@ -340,8 +326,9 @@ void SceneText::EntityInit()
 	//Fence->InitLOD("Fence_High", "Fence_Medium", "Fence_Low");
 
     //windmill
-    GenericEntity* Windmill_base = Create::Asset("Windmill_Base", Vector3(10.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
+    GenericEntity* Windmill_base = Create::Asset("Windmill_Base", Vector3(0.f,0.f,0.f), Vector3(3.f, 3.f, 3.f));
     CSceneNode* Windmill_base_node = CSceneGraph::GetInstance()->AddNode(Windmill_base);
+    Windmill_base_node->ApplyTranslate(10.f, 0.f, 15.f);
     /*CUpdateTransformation* ROATE = new CUpdateTransformation();
     ROATE->ApplyUpdate(1.f, 0.f, 0.f, 1.f);
     ROATE->SetSteps(0, 360);
@@ -349,11 +336,14 @@ void SceneText::EntityInit()
 
     GenericEntity* Windmill_fan = Create::Asset("Windmill_Fan", Vector3(0.f, 0.f, 0.f), Vector3(3.f, 3.f, 3.f));
     CSceneNode* Windmill_fan_node = Windmill_base_node->AddChild(Windmill_fan);
-    //Windmill_fan_node->ApplyTranslate(10.f, 0.f, 15.f);
-    //CUpdateTransformation* rotate_windmill_fan = new CUpdateTransformation();
-    //rotate_windmill_fan->ApplyUpdate(1.f, 0.f, 0.f, 1.f);
-    //rotate_windmill_fan->SetSteps(0, 360);
-    //Windmill_fan_node->SetUpdateTransformation(rotate_windmill_fan);
+        //Windmill_fan_node->ApplyTranslate(10.f, 0.f, 15.f);
+    CUpdateTransformation* rotate_windmill_fan = new CUpdateTransformation();
+    rotate_windmill_fan->ApplyUpdate(1.f, 0.f, 0.f, 1.f);
+    rotate_windmill_fan->SetSteps(0, 360);
+    Windmill_fan_node->Reset();
+    Windmill_fan_node->SetUpdateTransformation(rotate_windmill_fan);
+
+
 	
 	//sheep = new Sheep();
 	//sheep->Init((0,0,0));

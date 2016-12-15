@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Animal\Pig.cpp" />
     <ClCompile Include="Source\Animal\Sheep.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Enemy\Enemy.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="Source\WeaponInfo\WeaponInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Animal\Pig.h" />
     <ClInclude Include="Source\Animal\Sheep.h" />
     <ClInclude Include="Source\Application.h" />
     <ClInclude Include="Source\Enemy\Enemy.h" />

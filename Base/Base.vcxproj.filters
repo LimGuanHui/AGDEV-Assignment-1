@@ -177,6 +177,9 @@
     <ClCompile Include="Source\Animal\Sheep.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Animal\Pig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PlayerInfo\PlayerInfo.h">
@@ -276,6 +279,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Animal\Sheep.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Animal\Pig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
