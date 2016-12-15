@@ -7,7 +7,7 @@
 class Wolf : public GenericEntity
 {
 public:
-    Wolf();
+    Wolf(void);
     virtual ~Wolf();
 
     void Init(void);

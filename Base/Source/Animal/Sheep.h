@@ -9,10 +9,10 @@ class Mesh;
 class Sheep : public GenericEntity
 {
 public:
-    Sheep();
+    Sheep(void);
     virtual ~Sheep();
 
-    void Init(void);
+    void Init(Vector3 pos);
 
     //Set target
     void SetTarget(const Vector3& target);
@@ -43,7 +43,9 @@ private:
     Vector3 target, up;
     Vector3 maxBoundary, minBoundary;
     GroundEntity* m_pTerrain;
-};
+
+    GenericEntity* Body, Head;
+}; 
 
 
 

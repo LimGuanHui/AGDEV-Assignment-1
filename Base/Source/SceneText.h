@@ -19,7 +19,7 @@ class Light;
 class SceneText : public Scene
 {	
 public:
-	SceneText();
+    SceneText(void);
 	~SceneText();
 
 	virtual void Init();

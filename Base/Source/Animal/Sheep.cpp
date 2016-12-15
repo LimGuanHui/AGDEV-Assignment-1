@@ -1,4 +1,7 @@
 #include "Sheep.h"
+#include "../EntityManager.h"
+#include "GraphicsManager.h"
+#include "RenderHelper.h"
 
 Sheep::Sheep() : GenericEntity(NULL)
 , target(Vector3(0.0f, 0.0f, 0.0f))
@@ -13,37 +16,64 @@ Sheep::~Sheep()
 {
 }
 
-void Sheep::Init()
+void Sheep::Init(Vector3 pos)
+{
+    SetPosition(pos);
+
+
+}
+
+void Sheep::SetTarget(const Vector3& target)
 {
 
 }
 
-void SetTarget(const Vector3& target)
+void Sheep::SetUp(const Vector3& up)
 {
 
 }
 
-void SetUp(const Vector3& up)
+void Sheep::SetBoundary(Vector3 max, Vector3 min)
 {
 
 }
 
-void SetBoundary(Vector3 max, Vector3 min)
+void Sheep::SetTerrain(GroundEntity* m_pTerrain)
 {
 
 }
 
-void SetTerrain(GroundEntity* m_pTerrain)
+Vector3 Sheep::GetPos(void) const
 {
 
 }
 
-Vector3 GetPos(void) const;
-Vector3 GetTarget(void) const;
-Vector3 GetUp(void) const;
-GroundEntity* GetTerrain(void);
+Vector3 Sheep::GetTarget(void) const
+{
 
-void Update(double dt = 0.0333f);
+}
 
-void Constrain(void);
-void Render(void);
+Vector3 Sheep::GetUp(void) const
+{
+
+}
+
+GroundEntity* Sheep::GetTerrain(void)
+{
+
+}
+
+void Sheep::Update(double dt)
+{
+
+}
+
+void Sheep::Constrain(void)
+{
+
+}
+
+void Sheep::Render(void)
+{
+
+}
