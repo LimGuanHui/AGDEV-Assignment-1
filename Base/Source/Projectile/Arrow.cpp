@@ -92,7 +92,7 @@ float Arrow::CalculateYrotation()
 
 float Arrow::CalculateXrotation()
 {
-    return Math::RadianToDegree(atan2(position.y, theDirection.y));
+    return 0.f;//Math::RadianToDegree(atan2(theDirection.y,0 ));
 }
 
 // Create a projectile and add it into EntityManager

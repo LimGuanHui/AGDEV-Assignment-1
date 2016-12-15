@@ -171,6 +171,12 @@
     <ClCompile Include="Source\SceneEditor.cpp">
       <Filter>SceneEditor</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemy\Wolf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Animal\Sheep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\PlayerInfo\PlayerInfo.h">
@@ -265,6 +271,12 @@
     </ClInclude>
     <ClInclude Include="Source\SceneEditor.h">
       <Filter>SceneEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy\Wolf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Animal\Sheep.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
