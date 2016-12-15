@@ -149,8 +149,8 @@ void CWeaponInfo::Discharge(Vector3 position, Vector3 target, CPlayerInfo* _sour
 			CProjectile* aProjectile = Create::Projectile("Bullet", 
 															position, 
 															(target - position).Normalized(), 
-															5.0f, 
-															100.0f,
+															10.0f, 
+															150.0f,
 															_source);
 			aProjectile->SetCollider(true);
 			aProjectile->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
