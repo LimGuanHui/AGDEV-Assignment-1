@@ -4,7 +4,7 @@
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
 #include "../SceneGraph/SceneGraph.h"
-
+#include "KeyboardController.h"
 #include "MeshBuilder.h"
 #include "LoadTGA.h"
 Pig::Pig() : GenericEntity(NULL)
@@ -28,30 +28,31 @@ void Pig::Init(Vector3 pos)
 	SetPosition(pos);
 
     Body = Create::Entity("Pig_Body");
-    Body_Node = CSceneGraph::GetInstance()->AddNode(Body);
+	Body->SetCollider(true);
+	Body->SetAABB(Vector3(2, 2, 2), Vector3(-2, -2, -2));
 
-    leg1 = Create::Entity("Pig_LeftLeg_Front");
-	CSceneNode* leg1_Node = Body_Node->AddChild(leg1);
-    leg2 = Create::Entity("Pig_RightLeg_Front");
-	CSceneNode* leg2_Node = Body_Node->AddChild(leg2);
-    leg3 = Create::Entity("Pig_LeftLeg_Back");
-	CSceneNode* leg3_Node = Body_Node->AddChild(leg3);
-    leg4 = Create::Entity("Pig_RightLeg_Back");
-	CSceneNode* leg4_Node = Body_Node->AddChild(leg4);
+	//leg1 = Create::Asset("Pig_LeftLeg_Front");
+	//CSceneNode* leg1_Node = Body_Node->AddChild(leg1);
+ //   leg2 = Create::Asset("Pig_RightLeg_Front");
+	//CSceneNode* leg2_Node = Body_Node->AddChild(leg2);
+	//leg3 = Create::Asset("Pig_LeftLeg_Back");
+	//CSceneNode* leg3_Node = Body_Node->AddChild(leg3);
+	//leg4 = Create::Asset("Pig_RightLeg_Back");
+	//CSceneNode* leg4_Node = Body_Node->AddChild(leg4);
 
-	Head = Create::Entity("Pig_Head");
-	/*Head->SetCollider(true);
-	Head->SetAABB(Vector3(2, 2, 2), Vector3(-2, -2, -2));
-	Head->SetHP(3);*/
-	CSceneNode* Head_Node = Body_Node->AddChild(Head);
-	Head_Node->ApplyTranslate(0.f, 2.32f * scale.y, 2.04f * scale.z);
-    
-	Nose = Create::Entity("Pig_Nose");
-	/*Nose->SetCollider(true);
-	Nose->SetAABB(Vector3(2, 2, 2), Vector3(-2, -2, -2));
-	Nose->SetHP(3);*/
-	CSceneNode* Nose_Node = Body_Node->AddChild(Nose);
-	Nose_Node->ApplyTranslate(0.f, 2.07f * scale.y, 2.59f * scale.z);
+	//Head = Create::Asset("Pig_Head");
+	///*Head->SetCollider(true);
+	//Head->SetAABB(Vector3(2, 2, 2), Vector3(-2, -2, -2));
+	//Head->SetHP(3);*/
+	//CSceneNode* Head_Node = Body_Node->AddChild(Head);
+	//Head_Node->ApplyTranslate(0.f, 2.32f * scale.y, 2.04f * scale.z);
+ //   
+	//Nose = Create::Asset("Pig_Nose");
+	///*Nose->SetCollider(true);
+	//Nose->SetAABB(Vector3(2, 2, 2), Vector3(-2, -2, -2));
+	//Nose->SetHP(3);*/
+	//CSceneNode* Nose_Node = Body_Node->AddChild(Nose);
+	//Nose_Node->ApplyTranslate(0.f, 2.07f * scale.y, 2.59f * scale.z);
     //CSceneNode* BodyNode = CSceneGraph::GetInstance()->AddNode(Body);
     //Body->SetCollider(true);
     //Body->SetAABB(Vector3(1.434, 1.434, 1.29), Vector3(-1.434, -1.434, -1.29));
@@ -62,10 +63,10 @@ void Pig::Init(Vector3 pos)
         translate(0, 2.07, 2.59)*/
     SetScale(Vector3(1, 1, 1));
 
-    updateTrans = new CUpdateTransformation();
+    /*updateTrans = new CUpdateTransformation();
     updateTrans->ApplyUpdate(position.x + 1.f, position.y, position.z);
-    //updateTrans->SetSteps(-10, 10);
-    Body_Node->SetUpdateTransformation(updateTrans);
+    updateTrans->SetSteps(-10, 10);
+    Body_Node->SetUpdateTransformation(updateTrans);*/
 }
 
 void Pig::SetTarget(const Vector3& target)
@@ -110,11 +111,13 @@ GroundEntity* Pig::GetTerrain(void)
 
 void Pig::Update(double dt)
 {
-    //updateTrans->Reset();
-    //Body_Node->SetUpdateTransformation(updateTrans);
-    position.x += dt;
-    
-    //Body_Node->SetUpdateTransformation(updateTrans);
+	if (KeyboardController::GetInstance()->IsKeyPressed('F'))
+	{
+		CUpdateTransformation* translateBody = new CUpdateTransformation();
+		translateBody->ApplyUpdate(0, 0, 1.f);
+		translateBody->SetSteps(-25, 25);
+		Body_Node->SetUpdateTransformation(translateBody);
+	}
 }
 
 void Pig::Constrain(void)

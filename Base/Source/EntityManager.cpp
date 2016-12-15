@@ -382,13 +382,8 @@ bool EntityManager::CheckForCollision(void)
 					{
 						if (CheckAABBCollision(thisEntity, thatEntity))
 						{
-							thisEntity->ModifyHP(-1);
-							thatEntity->ModifyHP(-1);
-
-							if (thisEntity->GetHP() <= 0)
-								thisEntity->SetIsDone(true);
-							if (thatEntity->GetHP() <= 0)
-								thatEntity->SetIsDone(true);
+							thisEntity->SetIsDone(true);
+							thatEntity->SetIsDone(true);
 						}
 					}
 				}

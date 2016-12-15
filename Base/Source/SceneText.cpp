@@ -164,20 +164,8 @@ void SceneText::MeshInit()
 	MeshBuilder::GetInstance()->GenerateOBJ("Bullet", "OBJ//Bullet.obj");
 	MeshBuilder::GetInstance()->GetMesh("Bullet")->textureID = LoadTGA("Image//Bullet.tga");
 
-	// Tree
-	MeshBuilder::GetInstance()->GenerateOBJ("Tree", "OBJ//Tree.obj");
-	MeshBuilder::GetInstance()->GetMesh("Tree")->textureID = LoadTGA("Image//Tree.tga");
-
-	// Fence
-	MeshBuilder::GetInstance()->GenerateOBJ("Fence_High", "OBJ//Fence_High.obj");
-	MeshBuilder::GetInstance()->GetMesh("Fence_High")->textureID = LoadTGA("Image//Fence.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Fence_Medium", "OBJ//Fence_Medium.obj");
-	MeshBuilder::GetInstance()->GetMesh("Fence_Medium")->textureID = LoadTGA("Image//Fence.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Fence_Low", "OBJ//Fence_Low.obj");
-	MeshBuilder::GetInstance()->GetMesh("Fence_Low")->textureID = LoadTGA("Image//Fence.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Well_High", "OBJ//Well//Well_High.obj");
-
 	// Well
+	MeshBuilder::GetInstance()->GenerateOBJ("Well_High", "OBJ//Well//Well_High.obj");
 	MeshBuilder::GetInstance()->GetMesh("Well_High")->textureID = LoadTGA("Image//Well//Well.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Well_Medium", "OBJ//Well//Well_Medium.obj");
 	MeshBuilder::GetInstance()->GetMesh("Well_Medium")->textureID = LoadTGA("Image//Well//Well.tga");
@@ -199,22 +187,8 @@ void SceneText::MeshInit()
 	MeshBuilder::GetInstance()->GetMesh("Bucket_Filled")->textureID = LoadTGA("Image//Well//Bucket_Filled.tga");
 
 	// Chicken
-	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_Body", "OBJ//Chicken_Body.obj");
-	MeshBuilder::GetInstance()->GetMesh("Chicken_Body")->textureID = LoadTGA("Image//Chicken_Body.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_Head", "OBJ//Chicken_Head.obj");
-	MeshBuilder::GetInstance()->GetMesh("Chicken_Head")->textureID = LoadTGA("Image//Chicken_Head.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_Beak", "OBJ//Chicken_Beak.obj");
-	MeshBuilder::GetInstance()->GetMesh("Chicken_Beak")->textureID = LoadTGA("Image//Chicken_Beak.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_Chin", "OBJ//Chicken_Chin.obj");
-	MeshBuilder::GetInstance()->GetMesh("Chicken_Chin")->textureID = LoadTGA("Image//Chicken_Chin.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_LeftLeg", "OBJ//Chicken_LeftLeg.obj");
-	MeshBuilder::GetInstance()->GetMesh("Chicken_LeftLeg")->textureID = LoadTGA("Image//Chicken_Leg.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_RightLeg", "OBJ//Chicken_RightLeg.obj");
-	MeshBuilder::GetInstance()->GetMesh("Chicken_RightLeg")->textureID = LoadTGA("Image//Chicken_Leg.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_LeftWing", "OBJ//Chicken_LeftWing.obj");
-	MeshBuilder::GetInstance()->GetMesh("Chicken_LeftWing")->textureID = LoadTGA("Image//Chicken_Body.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_RightWing", "OBJ//Chicken_RightWing.obj");
-	MeshBuilder::GetInstance()->GetMesh("Chicken_RightWing")->textureID = LoadTGA("Image//Chicken_Body.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken", "OBJ//Chicken.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken")->textureID = LoadTGA("Image//Chicken.tga");
 
     // Pig
     MeshBuilder::GetInstance()->GenerateOBJ("Pig_Body", "OBJ//Pig_Body.obj");
@@ -237,45 +211,6 @@ void SceneText::MeshInit()
 
     MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Back", "OBJ//Pig_RightLeg_Back.obj");
     MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Back")->textureID = LoadTGA("Image//Pig_Leg.tga");
-    
-
-
-	// Sheep
-	/*MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Body", "OBJ//Sheep_Body.obj");
-	MeshBuilder::GetInstance()->GetMesh("Sheep_Body")->textureID = LoadTGA("Image//Sheep_Body.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Head", "OBJ//Sheep_Head.obj");
-	MeshBuilder::GetInstance()->GetMesh("Sheep_Head")->textureID = LoadTGA("Image//Sheep_Body.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Face", "OBJ//Sheep_Face.obj");
-	MeshBuilder::GetInstance()->GetMesh("Sheep_Face")->textureID = LoadTGA("Image//Sheep_Face.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_Legs", "OBJ//Sheep_Legs.obj");
-	MeshBuilder::GetInstance()->GetMesh("Sheep_Legs")->textureID = LoadTGA("Image//Sheep_Leg.tga");*/
-
-	/*MeshBuilder::GetInstance()->GenerateOBJ("Sheep_LeftLeg_Front", "OBJ//Sheep_LeftLeg_Front.obj");
-	MeshBuilder::GetInstance()->GetMesh("Sheep_LeftLeg_Front")->textureID = LoadTGA("Image//Sheep_Leg.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_RightLeg_Front", "OBJ//Sheep_RightLeg_Front.obj");
-	MeshBuilder::GetInstance()->GetMesh("Sheep_RightLeg_Front")->textureID = LoadTGA("Image//Sheep_Leg.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_LeftLeg_Back", "OBJ//Sheep_LeftLeg_Back.obj");
-	MeshBuilder::GetInstance()->GetMesh("Sheep_LeftLeg_Back")->textureID = LoadTGA("Image//Sheep_Leg.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Sheep_RightLeg_Front", "OBJ//Sheep_RightLeg_Back.obj");
-	MeshBuilder::GetInstance()->GetMesh("Sheep_RightLeg_Front")->textureID = LoadTGA("Image//Sheep_Leg.tga");*/
-
-	// Wolf
-	MeshBuilder::GetInstance()->GenerateOBJ("Wolf_Body", "OBJ//Wolf_Body.obj");
-	MeshBuilder::GetInstance()->GetMesh("Wolf_Body")->textureID = LoadTGA("Image//Wolf_Body.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Wolf_Head", "OBJ//Wolf_Head.obj");
-	MeshBuilder::GetInstance()->GetMesh("Wolf_Head")->textureID = LoadTGA("Image//Wolf_Head.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Wolf_Ears", "OBJ//Wolf_Ears.obj");
-	MeshBuilder::GetInstance()->GetMesh("Wolf_Ears")->textureID = LoadTGA("Image//Wolf_Body.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Wolf_Mouth", "OBJ//Wolf_Mouth.obj");
-	MeshBuilder::GetInstance()->GetMesh("Wolf_Mouth")->textureID = LoadTGA("Image//Wolf_Mouth.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Wolf_LeftLeg_Front", "OBJ//Wolf_LeftLeg_Front.obj");
-	MeshBuilder::GetInstance()->GetMesh("Wolf_LeftLeg_Front")->textureID = LoadTGA("Image//Wolf_Body.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Wolf_RightLeg_Front", "OBJ//Wolf_RightLeg_Front.obj");
-	MeshBuilder::GetInstance()->GetMesh("Wolf_RightLeg_Front")->textureID = LoadTGA("Image//Wolf_Body.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Wolf_LeftLeg_Back", "OBJ//Wolf_LeftLeg_Back.obj");
-	MeshBuilder::GetInstance()->GetMesh("Wolf_LeftLeg_Back")->textureID = LoadTGA("Image//Wolf_Body.tga");
-	MeshBuilder::GetInstance()->GenerateOBJ("Wolf_RightLeg_Front", "OBJ//Wolf_RightLeg_Back.obj");
-	MeshBuilder::GetInstance()->GetMesh("Wolf_RightLeg_Front")->textureID = LoadTGA("Image//Wolf_Body.tga");
 
 	//terrain
 	MeshBuilder::GetInstance()->GenerateTerrain("TEST_TERRAIN", "Image//Terrain.raw", m_heightMap);
@@ -300,7 +235,6 @@ void SceneText::EntityInit()
 	CSceneNode* testNode = CSceneGraph::GetInstance()->AddNode(testCube);
 	testCube->SetCollider(true);
 	testCube->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-	testCube->SetHP(3);
 	testCube->InitLOD("cube", "sphere", "cubeSG");
 	testNode->ApplyTranslate(10, 0, 0);
 
@@ -308,35 +242,34 @@ void SceneText::EntityInit()
 	CSceneNode* testChildNode = testNode->AddChild(testChildCube);
 	testChildCube->SetCollider(true);
 	testChildCube->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-	testChildCube->SetHP(10);
 	testChildNode->ApplyTranslate(0, 5, 0);
 
-	//GenericEntity* baseCube = Create::Asset("sphere");
-	//CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
+	GenericEntity* baseCube = Create::Asset("sphere");
+	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
 
-	//CUpdateTransformation* baseMtx = new CUpdateTransformation();
-	////baseMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	////baseMtx->SetSteps(-60, 60);
-	//baseNode->ApplyTranslate(0.0f, 0.0f, 0.0f);
-	////baseNode->SetUpdateTransformation(baseMtx);
+	CUpdateTransformation* baseMtx = new CUpdateTransformation();
+	//baseMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
+	//baseMtx->SetSteps(-60, 60);
+	baseNode->ApplyTranslate(0.0f, 0.0f, 0.0f);
+	//baseNode->SetUpdateTransformation(baseMtx);
 
-	//GenericEntity* childCube = Create::Asset("cubeSG");
-	//CSceneNode* childNode = baseNode->AddChild(childCube);
-	//childNode->ApplyTranslate(0.0f, 1.0f, 0.0f);
-	////childNode->ApplyRotate(90.f, 0.f, 0.f, 1.f);
-	//CUpdateTransformation* rotateChild = new CUpdateTransformation();
-	//rotateChild->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	//rotateChild->SetSteps(-90, 90);
-	//childNode->SetUpdateTransformation(rotateChild);
+	GenericEntity* childCube = Create::Asset("cubeSG");
+	CSceneNode* childNode = baseNode->AddChild(childCube);
+	childNode->ApplyTranslate(0.0f, 1.0f, 0.0f);
+	//childNode->ApplyRotate(90.f, 0.f, 0.f, 1.f);
+	CUpdateTransformation* rotateChild = new CUpdateTransformation();
+	rotateChild->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
+	rotateChild->SetSteps(-90, 90);
+	childNode->SetUpdateTransformation(rotateChild);
 
-	//GenericEntity* grandchildCube = Create::Asset("cube");
-	//CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
-	//grandchildNode->ApplyTranslate(0.0f, 0.5f, 0.0f);
-	////grandchildNode->ApplyRotate(-90.f, 0.f, 0.f, 1.f);
-	//CUpdateTransformation* rotateGChild = new CUpdateTransformation();
-	//rotateGChild->ApplyUpdate(1.0f, 0.0f, 1.0f, 0.0f);
-	//rotateGChild->SetSteps(0, 360);
-	//grandchildNode->SetUpdateTransformation(rotateGChild);
+	GenericEntity* grandchildCube = Create::Asset("cube");
+	CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
+	grandchildNode->ApplyTranslate(0.0f, 0.5f, 0.0f);
+	//grandchildNode->ApplyRotate(-90.f, 0.f, 0.f, 1.f);
+	CUpdateTransformation* rotateGChild = new CUpdateTransformation();
+	rotateGChild->ApplyUpdate(1.0f, 0.0f, 1.0f, 0.0f);
+	rotateGChild->SetSteps(0, 360);
+	grandchildNode->SetUpdateTransformation(rotateGChild);
 
 	//GenericEntity* Fence = Create::Entity("Fence_High", Vector3(0.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
 	////GenericEntity* Fence = Create::Asset("Fence_High");
@@ -389,19 +322,14 @@ void SceneText::EntityInit()
 	//sheep->Init((0,0,0));
 
     pig = new Pig();
-    pig->Init(Vector3(-10, 0, -10));
+    pig->Init(Vector3(10, -20, 0));
 	
 	pig = new Pig();
 	pig->Init(Vector3(0, -10, 0));
 
-	//Create a CEnemyinstance
-	theEnemy = new CEnemy();
-	theEnemy->Init();
-
 	groundEntity = Create::Ground("FARMLAND_TERRAIN", "FARMLAND_TERRAIN", m_heightMap);
 	//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(85.0f, 45.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(2.25f, 2.0f, 2.0f));
-
 
 	SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
 		"SKYBOX_LEFT", "SKYBOX_RIGHT",
@@ -412,7 +340,20 @@ void SceneText::EntityInit()
 	groundEntity->SetScale(Vector3(1000.0f, 40.f, 1000.0f));
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
-	theEnemy->SetTerrain(groundEntity);
+
+	//Create a CEnemyinstance
+	srand(time(NULL));
+	for (int i = 0; i < 50; i++)
+	{
+		theEnemy = new CEnemy();
+		float x = 1.0f + (i * rand() % 1000 - 500.0f);
+		float y = 1.0f + (i * rand() % 1000 - 500.0f);
+		theEnemy->SetRandomSeed(rand());
+		theEnemy->Init(x, y);
+		theEnemy->SetTerrain(groundEntity);
+		theEnemy->SetTarget(theEnemy->GenerateTarget());
+		theEnemy = NULL;
+	}
 
 	//SceneEditor
 	SceneEditor::GetInstance()->Init();
