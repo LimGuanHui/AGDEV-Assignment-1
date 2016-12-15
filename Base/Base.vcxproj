@@ -14,6 +14,7 @@
     <ClCompile Include="Source\Animal\Pig.cpp" />
     <ClCompile Include="Source\Animal\Sheep.cpp" />
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\Crop.cpp" />
     <ClCompile Include="Source\Enemy\Enemy.cpp" />
     <ClCompile Include="Source\Enemy\Wolf.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="Source\Animal\Pig.h" />
     <ClInclude Include="Source\Animal\Sheep.h" />
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\Crop.h" />
     <ClInclude Include="Source\Enemy\Enemy.h" />
     <ClInclude Include="Source\Enemy\Wolf.h" />
     <ClInclude Include="Source\EntityManager.h" />

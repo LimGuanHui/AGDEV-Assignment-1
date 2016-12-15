@@ -112,7 +112,8 @@ void Pig::Update(double dt)
 {
     //updateTrans->Reset();
     //Body_Node->SetUpdateTransformation(updateTrans);
-    position.x += dt;
+    //Body->SetPosition(Vector3(Body->GetPosition().x * dt, 0, 0));
+    //position.x += dt * 2;
     
     //Body_Node->SetUpdateTransformation(updateTrans);
 }
@@ -136,17 +137,18 @@ void Pig::Render(void)
         //        RenderHelper::RenderMesh(GetLODMesh());
         //    }
         //}
+        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_Body"));
         RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Front"));
         RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front"));
         RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Back"));
-        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front"));
+        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Back"));
         modelStack.PushMatrix();
             modelStack.Translate(0, 2.32 * scale.y, 2.04 * scale.z);
             RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_Head"));
         modelStack.PopMatrix();
 
         modelStack.PushMatrix();
-        modelStack.Translate(0, 2.07 * scale.y, 2.59 * scale.z);
+            modelStack.Translate(0, 2.07 * scale.y, 2.59 * scale.z);
             RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_Nose"));
         modelStack.PopMatrix();
 
