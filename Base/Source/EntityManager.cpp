@@ -72,7 +72,7 @@ void EntityManager::Render()
 	end = entityList.end();
 	for (it = entityList.begin(); it != end; ++it)
 	{
-        if (CSceneGraph::GetInstance()->GetNode((*it)) != NULL)
+        if (CSceneGraph::GetInstance()->GetNode((*it)) == NULL)
 		(*it)->Render();
 	}
 

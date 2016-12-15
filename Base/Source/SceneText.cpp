@@ -347,7 +347,7 @@ void SceneText::EntityInit()
     ROATE->SetSteps(0, 360);
     Windmill_base_node->SetUpdateTransformation(ROATE);*/
 
-    GenericEntity* Windmill_fan = Create::Asset("Windmill_Fan", Vector3(0.f, 10.f, 0.f), Vector3(3.f, 3.f, 3.f));
+    GenericEntity* Windmill_fan = Create::Asset("Windmill_Fan", Vector3(0.f, 0.f, 0.f), Vector3(3.f, 3.f, 3.f));
     CSceneNode* Windmill_fan_node = Windmill_base_node->AddChild(Windmill_fan);
     //Windmill_fan_node->ApplyTranslate(10.f, 0.f, 15.f);
     //CUpdateTransformation* rotate_windmill_fan = new CUpdateTransformation();
