@@ -23,6 +23,7 @@
 #include "SceneGraph\SceneGraph.h"
 #include "SpatialPartition\SpatialPartition.h"
 #include "SceneEditor.h"
+#include "Crop.h"
 #include <iostream>
 using namespace std;
 
@@ -303,13 +304,11 @@ void SceneText::EntityInit()
 
     pig = new Pig();
     pig->Init();
-	//
-	//pig = new Pig();
-	//pig->Init(Vector3(0, -10, 0));
 
 	groundEntity = Create::Ground("FARMLAND_TERRAIN", "FARMLAND_TERRAIN", m_heightMap);
 	//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(85.0f, 45.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(2.25f, 2.0f, 2.0f));
+
 
 	SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
 		"SKYBOX_LEFT", "SKYBOX_RIGHT",
@@ -321,9 +320,12 @@ void SceneText::EntityInit()
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
 
+    //crops
+    Crop::Init(groundEntity);
+
 	//Create a CEnemyinstance
 	srand(time(NULL));
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		theEnemy = new CEnemy();
 		float x = 1.0f + (i * rand() % 1000 - 500.0f);
