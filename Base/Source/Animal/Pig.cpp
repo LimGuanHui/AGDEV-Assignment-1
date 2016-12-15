@@ -18,7 +18,7 @@ Pig::Pig() : GenericEntity(NULL)
 
 Pig::~Pig()
 {
-    delete updateTrans;
+    //delete updateTrans;
 }
 
 void Pig::Init(Vector3 pos)
@@ -63,7 +63,8 @@ void Pig::Init(Vector3 pos)
     SetScale(Vector3(1, 1, 1));
 
     updateTrans = new CUpdateTransformation();
-    
+    updateTrans->ApplyUpdate(position.x + 1.f, position.y, position.z);
+    //updateTrans->SetSteps(-10, 10);
     Body_Node->SetUpdateTransformation(updateTrans);
 }
 
@@ -110,7 +111,9 @@ GroundEntity* Pig::GetTerrain(void)
 void Pig::Update(double dt)
 {
     //updateTrans->Reset();
-    updateTrans->ApplyUpdate(position.x,position.y,position.z);
+    //Body_Node->SetUpdateTransformation(updateTrans);
+    position.x += dt;
+    
     //Body_Node->SetUpdateTransformation(updateTrans);
 }
 
