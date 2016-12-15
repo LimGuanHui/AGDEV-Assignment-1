@@ -7,6 +7,7 @@
 SpriteEntity::SpriteEntity(Mesh* _modelMesh) :
 modelMesh(_modelMesh),
 position(0.0f, 0.0f, 0.0f),
+rotate(0.0f, 0.0f, 0.0f),
 scale(1.0f, 1.0f, 1.0f),
 mode(MODE_2D)
 {
@@ -29,6 +30,9 @@ void SpriteEntity::Render()
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 	modelStack.PushMatrix();
 	modelStack.Translate(position.x, position.y, position.z);
+	modelStack.Rotate(rotate.x, 1, 0, 0);
+	modelStack.Rotate(rotate.y, 0, 1, 0);
+	modelStack.Rotate(rotate.z, 0, 0, 1);
 	modelStack.Scale(scale.x, scale.y, scale.z);
 	RenderHelper::RenderMesh(modelMesh);
 	modelStack.PopMatrix();
@@ -42,12 +46,15 @@ void SpriteEntity::RenderUI()
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 	modelStack.PushMatrix();
 	modelStack.Translate(position.x, position.y, position.z);
+	modelStack.Rotate(rotate.x, 1, 0, 0);
+	modelStack.Rotate(rotate.y, 0, 1, 0);
+	modelStack.Rotate(rotate.z, 0, 0, 1);
 	modelStack.Scale(scale.x, scale.y, scale.z);
 	RenderHelper::RenderMesh(modelMesh);
 	modelStack.PopMatrix();
 }
 
-SpriteEntity* Create::Sprite2DObject(const std::string& _meshName, const Vector3& _position, const Vector3& _scale)
+SpriteEntity* Create::Sprite2DObject(const std::string& _meshName, const Vector3& _position, const Vector3& _rotate, const Vector3& _scale)
 {
 	Mesh* modelMesh = MeshBuilder::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)
@@ -55,13 +62,14 @@ SpriteEntity* Create::Sprite2DObject(const std::string& _meshName, const Vector3
 
 	SpriteEntity* result = new SpriteEntity(modelMesh);
 	result->SetPosition(_position);
+	result->SetRotation(_rotate);
 	result->SetScale(_scale);
 	result->SetTextRenderMode(SpriteEntity::MODE_2D);
 	EntityManager::GetInstance()->AddEntity(result);
 	return result;
 }
 
-SpriteEntity* Create::Sprite3DObject(const std::string& _meshName, const Vector3& _position, const Vector3& _scale)
+SpriteEntity* Create::Sprite3DObject(const std::string& _meshName, const Vector3& _position, const Vector3& _rotate, const Vector3& _scale)
 {
 	Mesh* modelMesh = MeshBuilder::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)
@@ -69,6 +77,7 @@ SpriteEntity* Create::Sprite3DObject(const std::string& _meshName, const Vector3
 
 	SpriteEntity* result = new SpriteEntity(modelMesh);
 	result->SetPosition(_position);
+	result->SetRotation(_rotate);
 	result->SetScale(_scale);
 	result->SetTextRenderMode(SpriteEntity::MODE_3D);
 	EntityManager::GetInstance()->AddEntity(result);
