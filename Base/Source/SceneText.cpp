@@ -267,6 +267,9 @@ void SceneText::MeshInit()
 	//terrain
 	MeshBuilder::GetInstance()->GenerateTerrain("TEST_TERRAIN", "Image//Terrain.raw", m_heightMap);
 	MeshBuilder::GetInstance()->GetMesh("TEST_TERRAIN")->textureID = LoadTGA("Image//moss1.tga");
+    MeshBuilder::GetInstance()->GenerateTerrain("FARMLAND_TERRAIN", "Image//Terrain//farmlands_heightmap.raw", m_heightMap);
+    MeshBuilder::GetInstance()->GetMesh("FARMLAND_TERRAIN")->textureID = LoadTGA("Image//moss1.tga");
+
 }
 
 void SceneText::EntityInit()
@@ -336,7 +339,7 @@ void SceneText::EntityInit()
 	theEnemy = new CEnemy();
 	theEnemy->Init();
 
-	groundEntity = Create::Ground("TEST_TERRAIN", "TEST_TERRAIN", m_heightMap);
+	groundEntity = Create::Ground("FARMLAND_TERRAIN", "FARMLAND_TERRAIN", m_heightMap);
 	//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 	Create::Sprite2DObject("crosshair", Vector3(85.0f, 45.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(2.25f, 2.0f, 2.0f));
 
@@ -347,7 +350,7 @@ void SceneText::EntityInit()
 
 	// Customise the ground entity
 	groundEntity->SetPosition(Vector3(0, -30, 0));
-	groundEntity->SetScale(Vector3(1000.0f, 50.f, 1000.0f));
+	groundEntity->SetScale(Vector3(1000.0f, 40.f, 1000.0f));
 	groundEntity->SetGrids(Vector3(10.0f, 1.0f, 10.0f));
 	playerInfo->SetTerrain(groundEntity);
 	theEnemy->SetTerrain(groundEntity);

@@ -87,12 +87,12 @@ float Arrow::CalculateYrotation()
 #define CAM_TARGET theSource->GetTarget()
 #define CAM_POS position
     
-    return Math::RadianToDegree(asin(((CAM_TARGET.z - CAM_POS.z) / theDirection.Length())));
+    return Math::RadianToDegree(atan2(theDirection.x, theDirection.z));
 }
 
 float Arrow::CalculateXrotation()
 {
-    return 0.f;
+    return Math::RadianToDegree(atan2(position.y, theDirection.y));
 }
 
 // Create a projectile and add it into EntityManager
@@ -114,7 +114,7 @@ Arrow* Create::arrow(const std::string& _meshName,
 	result->SetSource(_source);
 	result->SetTerrain(_source->GetTerrain());
     
-    result->SetRotation(Vector3(0, result->CalculateYrotation(),0));
+    result->SetRotation(Vector3(0, result->CalculateYrotation(), result->CalculateXrotation()));
 	EntityManager::GetInstance()->AddEntity(result, true);
 	return result;
 }
