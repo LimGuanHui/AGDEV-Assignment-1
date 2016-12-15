@@ -12,7 +12,7 @@ public:
     Pig(void);
     virtual ~Pig();
 
-    void Init(Vector3 pos);
+    void Init();
 
     //Set target
     void SetTarget(const Vector3& target);

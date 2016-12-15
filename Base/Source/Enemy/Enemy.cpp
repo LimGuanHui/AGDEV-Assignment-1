@@ -48,7 +48,7 @@ void CEnemy::Init(void)
 	m_dSpeed = 10.0;
 
 	// Initialise the LOD meshes
-	InitLOD("Chicken", "Chicken", "Chicken");
+	InitLOD("Chicken_High", "Chicken_Medium", "Chicken_Low");
 
 	// Initialise the Collider
 	this->SetCollider(true);
@@ -81,7 +81,7 @@ void CEnemy::Init(float x, float y)
 	m_dSpeed = 10.0;
 
 	// Initialise the LOD meshes
-	InitLOD("Chicken", "Chicken", "Chicken");
+	InitLOD("Chicken_High", "Chicken_Medium", "Chicken_Low");
 
 	// Initialise the Collider
 	this->SetCollider(true);

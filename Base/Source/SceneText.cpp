@@ -187,8 +187,12 @@ void SceneText::MeshInit()
 	MeshBuilder::GetInstance()->GetMesh("Bucket_Filled")->textureID = LoadTGA("Image//Well//Bucket_Filled.tga");
 
 	// Chicken
-	MeshBuilder::GetInstance()->GenerateOBJ("Chicken", "OBJ//Chicken.obj");
-	MeshBuilder::GetInstance()->GetMesh("Chicken")->textureID = LoadTGA("Image//Chicken.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_High", "OBJ//Chicken.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken_High")->textureID = LoadTGA("Image//Chicken_High.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_Medium", "OBJ//Chicken.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken_Medium")->textureID = LoadTGA("Image//Chicken_Medium.tga");
+	MeshBuilder::GetInstance()->GenerateOBJ("Chicken_Low", "OBJ//Chicken.obj");
+	MeshBuilder::GetInstance()->GetMesh("Chicken_Low")->textureID = LoadTGA("Image//Chicken_Low.tga");
 
     // Pig
     MeshBuilder::GetInstance()->GenerateOBJ("Pig_Body", "OBJ//Pig_Body.obj");
@@ -220,7 +224,7 @@ void SceneText::MeshInit()
 
     //Windmill
     MeshBuilder::GetInstance()->GenerateOBJ("Windmill_Base", "OBJ//Windmill//windmill_high.obj");
-    //MeshBuilder::GetInstance()->GetMesh("Windmill_Base")->textureID = LoadTGA("Image//Wolf_Body.tga");
+	MeshBuilder::GetInstance()->GetMesh("Windmill_Base")->textureID = LoadTGA("Image//Well//Well.tga");
     MeshBuilder::GetInstance()->GenerateOBJ("Windmill_Fan", "OBJ//Windmill//windmill_fan.obj");
 	MeshBuilder::GetInstance()->GetMesh("Windmill_Fan")->textureID = LoadTGA("Image//Fence.tga");
 }
@@ -231,61 +235,37 @@ void SceneText::EntityInit()
 	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
 
-	GenericEntity* testCube = Create::Entity("cube");
-	CSceneNode* testNode = CSceneGraph::GetInstance()->AddNode(testCube);
-	testCube->SetCollider(true);
-	testCube->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-	testCube->InitLOD("cube", "sphere", "cubeSG");
-	testNode->ApplyTranslate(10, 0, 0);
+	//GenericEntity* baseCube = Create::Asset("sphere");
+	//CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
 
-	GenericEntity* testChildCube = Create::Entity("cube");
-	CSceneNode* testChildNode = testNode->AddChild(testChildCube);
-	testChildCube->SetCollider(true);
-	testChildCube->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(-1.f, -1.f, -1.f));
-	testChildNode->ApplyTranslate(0, 5, 0);
+	//CUpdateTransformation* baseMtx = new CUpdateTransformation();
+	////baseMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
+	////baseMtx->SetSteps(-60, 60);
+	//baseNode->ApplyTranslate(0.0f, 0.0f, 0.0f);
+	////baseNode->SetUpdateTransformation(baseMtx);
 
-	GenericEntity* baseCube = Create::Asset("sphere");
-	CSceneNode* baseNode = CSceneGraph::GetInstance()->AddNode(baseCube);
+	//GenericEntity* childCube = Create::Asset("cubeSG");
+	//CSceneNode* childNode = baseNode->AddChild(childCube);
+	//childNode->ApplyTranslate(0.0f, 1.0f, 0.0f);
+	////childNode->ApplyRotate(90.f, 0.f, 0.f, 1.f);
+	//CUpdateTransformation* rotateChild = new CUpdateTransformation();
+	//rotateChild->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
+	//rotateChild->SetSteps(-90, 90);
+	//childNode->SetUpdateTransformation(rotateChild);
 
-	CUpdateTransformation* baseMtx = new CUpdateTransformation();
-	//baseMtx->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	//baseMtx->SetSteps(-60, 60);
-	baseNode->ApplyTranslate(0.0f, 0.0f, 0.0f);
-	//baseNode->SetUpdateTransformation(baseMtx);
-
-	GenericEntity* childCube = Create::Asset("cubeSG");
-	CSceneNode* childNode = baseNode->AddChild(childCube);
-	childNode->ApplyTranslate(0.0f, 1.0f, 0.0f);
-	//childNode->ApplyRotate(90.f, 0.f, 0.f, 1.f);
-	CUpdateTransformation* rotateChild = new CUpdateTransformation();
-	rotateChild->ApplyUpdate(1.0f, 0.0f, 0.0f, 1.0f);
-	rotateChild->SetSteps(-90, 90);
-	childNode->SetUpdateTransformation(rotateChild);
-
-	GenericEntity* grandchildCube = Create::Asset("cube");
-	CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
-	grandchildNode->ApplyTranslate(0.0f, 0.5f, 0.0f);
-	//grandchildNode->ApplyRotate(-90.f, 0.f, 0.f, 1.f);
-	CUpdateTransformation* rotateGChild = new CUpdateTransformation();
-	rotateGChild->ApplyUpdate(1.0f, 0.0f, 1.0f, 0.0f);
-	rotateGChild->SetSteps(0, 360);
-	grandchildNode->SetUpdateTransformation(rotateGChild);
-
-	//GenericEntity* Fence = Create::Entity("Fence_High", Vector3(0.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
-	////GenericEntity* Fence = Create::Asset("Fence_High");
-	////CSceneNode* FenceNode = CSceneGraph::GetInstance()->AddNode(Fence);
-	//Fence->SetCollider(true);
-	//Fence->SetAABB(Vector3(5.f, 5.f, 2.f), Vector3(-5.f, -5.f, -2.f));
-	////FenceNode->ApplyTranslate(0, 0, 15);
-	//Fence->InitLOD("Fence_High", "Fence_Medium", "Fence_Low");
+	//GenericEntity* grandchildCube = Create::Asset("cube");
+	//CSceneNode* grandchildNode = childNode->AddChild(grandchildCube);
+	//grandchildNode->ApplyTranslate(0.0f, 0.5f, 0.0f);
+	////grandchildNode->ApplyRotate(-90.f, 0.f, 0.f, 1.f);
+	//CUpdateTransformation* rotateGChild = new CUpdateTransformation();
+	//rotateGChild->ApplyUpdate(1.0f, 0.0f, 1.0f, 0.0f);
+	//rotateGChild->SetSteps(0, 360);
+	//grandchildNode->SetUpdateTransformation(rotateGChild);
 
     //windmill
 	GenericEntity* Windmill_base = Create::Asset("Windmill_Base", Vector3(10.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
     CSceneNode* Windmill_base_node = CSceneGraph::GetInstance()->AddNode(Windmill_base);
-    /*CUpdateTransformation* ROATE = new CUpdateTransformation();
-    ROATE->ApplyUpdate(1.f, 0.f, 0.f, 1.f);
-    ROATE->SetSteps(0, 360);
-    Windmill_base_node->SetUpdateTransformation(ROATE);*/
+	Windmill_base_node->ApplyTranslate(0, -30, 30);
 
     GenericEntity* Windmill_fan = Create::Asset("Windmill_Fan", Vector3(0.f, 0.f, 0.f), Vector3(3.f, 3.f, 3.f));
     CSceneNode* Windmill_fan_node = Windmill_base_node->AddChild(Windmill_fan);
@@ -295,9 +275,9 @@ void SceneText::EntityInit()
     rotate_windmill_fan->SetSteps(0, 360);
     Windmill_fan_node->SetUpdateTransformation(rotate_windmill_fan);
 
-	GenericEntity* Well_Main = Create::Asset("Well_High");
-	CSceneNode* Well_Main_Node = CSceneGraph::GetInstance()->AddNode(Well_Main);
+	GenericEntity* Well_Main = Create::Entity("Well_High");
 	Well_Main->InitLOD("Well_High", "Well_Medium", "Well_Low");
+	CSceneNode* Well_Main_Node = CSceneGraph::GetInstance()->AddNode(Well_Main);
 	Well_Main_Node->ApplyTranslate(0.f, -27.5f, -15.f);
 
 	GenericEntity* Well_Stand = Create::Asset("Well_Stand");
@@ -322,10 +302,10 @@ void SceneText::EntityInit()
 	//sheep->Init((0,0,0));
 
     pig = new Pig();
-    pig->Init(Vector3(10, -20, 0));
-	
-	pig = new Pig();
-	pig->Init(Vector3(0, -10, 0));
+    pig->Init();
+	//
+	//pig = new Pig();
+	//pig->Init(Vector3(0, -10, 0));
 
 	groundEntity = Create::Ground("FARMLAND_TERRAIN", "FARMLAND_TERRAIN", m_heightMap);
 	//	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
@@ -343,7 +323,7 @@ void SceneText::EntityInit()
 
 	//Create a CEnemyinstance
 	srand(time(NULL));
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		theEnemy = new CEnemy();
 		float x = 1.0f + (i * rand() % 1000 - 500.0f);
@@ -399,8 +379,6 @@ void SceneText::Init()
 
 void SceneText::Update(double dt)
 {
-    //pig update
-    pig->Update(dt);
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
 
@@ -512,7 +490,6 @@ void SceneText::Render()
 	EntityManager::GetInstance()->Render();
     //SceneEditor render
     SceneEditor::GetInstance()->Render();
-    pig->Render();
 
 	// Setup 2D pipeline then render 2D
 	GraphicsManager::GetInstance()->SetOrthographicProjection(0, 170, 0, 90, -70, 140);
