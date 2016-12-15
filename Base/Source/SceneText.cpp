@@ -153,9 +153,11 @@ void SceneText::MeshInit()
 	MeshBuilder::GetInstance()->GenerateQuad("GRIDMESH", Color(1, 1, 1), 10.f);
 
 	// Bow and Arrow
+	MeshBuilder::GetInstance()->GenerateOBJ("Bow", "OBJ//Bow.obj");
+	MeshBuilder::GetInstance()->GetMesh("Bow")->textureID = LoadTGA("Image//Bow.tga");
 	MeshBuilder::GetInstance()->GenerateOBJ("Arrow", "OBJ//Arrow.obj");
 	MeshBuilder::GetInstance()->GetMesh("Arrow")->textureID = LoadTGA("Image//Arrow.tga");
-	
+
 	// Rifle
 	MeshBuilder::GetInstance()->GenerateOBJ("Rifle", "OBJ//Rifle.obj");
 	MeshBuilder::GetInstance()->GetMesh("Rifle")->textureID = LoadTGA("Image//Rifle.tga");
@@ -509,7 +511,7 @@ void SceneText::Render()
 	// Setup 2D pipeline then render 2D
 	GraphicsManager::GetInstance()->SetOrthographicProjection(0, 170, 0, 90, -70, 140);
 	GraphicsManager::GetInstance()->DetachCamera();
-	CPlayerInfo::GetInstance()->Render("Rifle", "Tree");
+	CPlayerInfo::GetInstance()->Render("Rifle", "Bow");
 	EntityManager::GetInstance()->RenderUI();
 }
 
