@@ -47,6 +47,8 @@ void Arrow::Update(double dt)
 		vector<EntityBase*> ExportList = CSpatialPartition::GetInstance()->GetObjects(position, 1.0f);
 		for (int i = 0; i < ExportList.size(); ++i)
 		{
+            if (!ExportList[i]->HasCollider())
+                continue;
 			// Remove from Scene Graph
 			if (CSceneGraph::GetInstance()->DeleteNode(ExportList[i]) == true)
 			{

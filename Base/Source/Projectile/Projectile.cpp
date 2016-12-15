@@ -135,8 +135,12 @@ void CProjectile::Update(double dt)
                 temp = (*it);
             }
         }
-        this->SetIsDone(true);
-        temp->SetIsDone(true);
+        if (temp->HasCollider())
+        {
+            this->SetIsDone(true);
+            temp->SetIsDone(true);
+        }
+        
     }
 
 	// Update Position

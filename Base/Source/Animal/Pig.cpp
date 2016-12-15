@@ -24,6 +24,7 @@ Pig::~Pig()
 void Pig::Init()
 {
     Body = Create::Entity("Pig_Body");
+    Body->SetCollider(false);
 	Body_Node = CSceneGraph::GetInstance()->AddNode(Body);
 	CUpdateTransformation* translateBody = new CUpdateTransformation();
 	Body_Node->ApplyTranslate(30, -27.5, 0);
@@ -32,15 +33,20 @@ void Pig::Init()
 	Body_Node->SetUpdateTransformation(translateBody);
 
 	leg1 = Create::Asset("Pig_LeftLeg_Front");
+    leg1->SetCollider(false);
 	CSceneNode* leg1_Node = Body_Node->AddChild(leg1);
     leg2 = Create::Asset("Pig_RightLeg_Front");
+    leg2->SetCollider(false);
 	CSceneNode* leg2_Node = Body_Node->AddChild(leg2);
 	leg3 = Create::Asset("Pig_LeftLeg_Back");
+    leg3->SetCollider(false);
 	CSceneNode* leg3_Node = Body_Node->AddChild(leg3);
 	leg4 = Create::Asset("Pig_RightLeg_Back");
+    leg4->SetCollider(false);
 	CSceneNode* leg4_Node = Body_Node->AddChild(leg4);
 
 	Head = Create::Asset("Pig_Head");
+    Head->SetCollider(false);
 	/*Head->SetCollider(true);
 	Head->SetAABB(Vector3(2, 2, 2), Vector3(-2, -2, -2));
 	Head->SetHP(3);*/
@@ -48,6 +54,7 @@ void Pig::Init()
 	Head_Node->ApplyTranslate(0.f, 2.32f * scale.y, 2.04f * scale.z);
     
 	Nose = Create::Asset("Pig_Nose");
+    Nose->SetCollider(false);
 	/*Nose->SetCollider(true);
 	Nose->SetAABB(Vector3(2, 2, 2), Vector3(-2, -2, -2));
 	Nose->SetHP(3);*/

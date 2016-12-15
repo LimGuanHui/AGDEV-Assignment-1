@@ -265,10 +265,12 @@ void SceneText::EntityInit()
 
     //windmill
 	GenericEntity* Windmill_base = Create::Asset("Windmill_Base", Vector3(10.f, 0.f, 15.f), Vector3(3.f, 3.f, 3.f));
+    Windmill_base->SetCollider(false);
     CSceneNode* Windmill_base_node = CSceneGraph::GetInstance()->AddNode(Windmill_base);
 	Windmill_base_node->ApplyTranslate(0, -30, 30);
 
     GenericEntity* Windmill_fan = Create::Asset("Windmill_Fan", Vector3(0.f, 0.f, 0.f), Vector3(3.f, 3.f, 3.f));
+    Windmill_fan->SetCollider(false);
     CSceneNode* Windmill_fan_node = Windmill_base_node->AddChild(Windmill_fan);
 	Windmill_fan_node->ApplyTranslate(10.f, 22.17f, 6.9f);
     CUpdateTransformation* rotate_windmill_fan = new CUpdateTransformation();
@@ -277,26 +279,33 @@ void SceneText::EntityInit()
     Windmill_fan_node->SetUpdateTransformation(rotate_windmill_fan);
 
 	GenericEntity* Well_Main = Create::Entity("Well_High");
+    Well_Main->SetCollider(false);
 	Well_Main->InitLOD("Well_High", "Well_Medium", "Well_Low");
 	CSceneNode* Well_Main_Node = CSceneGraph::GetInstance()->AddNode(Well_Main);
 	Well_Main_Node->ApplyTranslate(0.f, -27.5f, -15.f);
 
 	GenericEntity* Well_Stand = Create::Asset("Well_Stand");
+    Well_Stand->SetCollider(false);
 	CSceneNode* Well_Stand_Node = Well_Main_Node->AddChild(Well_Stand);
 
 	GenericEntity* Well_Lever = Create::Asset("Well_Lever");
+    Well_Lever->SetCollider(false);
 	CSceneNode* Well_Lever_Node = Well_Stand_Node->AddChild(Well_Lever);
 
 	GenericEntity* Well_Handle = Create::Asset("Well_Handle");
+    Well_Handle->SetCollider(false);
 	CSceneNode* Well_Handle_Node = Well_Lever_Node->AddChild(Well_Handle);
 
 	GenericEntity* Rope_Coil = Create::Asset("Rope_Coil");
+    Rope_Coil->SetCollider(false);
 	CSceneNode* Rope_Coil_Node = Well_Lever_Node->AddChild(Rope_Coil);
 
 	GenericEntity* Rope_Hang = Create::Asset("Rope_Hang");
+    Rope_Hang->SetCollider(false);
 	CSceneNode* Rope_Hang_Node = Well_Stand_Node->AddChild(Rope_Hang);
 
 	GenericEntity* Bucket = Create::Asset("Bucket_Empty");
+    Bucket->SetCollider(false);
 	CSceneNode* Bucket_Node = Rope_Hang_Node->AddChild(Bucket);
 	
 	//sheep = new Sheep();

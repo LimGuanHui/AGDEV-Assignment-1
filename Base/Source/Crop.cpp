@@ -32,7 +32,10 @@ void Crop::Init(GroundEntity* a_b_c_groundEntity)
 			CSceneNode* plant_node = CSceneGraph::GetInstance()->AddNode(plant);
             //plant->SetPosition(temp);
 			GenericEntity* corn = Create::Entity("Corn", Vector3(temp.x, temp.y + 1.f, temp.z));
-			CSceneNode* corn_node = CSceneGraph::GetInstance()->AddNode(corn);
+            //corn->SetCollider(true);
+            //corn->SetAABB(Vector3(1.f, 1.f, 1.f), Vector3(0.f, 0.f, -1.f));
+            CSceneNode* corn_node = plant_node->AddChild(corn);//CSceneGraph::GetInstance()->AddNode(corn);
+
             //corn->SetPosition(Vector3(temp.x, temp.y + 1.f, temp.z));
         }
     }
