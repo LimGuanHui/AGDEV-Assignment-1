@@ -366,7 +366,7 @@ bool EntityManager::CheckForCollision(void)
 			// This object was derived from a CCollider class, then it will have Collision Detection methods
 			//CCollider *thisCollider = dynamic_cast<CCollider*>(*colliderThis);
 			EntityBase *thisEntity = dynamic_cast<EntityBase*>(*colliderThis);
-
+			
 			// Check for collision with another collider class
 			colliderThatEnd = entityList.end();
 			int counter = 0;
@@ -382,8 +382,13 @@ bool EntityManager::CheckForCollision(void)
 					{
 						if (CheckAABBCollision(thisEntity, thatEntity))
 						{
-							thisEntity->SetIsDone(true);
-							thatEntity->SetIsDone(true);
+							thisEntity->ModifyHP(-1);
+							thatEntity->ModifyHP(-1);
+
+							if (thisEntity->GetHP() <= 0)
+								thisEntity->SetIsDone(true);
+							if (thatEntity->GetHP() <= 0)
+								thatEntity->SetIsDone(true);
 						}
 					}
 				}
