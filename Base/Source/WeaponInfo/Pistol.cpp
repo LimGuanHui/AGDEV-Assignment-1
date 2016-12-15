@@ -17,13 +17,13 @@ void CPistol::Init(void)
 	CWeaponInfo::Init();
 
 	// The number of ammunition in a magazine for this weapon
-	magRounds = 8;
+	magRounds = 100000;
 	// The maximum number of ammunition for this magazine for this weapon
-	maxMagRounds = 8;
+	maxMagRounds = 100000;
 	// The current total number of rounds currently carried by this player
-	totalRounds = 40;
+	totalRounds = 100000;
 	// The max total number of rounds currently carried by this player
-	maxTotalRounds = 40;
+	maxTotalRounds = 100000;
 
 	// The time between shots
 	timeBetweenShots = 0.3333;
