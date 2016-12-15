@@ -22,6 +22,9 @@ public:
 	inline void SetScale(const Vector3& _value){ scale = _value; };
 	inline Vector3 GetScale(){ return scale; };
 
+	inline void SetHP(const  int& _value) { HP = _value; };
+	inline int GetHP(){ return HP; };
+
 	bool IsDone();
 	void SetIsDone(const bool _value);
 
@@ -42,6 +45,8 @@ protected:
 	bool isDone;
 	bool m_bCollider;
 	bool bLaser;
+
+	int HP;
 };
 
 #endif // ENTITY_BASE_H
