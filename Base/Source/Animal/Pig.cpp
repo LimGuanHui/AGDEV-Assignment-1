@@ -42,17 +42,30 @@ void Pig::Init(Vector3 pos)
     MeshBuilder::GetInstance()->GenerateOBJ("Pig_LeftLeg_Back", "OBJ//Pig_LeftLeg_Back.obj");
     MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Back")->textureID = LoadTGA("Image//Pig_Leg.tga");
 
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Front", "OBJ//Pig_RightLeg_Back.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
+    MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Back", "OBJ//Pig_RightLeg_Back.obj");
+    MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Back")->textureID = LoadTGA("Image//Pig_Leg.tga");
 
 
     SetPosition(pos);
 
-    Body = Create::Entity("Pig");
+    Body = Create::Entity("Pig_Body");
+	CSceneNode* Body_Node = CSceneGraph::GetInstance()->AddNode(Body);
     leg1 = Create::Entity("Pig_LeftLeg_Front");
+	CSceneNode* leg1_Node = Body_Node->AddChild(leg1);
     leg2 = Create::Entity("Pig_RightLeg_Front");
+	CSceneNode* leg2_Node = Body_Node->AddChild(leg2);
     leg3 = Create::Entity("Pig_LeftLeg_Back");
-    leg4 = Create::Entity("Pig_RightLeg_Front");
+	CSceneNode* leg3_Node = Body_Node->AddChild(leg3);
+    leg4 = Create::Entity("Pig_RightLeg_Back");
+	CSceneNode* leg4_Node = Body_Node->AddChild(leg4);
+
+	Head = Create::Entity("Pig_Head");
+	CSceneNode* Head_Node = Body_Node->AddChild(Head);
+	Head_Node->ApplyTranslate(0.f, 2.32f * scale.y, 2.04f * scale.z);
+
+	Face = Create::Entity("Pig_Nose");
+	CSceneNode* Face_Node = Body_Node->AddChild(Face);
+	Face_Node->ApplyTranslate(0.f, 2.07f * scale.y, 2.59f * scale.z);
     //CSceneNode* BodyNode = CSceneGraph::GetInstance()->AddNode(Body);
     //Body->SetCollider(true);
     //Body->SetAABB(Vector3(1.434, 1.434, 1.29), Vector3(-1.434, -1.434, -1.29));

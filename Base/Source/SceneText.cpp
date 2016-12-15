@@ -366,6 +366,9 @@ void SceneText::EntityInit()
 	//sheep = new Sheep();
 	//sheep->Init((0,0,0));
 	
+	pig = new Pig();
+	pig->Init(Vector3(0, -10, 0));
+
 	//Create a CEnemyinstance
 	theEnemy = new CEnemy();
 	theEnemy->Init();
