@@ -23,32 +23,14 @@ Pig::~Pig()
 void Pig::Init(Vector3 pos)
 {
     //mesh
-    // Pig
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_Body", "OBJ//Pig_Body.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_Body")->textureID = LoadTGA("Image//Pig_Body.tga");
-
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_Head", "OBJ//Pig_Head.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_Head")->textureID = LoadTGA("Image//Pig_Head.tga");
-
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_Nose", "OBJ//Pig_Nose.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_Nose")->textureID = LoadTGA("Image//Pig_Nose.tga");
-    //leg
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_LeftLeg_Front", "OBJ//Pig_LeftLeg_Front.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
-
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Front", "OBJ//Pig_RightLeg_Front.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
-
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_LeftLeg_Back", "OBJ//Pig_LeftLeg_Back.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Back")->textureID = LoadTGA("Image//Pig_Leg.tga");
-
-    MeshBuilder::GetInstance()->GenerateOBJ("Pig_RightLeg_Front", "OBJ//Pig_RightLeg_Back.obj");
-    MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front")->textureID = LoadTGA("Image//Pig_Leg.tga");
+    
 
 
     SetPosition(pos);
 
-    Body = Create::Entity("Pig");
+    Body = Create::Entity("Pig_Body");
+    Head = Create::Entity("Pig_Head");
+    Nose = Create::Entity("Pig_Nose");
     leg1 = Create::Entity("Pig_LeftLeg_Front");
     leg2 = Create::Entity("Pig_RightLeg_Front");
     leg3 = Create::Entity("Pig_LeftLeg_Back");
@@ -56,6 +38,12 @@ void Pig::Init(Vector3 pos)
     //CSceneNode* BodyNode = CSceneGraph::GetInstance()->AddNode(Body);
     //Body->SetCollider(true);
     //Body->SetAABB(Vector3(1.434, 1.434, 1.29), Vector3(-1.434, -1.434, -1.29));
+    /*pig head
+        translate(0, 2.32, 2.04)
+
+        pig nose
+        translate(0, 2.07, 2.59)*/
+    SetScale(Vector3(1, 1, 1));
 }
 
 void Pig::SetTarget(const Vector3& target)
@@ -112,19 +100,29 @@ void Pig::Render(void)
 {
     MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
     modelStack.PushMatrix();
-    modelStack.Translate(position.x, position.y, position.z);
-    modelStack.Scale(scale.x, scale.y, scale.z);
-    //if (GetLODStatus() == true)
-    //{
-    //    if (theDetailLevel != NO_DETAILS)
-    //    {
-    //        //cout << theDetailLevel << endl;
-    //        RenderHelper::RenderMesh(GetLODMesh());
-    //    }
-    //}
-    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Front"));
-    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front"));
-    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Back"));
-    RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front"));
+        modelStack.Translate(position.x, position.y, position.z);
+        modelStack.Scale(scale.x, scale.y, scale.z);
+        //if (GetLODStatus() == true)
+        //{
+        //    if (theDetailLevel != NO_DETAILS)
+        //    {
+        //        //cout << theDetailLevel << endl;
+        //        RenderHelper::RenderMesh(GetLODMesh());
+        //    }
+        //}
+        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Front"));
+        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front"));
+        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_LeftLeg_Back"));
+        RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_RightLeg_Front"));
+        modelStack.PushMatrix();
+            modelStack.Translate(0, 2.32 * scale.y, 2.04 * scale.z);
+            RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_Head"));
+        modelStack.PopMatrix();
+
+        modelStack.PushMatrix();
+        modelStack.Translate(0, 2.07 * scale.y, 2.59 * scale.z);
+            RenderHelper::RenderMesh(MeshBuilder::GetInstance()->GetMesh("Pig_Nose"));
+        modelStack.PopMatrix();
+
     modelStack.PopMatrix();
 }
