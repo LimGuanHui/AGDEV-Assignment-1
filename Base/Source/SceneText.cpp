@@ -233,7 +233,7 @@ void SceneText::MeshInit()
 void SceneText::EntityInit()
 {
 	// Create entities into the scene
-	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
+	//Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
 
 	//GenericEntity* baseCube = Create::Asset("sphere");
