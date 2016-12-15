@@ -365,7 +365,7 @@ void SceneText::EntityInit()
 	GenericEntity* Well_Main = Create::Asset("Well_High");
 	CSceneNode* Well_Main_Node = CSceneGraph::GetInstance()->AddNode(Well_Main);
 	Well_Main->InitLOD("Well_High", "Well_Medium", "Well_Low");
-	Well_Main_Node->ApplyTranslate(0.f, 0.f, -15.f);
+	Well_Main_Node->ApplyTranslate(0.f, -27.5f, -15.f);
 
 	GenericEntity* Well_Stand = Create::Asset("Well_Stand");
 	CSceneNode* Well_Stand_Node = Well_Main_Node->AddChild(Well_Stand);

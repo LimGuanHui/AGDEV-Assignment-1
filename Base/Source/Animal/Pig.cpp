@@ -40,10 +40,16 @@ void Pig::Init(Vector3 pos)
 	CSceneNode* leg4_Node = Body_Node->AddChild(leg4);
 
 	Head = Create::Entity("Pig_Head");
+	/*Head->SetCollider(true);
+	Head->SetAABB(Vector3(2, 2, 2), Vector3(-2, -2, -2));
+	Head->SetHP(3);*/
 	CSceneNode* Head_Node = Body_Node->AddChild(Head);
 	Head_Node->ApplyTranslate(0.f, 2.32f * scale.y, 2.04f * scale.z);
     
 	Nose = Create::Entity("Pig_Nose");
+	/*Nose->SetCollider(true);
+	Nose->SetAABB(Vector3(2, 2, 2), Vector3(-2, -2, -2));
+	Nose->SetHP(3);*/
 	CSceneNode* Nose_Node = Body_Node->AddChild(Nose);
 	Nose_Node->ApplyTranslate(0.f, 2.07f * scale.y, 2.59f * scale.z);
     //CSceneNode* BodyNode = CSceneGraph::GetInstance()->AddNode(Body);
